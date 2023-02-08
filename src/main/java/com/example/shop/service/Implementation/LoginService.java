@@ -2,7 +2,7 @@ package com.example.shop.service.Implementation;
 
 import com.example.shop.entity.User;
 import com.example.shop.repository.UserRepository;
-import com.example.shop.security.Details;
+import com.example.shop.security.LoginDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,6 +27,6 @@ public class LoginService implements UserDetailsService {
         if (user.isEmpty())
             throw new UsernameNotFoundException("User not found");
 
-        return new Details(user.get());
+        return new LoginDetails(user.get());
     }
 }
