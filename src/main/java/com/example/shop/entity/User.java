@@ -15,12 +15,12 @@ public class User {
 
     @Pattern(regexp = "[A-Z][a-z]+",
             message = "Must start with a capital letter followed by one or more lowercase letters")
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "firstname", nullable = false)
     private String firstName;
 
     @Pattern(regexp = "[A-Z][a-z]+",
             message = "Must start with a capital letter followed by one or more lowercase letters")
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "lastname", nullable = false)
     private String lastName;
 
     @Email

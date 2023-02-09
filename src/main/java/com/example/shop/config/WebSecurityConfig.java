@@ -43,6 +43,8 @@ public class WebSecurityConfig {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/menu", true)
                 .and()
                 .logout()
                 .logoutUrl("/logout")
