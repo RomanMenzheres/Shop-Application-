@@ -13,6 +13,9 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "prise")
+    private long prise;
+
     public Product(){}
 
     public long getId() {
@@ -29,6 +32,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getPrise() {
+        return prise;
+    }
+
+    public void setPrise(long prise) {
+        this.prise = prise;
     }
 
     @Override

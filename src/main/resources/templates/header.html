@@ -6,15 +6,19 @@
         <img src="../images/logo.png">
       </div>
       <div class="navigation">
-        <a>
+        <a class="destination" th:href="@{/menu}">
           <img class="white" src="../images/menu.png">
           <img class="green" src="../images/green_menu.png">
         </a>
-        <a>
+        <a class="destination" th:href="@{/cart}">
           <img class="white" src="../images/cart.png">
           <img class="green" src="../images/green_cart.png">
         </a>
-        <a>
+        <a  class="destination"th:href="@{/profile}" sec:authorize="isAuthenticated()">
+          <img class="white" src="../images/person.png">
+          <img class="green" src="../images/green_person.png">
+        </a>
+        <a class="destination" th:href="@{/login}" sec:authorize="!isAuthenticated()">
           <img class="white" src="../images/person.png">
           <img class="green" src="../images/green_person.png">
         </a>

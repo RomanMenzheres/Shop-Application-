@@ -8,5 +8,35 @@
 <body>
 <div th:replace="header"></div>
 <h1>Menu Page</h1>
+<div class="page">
+    <div class="categories">
+        <ul>
+            <li>
+                <a class="category">Fruits</a>
+            </li>
+            <li>
+                <a class="category">Vegetables</a>
+            </li>
+            <li>
+                <a class="category">Meat</a>
+            </li>
+            <li>
+                <a class="category">Cheese</a>
+            </li>
+            <li>
+                <a class="category">Bread</a>
+            </li>
+        </ul>
+    </div>
+    <div class="wrapper">
+        <div class="container-for-products">
+            <div class="product" th:each="product : ${products}">
+                <span class="image"></span>
+                <span class="name" th:text="${product.name}"></span>
+                <span class="prise" th:text="${product.prise}"></span>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
