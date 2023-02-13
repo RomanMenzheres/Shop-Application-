@@ -1,9 +1,10 @@
 HELP.md
+
+.settings/
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-.target
 
 ### STS ###
 .apt_generated
@@ -74,9 +75,7 @@ hs_err_pid*
 /.checkstyle
 /reports/
 /.idea/
-*.iml
 *.ucls
 
 # Ignore log
-*.log
 *.log.[1234567890]
