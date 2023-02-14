@@ -1,5 +1,6 @@
 package com.example.shop.service;
 
+import com.example.shop.entity.Category;
 import com.example.shop.entity.Product;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface ProductService {
 
     List<Product> getAll();
 
+    List<Product> getAllByCategory(Category category);
 }

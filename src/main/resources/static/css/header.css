@@ -41,6 +41,7 @@
     border-radius: 50%;
     background-color: #0e0e0e;
     border: 1px solid #84bf41;
+    transition-duration: 1s;
 }
 
 .destination img {
@@ -49,7 +50,7 @@
     margin: 10px;
 }
 
-.white {
+.black {
     display: none;
 }
 
@@ -57,7 +58,7 @@
     background-color: #84bf41;
 }
 
-.destination:hover .white{
+.destination:hover .black{
     display: block;
 }
 

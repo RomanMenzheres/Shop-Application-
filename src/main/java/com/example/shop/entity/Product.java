@@ -14,7 +14,7 @@ public class Product {
     private String name;
 
     @Column(name = "prise")
-    private long prise;
+    private float prise;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -38,11 +38,11 @@ public class Product {
         this.name = name;
     }
 
-    public long getPrise() {
+    public float getPrise() {
         return prise;
     }
 
-    public void setPrise(long prise) {
+    public void setPrise(float prise) {
         this.prise = prise;
     }
 

@@ -1,5 +1,6 @@
 package com.example.shop.service.Implementation;
 
+import com.example.shop.entity.Category;
 import com.example.shop.entity.Product;
 import com.example.shop.repository.ProductRepository;
 import com.example.shop.service.ProductService;
@@ -7,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("ProductService")
 public class ProductServiceImpl implements ProductService {
@@ -47,5 +49,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getAll() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> getAllByCategory(Category category) {
+        return productRepository.findAll().stream()
+                .filter(product -> product.getCategory().equals(category))
+                .collect(Collectors.toList());
     }
 }

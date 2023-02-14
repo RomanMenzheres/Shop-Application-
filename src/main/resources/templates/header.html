@@ -7,19 +7,19 @@
       </div>
       <div class="navigation">
         <a class="destination" th:href="@{/menu}">
-          <img class="white" src="../images/menu.png">
+          <img class="black" src="../images/menu.png">
           <img class="green" src="../images/green_menu.png">
         </a>
         <a class="destination" th:href="@{/cart}">
-          <img class="white" src="../images/cart.png">
+          <img class="black" src="../images/cart.png">
           <img class="green" src="../images/green_cart.png">
         </a>
         <a  class="destination"th:href="@{/profile}" sec:authorize="isAuthenticated()">
-          <img class="white" src="../images/person.png">
+          <img class="black" src="../images/person.png">
           <img class="green" src="../images/green_person.png">
         </a>
         <a class="destination" th:href="@{/login}" sec:authorize="!isAuthenticated()">
-          <img class="white" src="../images/person.png">
+          <img class="black" src="../images/person.png">
           <img class="green" src="../images/green_person.png">
         </a>
       </div>

@@ -13,16 +13,16 @@ body {
 }
 
 .categories {
+    font-size: 20px;
     position: absolute;
     border: 1px solid black;
-    width: 30%;
-    height: 300px;
+    width: 20%;
     margin: 0 0 0 10%;
 }
 
 .wrapper {
-    left: 40%;
-    width: 49%;
+    left: 30%;
+    width: 59%;
     position: absolute;
     margin: 0 10% 0 1%;
 }
@@ -34,6 +34,14 @@ body {
     box-shadow:
             0 5px 10px rgba(0, 0, 0, 0.1),
             0 20px 20px rgba(0, 0, 0, 0.05);
+}
+
+.category {
+    text-decoration: auto;
+    color: black;
+    width: 100%;
+    height: 100%;
+    padding: 3% 8%;
 }
 
 .container-for-products {
@@ -54,4 +62,25 @@ span:last-child {
 
 span .image {
     padding-bottom: 50%;
+}
+
+ul {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding: 0;
+    max-width: 300px;
+}
+
+li {
+    display: flex;
+    justify-content: left;
+    transition-duration: 1s;
+}
+
+li + li {
+    border-top: 1px solid black;
+}
+
+li:hover {
+    background-color: #84bf41;
 }
