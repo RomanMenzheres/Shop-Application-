@@ -16,6 +16,10 @@ public class Product {
     @Column(name = "prise")
     private long prise;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public Product(){}
 
     public long getId() {
@@ -40,6 +44,14 @@ public class Product {
 
     public void setPrise(long prise) {
         this.prise = prise;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
