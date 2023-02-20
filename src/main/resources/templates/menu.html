@@ -1,40 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+
     <link rel="stylesheet" href="/css/menu.css">
     <meta charset="UTF-8">
-    <title>Menu</title>
+    <title>Needlers - Fresh Market - Menu</title>
 </head>
 <body>
 <div th:replace="~{header}"></div>
-<h1>Menu Page</h1>
 <div class="page">
-    <div class="categories">
-        <ul>
-            <li>
-                <a class="category" th:href="@{/menu}">
-                    All Products
-                </a>
-            </li>
-            <li th:each="category : ${categories}"
-                th:style="${category.equals(selectedCategory)} ? 'background-color: #84bf41':''">
 
-                <a th:href="@{|/menu/${category.id}|}"
-                   th:text="${category.name}"
-                   class="category"></a>
+    <div class="page-content">
 
-            </li>
-        </ul>
-    </div>
-    <div class="wrapper">
-        <div class="container-for-products">
-            <div class="product" th:each="product : ${products}">
-                <span class="image"></span>
-                <span class="name" th:text="${product.name}"></span>
-                <span class="prise" th:text="${product.prise}"></span>
+        <div class="manipulating-products">
+            <ul>
+                <li class="li-category"
+                    th:each="category : ${categories}"
+                    th:style="${category.equals(selectedCategory)} ? 'background-color: #84bf41':''">
+
+                    <a th:href="${category.equals(selectedCategory)} ? @{/menu} : @{|/menu/${category.id}|}"
+                       th:text="${category.name}"
+                       th:style="${category.equals(selectedCategory)} ? 'color: white; font-weight: bold':''"
+                       class="category"></a>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-title-box">
+            <h1 class="menu-title" th:text="${selectedCategory != null ? selectedCategory.name : 'Menu'}"></h1>
+            <div class="btn-add-box" sec:authorize="hasAuthority('ADMIN')">
+                <a class="btn-add-product" th:href="@{/product/create}">Add New Product</a>
+                <a class="btn-add-category" th:href="@{/category/create}">Add New Category</a>
             </div>
         </div>
+
+        <div class="wrapper">
+            <div class="container-for-products">
+                <div class="product" th:each="product : ${products}">
+                    <div class="scale">
+                        <div class="image-wrapper">
+                            <div class="delete-product" sec:authorize="hasAuthority('ADMIN')">
+                                <a class="delete-product-image" th:href="@{|/product/${product.id}/delete|}">
+                                    <img class="minus-displayed" src="../images/products/-_red.png">
+                                    <img class="minus-hidden" src="../images/products/-_white.png">
+                                </a>
+                            </div>
+                            <img class="product-image" th:src="@{|../images/products/${product.name}.png|}">
+                            <div class="add-product-to-cart">
+                                <a class="add-product-to-cart-image" th:href="@{/product/${product.id}/addToCart}">
+                                    <img class="plus-displayed" src="../images/products/+_green.png">
+                                    <img class="plus-hidden" src="../images/products/+_white.png">
+                                </a>
+                            </div>
+                        </div>
+                        <span class="prise" th:text="'$' + ${product.price}"></span>
+                        <div class="cut-text">
+                            <span class="name" th:text="${product.name}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
 </div>
+<div th:replace="~{footer}"></div>
 </body>
 </html>

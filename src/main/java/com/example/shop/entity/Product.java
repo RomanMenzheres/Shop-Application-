@@ -1,6 +1,7 @@
 package com.example.shop.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "products")
@@ -13,8 +14,8 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "prise")
-    private float prise;
+    @Column(name = "price")
+    private float price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -38,12 +39,12 @@ public class Product {
         this.name = name;
     }
 
-    public float getPrise() {
-        return prise;
+    public float getPrice() {
+        return price;
     }
 
-    public void setPrise(float prise) {
-        this.prise = prise;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public Category getCategory() {
@@ -59,6 +60,8 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", prise=" + price +
+                ", category=" + category +
                 '}';
     }
 }

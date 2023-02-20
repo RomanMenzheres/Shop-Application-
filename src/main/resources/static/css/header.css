@@ -1,18 +1,19 @@
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
-
 .container{
-    font-family: 'Montserrat', sans-serif;
+    font-family: sans-serif;
     background-color: #0e0e0e;
     overflow: hidden;
     width: 100%;
     height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
 }
 
 .content {
     display: flex;
     justify-content: space-between;
-    margin: 0 10%;
+    margin: 0 5%;
 }
 
 .logo{
@@ -40,8 +41,26 @@
     margin: 9px 4px 9px 4px;
     border-radius: 50%;
     background-color: #0e0e0e;
-    border: 1px solid #84bf41;
-    transition-duration: 1s;
+    border: 2px solid #84bf41;
+    transition-duration: 0.35s;
+}
+
+.destination-logout {
+    width: 60px;
+    height: 60px;
+    margin: 9px 4px 9px 4px;
+    border-radius: 50%;
+    background-color: #0e0e0e;
+    border: 2px solid #84bf41;
+    transition-duration: 0.35s;
+}
+
+.destination-logout img {
+    position: relative;
+    left: 3px;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
 }
 
 .destination img {
@@ -54,8 +73,15 @@
     display: none;
 }
 
-.destination:hover {
-    background-color: #84bf41;
+.destination-logout:hover,
+.destination-logout:focus {
+    box-shadow: inset 62px 0 0 0 #84bf41;
+}
+
+
+.destination:hover,
+.destination:focus {
+    box-shadow: inset 62px 0 0 0 #84bf41;
 }
 
 .destination:hover .black{
@@ -63,5 +89,13 @@
 }
 
 .destination:hover .green{
+    display: none;
+}
+
+.destination-logout:hover .black{
+    display: block;
+}
+
+.destination-logout:hover .green{
     display: none;
 }

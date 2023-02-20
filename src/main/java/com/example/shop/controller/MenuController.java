@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/menu")
 public class MenuController {
 
     private final ProductService productService;
@@ -19,7 +21,7 @@ public class MenuController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/menu")
+    @GetMapping("")
     public String menu(Model model){
         model.addAttribute("selectedCategory", null);
         model.addAttribute("categories", categoryService.getAll());
@@ -27,7 +29,7 @@ public class MenuController {
         return "menu";
     }
 
-    @GetMapping("/menu/{category_id}")
+    @GetMapping("/{category_id}")
     private String sortedMenu(Model model, @PathVariable("category_id") long category_id){
         Category category = categoryService.readById(category_id);
         model.addAttribute("selectedCategory", category);

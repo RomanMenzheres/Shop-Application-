@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet"  href="/css/login.css">
-    <title>Login</title>
+    <title>Needlers - Fresh Market - Login</title>
 </head>
 <body>
 
@@ -12,17 +12,17 @@
         <form th:action="@{/login}" method="POST">
             <h1>Sign in</h1>
             <div class="social-container">
-                <a href="#" class="social"><img src="../images/google.png" class="google"></a>
+                <a href="#" class="social"><img src="../images/login/google.png" class="google"></a>
             </div>
             <span>or use your account</span>
             <input type="text" name="username" placeholder="Email" />
             <input type="password" name="password" placeholder="Password" />
-            <button >Sign In</button>
+            <button>Sign In</button>
             <span class="sign-up">Don't have an account? <a th:href="@{/registration}">Sign Up</a></span>
         </form>
     </div>
     <div class="overlay-container">
-        <img src="../images/food.png" >
+        <img src="../images/login/food.png" >
     </div>
 </div>
 
