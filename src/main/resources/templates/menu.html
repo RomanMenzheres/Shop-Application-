@@ -23,6 +23,13 @@
                        th:style="${category.equals(selectedCategory)} ? 'color: white; font-weight: bold':''"
                        class="category"></a>
 
+                    <div class="delete-category" sec:authorize="hasAuthority('ADMIN')">
+                        <a class="delete-image" th:href="@{|/category/${category.id}/delete|}">
+                            <img class="minus-displayed" src="../images/products/-_red.png">
+                            <img class="minus-hidden" src="../images/products/-_white.png">
+                        </a>
+                    </div>
+
                 </li>
             </ul>
         </div>
@@ -41,12 +48,12 @@
                     <div class="scale">
                         <div class="image-wrapper">
                             <div class="delete-product" sec:authorize="hasAuthority('ADMIN')">
-                                <a class="delete-product-image" th:href="@{|/product/${product.id}/delete|}">
+                                <a class="delete-image" th:href="@{|/product/${product.id}/delete|}">
                                     <img class="minus-displayed" src="../images/products/-_red.png">
                                     <img class="minus-hidden" src="../images/products/-_white.png">
                                 </a>
                             </div>
-                            <img class="product-image" th:src="@{|../images/products/${product.name}.png|}">
+                            <img class="product-image" th:src="@{|../product images/${product.name}.png|}">
                             <div class="add-product-to-cart">
                                 <a class="add-product-to-cart-image" th:href="@{/product/${product.id}/addToCart}">
                                     <img class="plus-displayed" src="../images/products/+_green.png">

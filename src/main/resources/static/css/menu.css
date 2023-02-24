@@ -6,6 +6,7 @@ body {
 
 .page-content {
     margin: 100px 0 100px 0;
+    min-height: calc(100vh - 240px);
 }
 
 .manipulating-products {
@@ -172,6 +173,11 @@ li:last-child {
     box-shadow: inset 204px 0 0 0 #84bf41;
 }
 
+.btn-add-category:active,
+.btn-add-product:active {
+    transform: scale(0.95);
+}
+
 .btn-add-box {
     width: 414px;
     height: 80%;
@@ -215,9 +221,25 @@ li:last-child {
 }
 
 .delete-product {
+    border: 2px solid #BF4141;
+    border-radius: 15px;
+    min-width: 15px;
     display: flex;
     position: absolute;
     height: 15px;
+    transition: 0.35s;
+}
+
+.delete-category {
+    border: 2px solid #BF4141;
+    border-radius: 15px;
+    min-width: 15px;
+    height: 15px;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    position: relative;
+    transition: 0.35s;
 }
 
 .add-product-to-cart-image {
@@ -226,18 +248,14 @@ li:last-child {
     transition: 0.35s;
 }
 
-.delete-product-image {
-    border: 2px solid #BF4141;
-    border-radius: 15px;
-    transition: 0.35s;
+.delete-image {
+    align-items: center;
+    display: flex;
 }
 
 .minus-displayed {
     height: 100%;
     width: 100%;
-    position: relative;
-    bottom: 3px;
-    right: -0.5px;
 }
 
 .minus-hidden {
@@ -257,16 +275,20 @@ li:last-child {
     display: none;
 }
 
-.delete-product-image:hover,
-.delete-product-image:focus {
+.delete-category:hover,
+.delete-category:focus,
+.delete-product:hover,
+.delete-product:focus {
     box-shadow: inset 44px 0 0 0 #BF4141;
 }
 
-.delete-product-image:hover .minus-hidden{
+.delete-category:hover .minus-hidden,
+.delete-product:hover .minus-hidden {
     display: block;
 }
 
-.delete-product-image:hover .minus-displayed{
+.delete-category:hover .minus-displayed,
+.delete-product:hover .minus-displayed {
     display: none;
 }
 

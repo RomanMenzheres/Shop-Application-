@@ -1,6 +1,7 @@
 package com.example.shop.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
@@ -11,7 +12,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
+    @Pattern(regexp = "^[\\p{L} .'-]+$",
+            message = "Must start with a capital letter followed by one or more lowercase letters")
+    @NotBlank(message = "The 'name' cannot be empty")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "price")
@@ -59,8 +63,8 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", prise=" + price +
+                ", productName='" + name + '\'' +
+                ", price=" + price +
                 ", category=" + category +
                 '}';
     }

@@ -25,13 +25,13 @@ public class CategoryServiceImpl implements CategoryService {
         if (category != null) {
             return categoryRepository.save(category);
         }
-        throw new NullPointerException("Role cannot be 'null'");
+        throw new NullPointerException("Category cannot be 'null'");
     }
 
     @Override
     public Category readById(long id) {
         return categoryRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Role with id " + id + " not found"));
+                () -> new EntityNotFoundException("Category with id " + id + " not found"));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
             readById(category.getId());
             return categoryRepository.save(category);
         }
-        throw new NullPointerException("Role cannot be 'null'");
+        throw new NullPointerException("Category cannot be 'null'");
     }
 
     @Override

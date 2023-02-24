@@ -2,6 +2,7 @@ package com.example.shop.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +14,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Pattern(regexp = "^[\\p{L} .'-]+$",
+            message = "Must start with a capital letter followed by one or more lowercase letters")
     @NotBlank(message = "The 'name' cannot be empty")
     @Column(name = "name", nullable = false, unique = true)
     private String name;
@@ -48,7 +51,6 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", products=" + products +
                 '}';
     }
 
@@ -57,11 +59,11 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
-        return id == category.id;
+        return id == category.id && Objects.equals(name, category.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name);
     }
 }
