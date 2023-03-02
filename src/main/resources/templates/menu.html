@@ -4,7 +4,10 @@
 
     <link rel="stylesheet" href="/css/menu.css">
     <meta charset="UTF-8">
-    <title>Needlers - Fresh Market - Menu</title>
+    <title>Needlers - Menu</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div th:replace="~{header}"></div>
@@ -35,11 +38,16 @@
         </div>
 
         <div class="menu-title-box">
+
             <h1 class="menu-title" th:text="${selectedCategory != null ? selectedCategory.name : 'Menu'}"></h1>
+
             <div class="btn-add-box" sec:authorize="hasAuthority('ADMIN')">
+
                 <a class="btn-add-product" th:href="@{/product/create}">Add New Product</a>
                 <a class="btn-add-category" th:href="@{/category/create}">Add New Category</a>
+
             </div>
+
         </div>
 
         <div class="wrapper">
@@ -47,23 +55,35 @@
                 <div class="product" th:each="product : ${products}">
                     <div class="scale">
                         <div class="image-wrapper">
+
                             <div class="delete-product" sec:authorize="hasAuthority('ADMIN')">
+
                                 <a class="delete-image" th:href="@{|/product/${product.id}/delete|}">
                                     <img class="minus-displayed" src="../images/products/-_red.png">
                                     <img class="minus-hidden" src="../images/products/-_white.png">
                                 </a>
+
                             </div>
+
                             <img class="product-image" th:src="@{|../product images/${product.name}.png|}">
+
                             <div class="add-product-to-cart">
-                                <a class="add-product-to-cart-image" th:href="@{/product/${product.id}/addToCart}">
+
+                                <button class="add-product-to-cart-image" th:pid="${product.id}">
                                     <img class="plus-displayed" src="../images/products/+_green.png">
                                     <img class="plus-hidden" src="../images/products/+_white.png">
-                                </a>
+                                </button>
+
                             </div>
+
                         </div>
-                        <span class="prise" th:text="'$' + ${product.price}"></span>
+
+                        <span class="prise" th:text="'₴' + ${product.price}"></span>
+
                         <div class="cut-text">
+
                             <span class="name" th:text="${product.name}"></span>
+
                         </div>
                     </div>
                 </div>
@@ -75,4 +95,5 @@
 </div>
 <div th:replace="~{footer}"></div>
 </body>
+<script src="/js/add-product-to-cart.js"></script>
 </html>

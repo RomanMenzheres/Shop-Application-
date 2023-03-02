@@ -78,6 +78,10 @@
     box-shadow: inset 62px 0 0 0 #84bf41;
 }
 
+.destination:active,
+.destination-logout:active {
+    transform: scale(0.95);
+}
 
 .destination:hover,
 .destination:focus {

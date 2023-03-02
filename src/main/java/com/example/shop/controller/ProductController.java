@@ -1,8 +1,14 @@
 package com.example.shop.controller;
 
+import com.example.shop.dto.CartItemDto;
+import com.example.shop.dto.CartItemTransformer;
+import com.example.shop.entity.CartItem;
 import com.example.shop.entity.Product;
+import com.example.shop.entity.User;
+import com.example.shop.service.CartItemService;
 import com.example.shop.service.CategoryService;
 import com.example.shop.service.ProductService;
+import com.example.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 @Controller
 @RequestMapping("/product")
@@ -24,13 +31,18 @@ public class ProductController {
     @Value("${productsImage.path}")
     private String productsImagePath;
 
-    public ProductController(ProductService productService, CategoryService categoryService){
+    public ProductController(ProductService productService,
+                             CategoryService categoryService){
         this.productService = productService;
         this.categoryService = categoryService;
     }
 
     @GetMapping("/{product_id}/delete")
-    public String delete(@PathVariable("product_id") long product_id){
+    public String delete(@PathVariable("product_id") long product_id) throws IOException {
+        Product product = productService.readById(product_id);
+        if(!Files.deleteIfExists(new File(productsImagePath + "/" + product.getName() + ".png").toPath())){
+            Files.deleteIfExists(new File(productsImagePath + "/" + product.getName() + ".jpg").toPath());
+        }
         productService.delete(product_id);
         return "redirect:/menu";
     }
@@ -69,5 +81,4 @@ public class ProductController {
         productService.create(product);
         return "redirect:/menu";
     }
-
 }

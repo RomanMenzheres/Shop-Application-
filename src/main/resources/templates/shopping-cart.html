@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/shopping-cart.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <title>Needlers - Shopping Cart</title>
+</head>
+<body>
+
+<div th:replace="~{header}"></div>
+
+<div class="page">
+
+    <div class="page-content">
+
+        <div class="shopping-cart">
+
+            <div class="cart">
+
+                <div class="list-cart-items">
+
+                    <div class="empty-cart" th:if="${#lists.isEmpty(cartItems)}">
+                        <h1>You have not chosen any products yet :(</h1>
+                    </div>
+
+                    <div class="empty-cart-dynamic">
+                        <h1>You have not chosen any products yet :(</h1>
+                    </div>
+
+                    <div class="cart-item-container" th:each="cartItem : ${cartItems}">
+
+                        <div class="cart-item-content">
+
+                            <div class="cart-item-description">
+
+                                <div class="cart-item-image">
+                                    <img th:src="@{|../product images/${cartItem.product.name}.png|}">
+                                </div>
+
+                                <div class="cart-item-title">
+                                    <span th:text="${cartItem.product.name}"></span>
+                                </div>
+
+                            </div>
+
+                            <div class="control-block">
+                                <div class="cart-item-price">
+                                    <span th:text="'₴' + ${cartItem.product.price}"></span>
+                                </div>
+
+                                <div class="add-quantity">
+                                    <button class="minus" th:pid="${cartItem.product.id}" th:price="${cartItem.product.price}">-</button>
+                                    <input class="quantity-holder" type="number" th:id="quantity + ${cartItem.product.id}" th:value="${cartItem.quantity}">
+                                    <button class="plus" th:pid="${cartItem.product.id}" th:price="${cartItem.product.price}">+</button>
+                                </div>
+
+                                <div class="cart-item-subtotal-price">
+                                    <span class="subtotal-price" th:id="subtotalPrice + ${cartItem.product.id}"
+                                          th:text="'₴' + ${#numbers.formatDecimal((cartItem.product.price * cartItem.quantity), 0, 2)}">Subtotal Price</span>
+                                </div>
+
+                            </div>
+
+                            <div class="cart-item-delete-container">
+                                <button class="cart-item-delete-button" th:cartId="${cartItem.id}">
+                                    <img class="delete-button-displayed" src="../images/cart/grey-cross.png">
+                                    <img class="delete-button-hidden" src="../images/cart/red-cross.png">
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="total">
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="~{footer}"></div>
+
+<script src="/js/quantityControl.js"></script>
+<script src="/js/delete-product-from-cart.js"></script>
+
+</body>
+
+
+</html>

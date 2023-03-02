@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet"  href="/css/login.css">
-    <title>Needlers - Fresh Market - Registration</title>
+    <title>Needlers - Registration</title>
 </head>
 <body>
 
@@ -16,7 +16,7 @@
             <input type="text" th:field="*{lastName}" name="lastname" placeholder="Last Name" />
             <input type="email" th:field="*{email}" name="username" placeholder="Email" />
             <input type="password" th:field="*{password}" name="password" placeholder="Password" />
-            <button >Sign Up</button>
+            <button>Sign Up</button>
             <span class="sign-up">Already have account? <a th:href="@{/login}">Sign In</a></span>
         </form>
     </div>

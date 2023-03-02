@@ -88,8 +88,13 @@ input {
 }
 
 input[type="file"] {
-    display: none;
+    text-indent: -113px;
 }
+
+::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
 .custom-file-upload {
     font-size: 14px;
     text-align: left;

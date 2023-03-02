@@ -18,4 +18,6 @@ public interface ProductService {
     List<Product> getAll();
 
     List<Product> getAllByCategory(Category category);
+
+
 }
