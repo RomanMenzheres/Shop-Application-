@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    $('.subtotal-price').each(function () {
+        totalProductsPriceCalculate($(this).text().substring(1), true);
+    })
+
     $(".minus").on("click", function (event) {
         event.preventDefault();
         let productId = $(this).attr("pid");
@@ -10,7 +14,7 @@ $(document).ready(function () {
         if (newQuantity > 0){
             quantityInput.val(newQuantity);
             updateQuantity(productId, newQuantity);
-            updateSubTotalPrice(productId, newQuantity, productPrice);
+            updateSubAndTotalPrice(productId, newQuantity, productPrice, false);
         }
     });
 
@@ -25,7 +29,7 @@ $(document).ready(function () {
         if (newQuantity < 100){
             quantityInput.val(newQuantity);
             updateQuantity(productId, newQuantity);
-            updateSubTotalPrice(productId, newQuantity, productPrice);
+            updateSubAndTotalPrice(productId, newQuantity, productPrice, true);
         }
     });
 
@@ -40,6 +44,43 @@ function updateQuantity(productId, quantity){
     });
 }
 
-function updateSubTotalPrice(productId, quantity, price){
-    $("#subtotalPrice" + productId).text("₴" + (price * quantity).toFixed(2));
+function updateSubAndTotalPrice(productId, quantity, price, plus){
+    let newSubTotalPrice = (price * quantity).toFixed(2);
+    $("#subtotalPrice" + productId).text("₴" + newSubTotalPrice);
+    totalProductsPriceCalculate(price, plus)
+}
+
+function totalProductsPriceCalculate(price, plus){
+
+    let link = $('.total-products-price-value');
+
+    let total = link.text().substring(1);
+
+    if (total !== ""){
+        if (plus) {
+            total = parseFloat(total);
+            price = parseFloat(price);
+
+            total = (total + price).toFixed(2);
+            link.text("₴" + total);
+        } else {
+            total = parseFloat(total);
+            price = parseFloat(price);
+
+            total = (total - price).toFixed(2);
+            link.text("₴" + total);
+        }
+    } else {
+        total = total + price;
+        link.text("₴" + total);
+    }
+
+    totalCalculate(total);
+    deliveryPriceCheck(total);
+}
+
+function totalCalculate(totalPrice){
+    totalPrice = parseFloat(totalPrice) + parseFloat($(".delivery-price-value").text().substring(1));
+
+    $(".total-price-value").text("₴" + (totalPrice).toFixed(2));
 }

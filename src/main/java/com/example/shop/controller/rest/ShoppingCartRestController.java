@@ -13,20 +13,19 @@ import com.example.shop.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("cart")
 public class ShoppingCartRestController {
 
     private final CartItemService cartItemService;
     private final ProductService productService;
-    private final UserService userService;
 
     public ShoppingCartRestController(CartItemService cartItemService,
-                                      ProductService productService,
-                                      UserService userService){
+                                      ProductService productService){
         this.cartItemService = cartItemService;
         this.productService = productService;
-        this.userService = userService;
     }
 
     @PostMapping("/add/{product_id}")
@@ -59,6 +58,24 @@ public class ShoppingCartRestController {
         cartItemService.delete(cartItemId);
 
         return "Cart Item with id " + cartItemId + " successfully deleted!";
+    }
+
+    @DeleteMapping("/delete/all")
+    public String deleteAll(@AuthenticationPrincipal LoginDetails loginDetails){
+
+        User user =  loginDetails.getUser();
+
+        List<CartItem> items = cartItemService.findCartItemByUser(user);
+
+        if(items.isEmpty()){
+            return "Shopping cart of user with id " + user.getId() + " is empty!";
+        }
+
+        for(CartItem cartItem : items){
+            cartItemService.delete(cartItem.getId());
+        }
+
+        return "All items from shopping cart of user with id " + user.getId() + " successfully deleted!";
     }
 
 }

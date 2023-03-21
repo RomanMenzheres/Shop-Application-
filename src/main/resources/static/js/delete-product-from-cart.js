@@ -2,8 +2,11 @@ $(document).ready(function () {
     $(".cart-item-delete-button").on("click", function (event) {
         event.preventDefault();
         let cartItemId = $(this).attr("cartId");
+        let productId = $(this).attr("pid");
 
         $(this).parents(".cart-item-container").hide();
+
+        totalProductsPriceCalculate($('#subtotalPrice' + productId).text().substring(1), false);
 
         isThereAnything($(this).parents(".list-cart-items"));
         deleteFromCart(cartItemId);
@@ -20,8 +23,10 @@ function deleteFromCart(cartItemId){
 }
 
 function isThereAnything(link) {
-    console.log(link.children(':visible').length === 0);
     if(link.children(':visible').length === 0) {
-        link.children(".empty-cart-dynamic").show();
+        $(".clear-cart-button").hide();
+        $(".total").hide();
+        $(".empty-cart").show();
+        resetWarningText();
     }
 }

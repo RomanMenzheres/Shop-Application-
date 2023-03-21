@@ -16,19 +16,41 @@
 
     <div class="page-content">
 
+        <div class="shopping-cart-title">
+            <h1>Shopping Cart</h1>
+
+            <button class="clear-cart-button" th:if="${!#lists.isEmpty(cartItems)}">
+                <img src="../images/cart/clear_cart.png">
+                Clear the cart
+            </button>
+        </div>
+
+
         <div class="shopping-cart">
 
             <div class="cart">
 
+                <div class="minimum-price-warning-block">
+
+                    <span class="warning-text">
+                        The minimum order amount is 200.00 UAH.
+                    </span>
+
+                </div>
+
+                <div class="empty-cart" th:style="${#lists.isEmpty(cartItems)} ? 'display: flex' : 'display: none'">
+                    <div class="empty-cart-img-container">
+                        <img src="../images/cart/empty_cart.png">
+                    </div>
+
+                    <span>
+                        Your cart has no products
+                    </span>
+
+                    <a class="choose-products-button" th:href="@{/menu}">CHOOSE PRODUCTS</a>
+                </div>
+
                 <div class="list-cart-items">
-
-                    <div class="empty-cart" th:if="${#lists.isEmpty(cartItems)}">
-                        <h1>You have not chosen any products yet :(</h1>
-                    </div>
-
-                    <div class="empty-cart-dynamic">
-                        <h1>You have not chosen any products yet :(</h1>
-                    </div>
 
                     <div class="cart-item-container" th:each="cartItem : ${cartItems}">
 
@@ -52,20 +74,26 @@
                                 </div>
 
                                 <div class="add-quantity">
-                                    <button class="minus" th:pid="${cartItem.product.id}" th:price="${cartItem.product.price}">-</button>
-                                    <input class="quantity-holder" type="number" th:id="quantity + ${cartItem.product.id}" th:value="${cartItem.quantity}">
-                                    <button class="plus" th:pid="${cartItem.product.id}" th:price="${cartItem.product.price}">+</button>
+                                    <button class="minus" th:pid="${cartItem.product.id}"
+                                            th:price="${cartItem.product.price}">-
+                                    </button>
+                                    <input class="quantity-holder" type="number" disabled
+                                           th:id="quantity + ${cartItem.product.id}" th:value="${cartItem.quantity}">
+                                    <button class="plus" th:pid="${cartItem.product.id}"
+                                            th:price="${cartItem.product.price}">+
+                                    </button>
                                 </div>
 
                                 <div class="cart-item-subtotal-price">
                                     <span class="subtotal-price" th:id="subtotalPrice + ${cartItem.product.id}"
-                                          th:text="'₴' + ${#numbers.formatDecimal((cartItem.product.price * cartItem.quantity), 0, 2)}">Subtotal Price</span>
+                                          th:text="'₴' + ${#numbers.formatDecimal((cartItem.product.price * cartItem.quantity), 0, 'COMMA', 2, 'POINT')}">Subtotal Price</span>
                                 </div>
 
                             </div>
 
                             <div class="cart-item-delete-container">
-                                <button class="cart-item-delete-button" th:cartId="${cartItem.id}">
+                                <button class="cart-item-delete-button" th:cartId="${cartItem.id}"
+                                        th:pid="${cartItem.product.id}">
                                     <img class="delete-button-displayed" src="../images/cart/grey-cross.png">
                                     <img class="delete-button-hidden" src="../images/cart/red-cross.png">
                                 </button>
@@ -79,8 +107,88 @@
 
             </div>
 
-            <div class="total">
+            <div class="total" th:style="${#lists.isEmpty(cartItems)} ? 'display: none' : 'display: block'">
 
+                <div class="delivery-container">
+
+                    <div class="delivery-text-container">
+                        <span class="delivery-text"></span>
+                    </div>
+
+                    <div class="progress-bar-container">
+
+                        <div class="progress-bar">
+                            <div class="progress-bar-end">
+                                <span>0</span>
+                            </div>
+                        </div>
+
+                        <div class="progress-bar-fill">
+                            <div class="delivery-truck-box">
+                                <img src="../images/cart/delivery-truck.png">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="order-container">
+
+                    <div class="order-info">
+                        <div class="delivery-price">
+
+                            <div class="delivery-price-title">
+                                <span>Delivery:</span>
+                            </div>
+
+                            <div class="delivery-price-value-container">
+                                <span class="delivery-price-value">₴80.00</span>
+                            </div>
+
+                        </div>
+
+                        <div class="total-products-price-container">
+
+                            <div class="total-products-price-title">
+                                <span>Total products price:</span>
+                            </div>
+
+                            <div class="total-products-price-value-container">
+                                <span class="total-products-price-value"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="total-price">
+
+                            <div class="total-price-title">
+                                <span>Total price:</span>
+                            </div>
+
+                            <div class="total-price-value-container">
+                                <span class="total-price-value"></span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="order-comment">
+                        <span class="order-comment-title">Comment to the order:</span>
+
+                        <textarea class="comment-holder"
+                                  maxlength="500"
+                                  rows="4"
+                                  placeholder="Here you can leave your wishes for specific products, whole order, etc."></textarea>
+                    </div>
+
+                    <div class="checkout-button-container">
+                        <button class="checkout-button">
+                            Checkout
+                        </button>
+                    </div>
+
+                </div>
 
             </div>
 
@@ -92,8 +200,10 @@
 
 <div th:replace="~{footer}"></div>
 
-<script src="/js/quantityControl.js"></script>
 <script src="/js/delete-product-from-cart.js"></script>
+<script src="/js/clear-cart.js"></script>
+<script src="/js/quantityControl.js"></script>
+<script src="/js/delivery-warning.js"></script>
 
 </body>
 

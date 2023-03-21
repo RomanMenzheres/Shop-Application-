@@ -17,15 +17,14 @@ body {
     width: 70%;
 }
 
-.total {
-    width: 30%;
-    position: relative;
-    left: 72%;
+.list-cart-items {
+    display: grid;
+    grid-template-rows: auto;
+    font-size: 16px;
 }
 
 .cart-item-container {
-    padding: 15px 30px;
-    width: 100%;
+    padding: 5px 30px;
     border: none;
     border-radius: 15px;
     background: #fff;
@@ -37,14 +36,14 @@ body {
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .cart-item-description {
     display: flex;
     flex-direction: row;
     align-items: center;
-    min-width: 400px;
+    width: 100%;
 }
 
 .cart-item-image {
@@ -58,21 +57,21 @@ body {
     width: 100%;
 }
 
-.cart-item-title {
-    width: 220px;
-}
-
 .control-block {
     display: flex;
     flex-direction: row;
     align-items: center;
-    min-width: 305px;
+    width: 100%;
 }
 
 .cart-item-price {
     margin-right: 10px;
     min-width: 65px;
     text-align: end;
+}
+
+.cart-item-subtotal-price {
+    min-width: 65px;
 }
 
 .add-quantity {
@@ -102,6 +101,7 @@ body {
     border: 1px solid #c2c2c2;
     text-align: center;
     font-size: 14px;
+    outline: none;
 }
 
 .plus {
@@ -135,6 +135,10 @@ body {
     transition: .35s;
 }
 
+.subtotal-price {
+    font-weight: bold;
+}
+
 .cart-item-delete-button:active {
     transform: scale(0.95);
 }
@@ -155,6 +159,259 @@ body {
     display: none;
 }
 
-.empty-cart-dynamic {
-    display: none;
+.shopping-cart-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.shopping-cart-title h1{
+    margin-left: 15px;
+}
+
+.clear-cart-button {
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    padding: 0 15px;
+    border: none;
+    height: 40px;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: .35s;
+    background: transparent;
+}
+
+.clear-cart-button img {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.clear-cart-button:hover {
+    color: white;
+    box-shadow: inset 150px 0 0 0 #84bf41;
+}
+
+.clear-cart-button:active {
+    transform: scale(0.95);
+}
+
+.add-quantity:hover .plus{
+    color: white;
+    background: #84bf41;
+    border-color: #84bf41;
+}
+
+.add-quantity:hover .minus{
+    color: white;
+    background: #84bf41;
+    border-color: #84bf41;
+}
+
+.empty-cart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 15px;
+    height: 410px;
+    box-shadow: 0 0 3px rgb(0 0 0 / 10%);
+}
+
+.empty-cart span {
+    margin: 20px 0;
+}
+
+.empty-cart-img-container {
+    border: 2px solid #84bf41;
+    border-radius: 50%;
+    width: 110px;
+    height: 110px;
+}
+
+.empty-cart-img-container img {
+    width: 60px;
+    height: 60px;
+    padding: 25px;
+    position: relative;
+    bottom: 2px;
+}
+
+.choose-products-button {
+    border: 2px solid #84BF41;
+    border-radius: 20px;
+    padding: 10px;
+    text-decoration: auto;
+    color: white;
+    background: #84Bf41;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.total {
+    width: 25%;
+    position: fixed;
+    left: 70%;
+    top: 180px;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+.delivery-container {
+    background: #0e0e0e;
+    border: none;
+    border-radius: 15px;
+    color: white;
+}
+
+.delivery-text-container {
+    padding: 20px 16px;
+    margin-bottom: 10px;
+}
+
+.order-container {
+    background: #fff;
+    margin-top: 10px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 3px rgb(0 0 0 / 10%);
+}
+
+.order-info {
+    padding: 15px 15px 5px;
+}
+
+.delivery-price, .total-products-price-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.total-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.total-price-value, .delivery-price-value, .total-products-price-value {
+    font-weight: bold;
+}
+
+.order-comment {
+    padding: 25px 15px;
+}
+
+.comment-holder {
+    background: #f9f9f9 0 0 no-repeat padding-box;
+    border: none;
+    border-radius: 15px;
+    color: #747474;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16px;
+    margin-top: 5px;
+    padding: 8px;
+    resize: none;
+    outline: none;
+    width: calc(100% - 15px);
+    box-shadow: 0 0 3px rgb(0 0 0 / 10%);
+}
+
+.checkout-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+.checkout-button {
+    border: 2px solid #84BF41;
+    border-radius: 20px;
+    padding: 10px;
+    text-decoration: auto;
+    color: white;
+    background: #84Bf41;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.checkout-button:active,
+.choose-products-button:active {
+    transform: scale(0.95);
+}
+
+.minimum-price-warning-block {
+    margin-bottom: 20px;
+    background: #fdd835;
+    color: #202124;
+    height: 64px;
+    border: none;
+    border-radius: 15px;
+}
+
+.warning-text {
+    margin: 10px 0;
+    padding: 22px;
+    display: block;
+    font-size: 14px;
+}
+
+.progress-bar {
+    display: flex;
+    justify-content: flex-end;
+    width: calc(100% - 32px);
+    height: 8px;
+    background: white;
+    margin: 0 16px;
+    position: relative;
+    border: none;
+    border-radius: 8px;
+    bottom: 10px;
+}
+
+.progress-bar-end {
+    color: black;
+    background: white;
+    height: 14px;
+    position: relative;
+    bottom: 4px;
+    width: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    padding: 1px;
+    font-weight: bold;
+}
+
+.progress-bar-fill {
+    display: flex;
+    justify-content: flex-end;
+    height: 8px;
+    background: #84bf41;
+    margin: 0 16px;
+    position: absolute;
+    border: none;
+    border-radius: 8px;
+    bottom: 401px;
+}
+
+.delivery-truck-box {
+    min-width: 40px;
+    min-height: 40px;
+    position: relative;
+    bottom: 18px;
+    left: 18px;
+}
+
+.delivery-truck-box img {
+    width: 100%;
+    height: 100%;
 }

@@ -43,6 +43,7 @@ public class ProductController {
         if(!Files.deleteIfExists(new File(productsImagePath + "/" + product.getName() + ".png").toPath())){
             Files.deleteIfExists(new File(productsImagePath + "/" + product.getName() + ".jpg").toPath());
         }
+
         productService.delete(product_id);
         return "redirect:/menu";
     }
