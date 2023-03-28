@@ -11,6 +11,8 @@ public interface CartItemService {
 
     CartItem readById(long id);
 
+    CartItem update(CartItem cartItem);
+
     void updateQuantity(long productId, long userId, int quantity);
 
     void delete(long id);

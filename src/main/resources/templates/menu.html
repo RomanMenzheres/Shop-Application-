@@ -26,11 +26,26 @@
                        th:style="${category.equals(selectedCategory)} ? 'color: white; font-weight: bold':''"
                        class="category"></a>
 
-                    <div class="delete-category" sec:authorize="hasAuthority('ADMIN')">
-                        <a class="delete-image" th:href="@{|/category/${category.id}/delete|}">
-                            <img class="minus-displayed" src="../images/products/-_red.png">
-                            <img class="minus-hidden" src="../images/products/-_white.png">
-                        </a>
+                    <div class="category-manipulator">
+
+                        <div class="delete-category" sec:authorize="hasAuthority('ADMIN')">
+
+                            <a class="manipulator-image" th:href="@{|/category/${category.id}/delete|}">
+                                <img class="manipulator-displayed" src="../images/products/-_red.png">
+                                <img class="manipulator-hidden" src="../images/products/-_white.png">
+                            </a>
+
+                        </div>
+
+                        <div class="update-category" sec:authorize="hasAuthority('ADMIN')">
+
+                            <a class="manipulator-image" th:href="@{|/category/${category.id}/update|}">
+                                <img class="manipulator-displayed" src="../images/products/update-yellow.png">
+                                <img class="manipulator-hidden" src="../images/products/update-white.png">
+                            </a>
+
+                        </div>
+
                     </div>
 
                 </li>
@@ -54,24 +69,38 @@
             <div class="container-for-products">
                 <div class="product" th:each="product : ${products}">
                     <div class="scale">
-                        <div class="image-wrapper">
+
+                        <div class="product-manipulator">
 
                             <div class="delete-product" sec:authorize="hasAuthority('ADMIN')">
 
-                                <a class="delete-image" th:href="@{|/product/${product.id}/delete|}">
-                                    <img class="minus-displayed" src="../images/products/-_red.png">
-                                    <img class="minus-hidden" src="../images/products/-_white.png">
+                                <a class="manipulator-image" th:href="@{|/product/${product.id}/delete|}">
+                                    <img class="manipulator-displayed" src="../images/products/-_red.png">
+                                    <img class="manipulator-hidden" src="../images/products/-_white.png">
                                 </a>
 
                             </div>
+
+                            <div class="update-product" sec:authorize="hasAuthority('ADMIN')">
+
+                                <a class="manipulator-image" th:href="@{|/product/${product.id}/update|}">
+                                    <img class="manipulator-displayed" src="../images/products/update-yellow.png">
+                                    <img class="manipulator-hidden" src="../images/products/update-white.png">
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div class="image-wrapper">
 
                             <img class="product-image" th:src="@{|../product images/${product.name}.png|}">
 
                             <div class="add-product-to-cart">
 
                                 <button class="add-product-to-cart-image" th:pid="${product.id}">
-                                    <img class="plus-displayed" src="../images/products/+_green.png">
-                                    <img class="plus-hidden" src="../images/products/+_white.png">
+                                    <img class="manipulator-displayed" src="../images/products/+_green.png">
+                                    <img class="manipulator-hidden" src="../images/products/+_white.png">
                                 </button>
 
                             </div>
@@ -93,6 +122,7 @@
     </div>
 
 </div>
+
 <div th:replace="~{footer}"></div>
 </body>
 <script src="/js/add-product-to-cart.js"></script>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/create-product.css">
+    <title>Needlers - Update Info</title>
+</head>
+<body>
+
+<div class="container" id="container">
+    <div class="form-container">
+
+        <span class="back">
+            <a th:href="@{/profile}">
+                <img class="plus-displayed" src="../../images/create-product/back.png">
+            </a>
+        </span>
+
+        <form th:action="@{/profile/update}" th:object="${user}" method="POST">
+            <h1 style="margin-bottom: 15px;">Update Information</h1>
+            <span>Please, fill in the form below</span>
+            <input type="text" th:field="*{firstName}" name="firstname" th:placeholder="${user.firstName}" />
+            <input type="text" th:field="*{lastName}" name="lastname" th:placeholder="${user.lastName}" />
+            <input type="password" th:field="*{password}" name="password" placeholder="Password" />
+            <button>Update</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <img src="../../images/login/food.png" >
+    </div>
+</div>
+
+</body>
+</html>

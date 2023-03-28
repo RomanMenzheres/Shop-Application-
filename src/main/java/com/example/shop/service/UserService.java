@@ -10,7 +10,7 @@ public interface UserService {
 
     User readById(long id);
 
-    User update(User user);
+    User update(User user, String newPassword);
 
     void delete(long id);
 

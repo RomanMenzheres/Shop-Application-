@@ -2,9 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/profile.css">
     <title>Needlers - Profile</title>
 </head>
 <body>
+
+<div th:replace="~{header}"></div>
+
+<div class="page">
+
+    <div class="page-content">
+
+        <div class="profile">
+
+            <div class="profile-info">
+
+                <div class="profile-image">
+                    <img src="../images/profile/avatar.png">
+                </div>
+
+                <div class="profile-name">
+                    <span class="firstname" th:text="${user.firstName}"></span>
+                    <span th:text="${user.lastName}"></span>
+                </div>
+
+                <div class="profile-update">
+                    <a th:href="@{|/profile/${user.id}/update|}">Update Info</a>
+                </div>
+
+            </div>
+
+            <div class="page-label">
+                <h1>Profile</h1>
+            </div>
+
+            <div class="other-profile-info">
+
+                <div class="info">
+
+                    <div class="info-position">
+                        <span>Email:</span>
+
+                        <div class="prime-text">
+
+                            <span th:text="${user.email}"></span>
+
+                            <a class="manipulator" th:href="@{/profile/info/update/email}">
+                                <img class="displayed" src="../images/profile/edit-green.png">
+                                <img class="hidden" src="../images/profile/edit-white.png">
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="info-position">
+                        <span>Phone:</span>
+
+                        <div class="prime-text">
+
+                            <span th:text="${user.phone}"></span>
+
+                            <a th:if="${user.phone} == null"
+                               class="manipulator" th:href="@{/profile/info/update/phone}">
+                                <img class="displayed" src="../images/profile/+_green.png">
+                                <img class="hidden" src="../images/profile/+_white.png">
+                            </a>
+
+                            <a th:if="${user.phone} != null"
+                               class="manipulator" th:href="@{/profile/info/update/phone}">
+                                <img class="displayed" src="../images/profile/edit-green.png">
+                                <img class="hidden" src="../images/profile/edit-white.png">
+                            </a>
+
+                        </div>
+                    </div>
+
+                    <div class="info-position">
+                        <span>Addresses:</span>
+
+                        <div class="prime-text">
+
+                            <span th:text="${user.address}"></span>
+
+                            <a th:if="${user.address} == null"
+                               class="manipulator" th:href="@{/profile/info/update/address}">
+                                <img class="displayed" src="../images/profile/+_green.png">
+                                <img class="hidden" src="../images/profile/+_white.png">
+                            </a>
+
+                            <a th:if="${user.address} != null"
+                               class="manipulator" th:href="@{/profile/info/update/address}">
+                                <img class="displayed" src="../images/profile/edit-green.png">
+                                <img class="hidden" src="../images/profile/edit-white.png">
+                            </a>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="~{footer}"></div>
 
 </body>
 </html>

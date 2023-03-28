@@ -57,4 +57,23 @@ public class CategoryController {
         categoryService.create(category);
         return "redirect:/menu";
     }
+
+    @GetMapping("/{category_id}/update")
+    public String update(@PathVariable("category_id") long category_id, Model model){
+        model.addAttribute("category", categoryService.readById(category_id));
+        return "update-category";
+    }
+
+    @PostMapping("/{category_id}/update")
+    public String update(@PathVariable("category_id") long category_id,
+                         @Validated @ModelAttribute("category") Category category,
+                         BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "update-category";
+        }
+
+        category.setId(category_id);
+        categoryService.update(category);
+        return "redirect:/menu";
+    }
 }

@@ -43,6 +43,15 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
+    public CartItem update(CartItem cartItem) {
+        if (cartItem != null) {
+            readById(cartItem.getId());
+            return cartItemRepository.save(cartItem);
+        }
+        throw new NullPointerException("User cannot be 'null'");
+    }
+
+    @Override
     public void updateQuantity(long productId, long userId, int quantity) {
         cartItemRepository.updateQuantity(quantity, productId, userId);
     }

@@ -1,15 +1,9 @@
 package com.example.shop.controller;
 
-import com.example.shop.dto.CartItemDto;
-import com.example.shop.dto.CartItemTransformer;
-import com.example.shop.entity.CartItem;
 import com.example.shop.entity.Product;
-import com.example.shop.entity.User;
-import com.example.shop.service.CartItemService;
 import com.example.shop.service.CategoryService;
+import com.example.shop.service.Implementation.FileService;
 import com.example.shop.service.ProductService;
-import com.example.shop.service.UserService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 @Controller
 @RequestMapping("/product")
@@ -28,21 +21,21 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
 
-    @Value("${productsImage.path}")
-    private String productsImagePath;
+    private final FileService fileService;
 
     public ProductController(ProductService productService,
-                             CategoryService categoryService){
+                             CategoryService categoryService,
+                             FileService fileService){
         this.productService = productService;
         this.categoryService = categoryService;
+        this.fileService= fileService;
     }
 
     @GetMapping("/{product_id}/delete")
     public String delete(@PathVariable("product_id") long product_id) throws IOException {
         Product product = productService.readById(product_id);
-        if(!Files.deleteIfExists(new File(productsImagePath + "/" + product.getName() + ".png").toPath())){
-            Files.deleteIfExists(new File(productsImagePath + "/" + product.getName() + ".jpg").toPath());
-        }
+
+        fileService.delete(product.getName());
 
         productService.delete(product_id);
         return "redirect:/menu";
@@ -66,20 +59,38 @@ public class ProductController {
         }
 
         if (!file.isEmpty()){
-            File uploadFolder = new File(productsImagePath);
-
-            if (!uploadFolder.exists()){
-                uploadFolder.mkdir();
-            }
-
-            String originFileName = file.getOriginalFilename();
-
-            String fileName = product.getName() + originFileName.substring(originFileName.lastIndexOf('.'));
-
-            file.transferTo(new File(productsImagePath + "/" +fileName));
+            fileService.create(product.getName(), file);
         }
 
         productService.create(product);
+        return "redirect:/menu";
+    }
+
+    @GetMapping("/{product_id}/update")
+    public String update(@PathVariable("product_id") long product_id, Model model){
+        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("product", productService.readById(product_id));
+        return "update-product";
+    }
+
+    @PostMapping("/{product_id}/update")
+    public String update(@PathVariable("product_id") long product_id,
+                         @Validated @ModelAttribute("product") Product product,
+                         BindingResult bindingResult,
+                         Model model,
+                         @RequestParam("filename")MultipartFile file) throws IOException {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("categories", categoryService.getAll());
+            return "update-product";
+        }
+
+        if (!file.isEmpty()){
+            fileService.delete(productService.readById(product_id).getName());
+            fileService.create(product.getName(), file);
+        }
+
+        product.setId(product_id);
+        productService.update(product);
         return "redirect:/menu";
     }
 }

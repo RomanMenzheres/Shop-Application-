@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/create-category.css">
+    <title>Needlers - Update New Category</title>
+</head>
+<body>
+
+<div class="container" id="container">
+    <div class="form-container">
+
+        <span class="back">
+            <a th:href="@{/menu}">
+                <img class="plus-displayed" src="../../images/create-product/back.png">
+            </a>
+        </span>
+
+        <form th:action="@{|/category/${category.id}/update|}" th:object="${category}" method="POST">
+            <h1>Update Category</h1>
+            <span>Please, fill in the form below</span>
+            <input type="text" th:field="*{name}" name="name" th:placeholder="${category.name}" required/>
+            <button>Update</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <img src="../../images/login/food.png">
+    </div>
+</div>
+
+</body>
+</html>

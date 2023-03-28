@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/create-product.css">
+    <title>Needlers - Update New Product</title>
+</head>
+<body>
+
+<div class="container" id="container">
+    <div class="form-container">
+
+        <span class="back">
+            <a th:href="@{/menu}">
+                <img class="plus-displayed" src="../../images/create-product/back.png">
+            </a>
+        </span>
+
+        <form th:action="@{|/product/${product.id}/update|}" th:object="${product}" method="POST" enctype="multipart/form-data">
+            <h1 style="margin-bottom: 15px;">Update Product</h1>
+            <span>Please, fill in the form below</span>
+            <input type="text" th:field="*{name}" name="name" th:placeholder="${product.name}" required/>
+            <input type="number"
+                   step="0.01" min="0"
+                   th:field="*{price}" name="price" th:placeholder="${product.price}" required/>
+            <input type="file" name="filename" id="file"  accept="image/png, image/jpeg"/>
+
+            <select th:field="*{category}" required>
+                <option
+                        th:text="${product.category.name}"
+                        th:value="${product.category.id}"
+                        selected>
+
+                </option>
+
+                <option
+                        th:each="availableCategory : ${categories}"
+                        th:if="${availableCategory != product.category}"
+                        th:value="${availableCategory.id}"
+                        th:text="${availableCategory.name}">
+                </option>
+            </select>
+            <button>Update</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <img src="../../images/login/food.png">
+    </div>
+</div>
+
+</body>
+</html>

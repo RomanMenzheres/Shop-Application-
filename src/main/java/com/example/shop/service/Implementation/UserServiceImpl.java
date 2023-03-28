@@ -4,7 +4,6 @@ import com.example.shop.entity.User;
 import com.example.shop.repository.UserRepository;
 import com.example.shop.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +35,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) {
+    public User update(User user, String newPassword) {
         if (user != null) {
-            readById(user.getId());
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            if(!user.getPassword().equals(newPassword)){
+                user.setPassword(passwordEncoder.encode(newPassword));
+            }
+
             return userRepository.save(user);
         }
         throw new NullPointerException("User cannot be 'null'");

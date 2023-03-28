@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/update-info.css">
+    <title th:text="${pageTitle}"></title>
+</head>
+<body>
+
+<div class="container" id="container">
+    <div class="form-container">
+
+        <span class="back">
+            <a th:href="@{/profile}">
+                <img class="plus-displayed" src="../../../images/create-product/back.png">
+            </a>
+        </span>
+
+        <h1 th:text="${formTitle}" style="margin-bottom: 15px;"></h1>
+        <form th:action="@{/profile/info/update}" th:object="${user}" method="POST">
+            <input th:if="${object} == 'PHONE'"
+                   type="text" th:field="*{phone}" th:placeholder="${placeholder}"/>
+
+            <input th:if="${object} == 'EMAIL'"
+                   type="text" th:field="*{email}" th:placeholder="${placeholder}"/>
+
+            <input th:if="${object} == 'ADDRESS'"
+                   type="text" th:field="*{address}" th:placeholder="${placeholder}"/>
+            <button>Update</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
