@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="/css/create-product.css">
+
+    <title>Needlers - Order Checkout</title>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="/js/modal-window.js" defer></script>
+</head>
+<body>
+
+<div class="container" id="container">
+    <div class="form-container">
+
+        <span class="back">
+            <a th:href="@{|/order/${order.id}/cancel|}">
+                <img class="plus-displayed" src="../../images/create-product/back.png">
+            </a>
+        </span>
+
+        <form th:action="@{|/order/${order.id}/checkout|}" th:object="${order}" method="POST">
+            <h1 style="margin-bottom: 15px;">Checkout Your Order</h1>
+            <span>Please, fill in the form below</span>
+            <input class="address-input" type="text" th:field="*{address}" name="address" placeholder="Address" required/>
+            <input type="text" th:field="*{phone}" name="phone" placeholder="Phone Number" required/>
+
+            <select th:field="*{paymentMethod}" required>
+                <option value="" selected>Select Payment Method...</option>
+                <option
+                        th:each="method : ${paymentMethods}"
+                        th:value="${method}"
+                        th:text="${method}">
+                </option>
+            </select>
+            <button>Continue</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <img src="../../images/checkout/order.jpeg" >
+    </div>
+
+    <div th:replace="~{modal-window-map}"></div>
+</div>
+
+</body>
+</html>

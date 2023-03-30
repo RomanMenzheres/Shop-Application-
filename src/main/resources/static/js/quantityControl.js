@@ -83,4 +83,5 @@ function totalCalculate(totalPrice){
     totalPrice = parseFloat(totalPrice) + parseFloat($(".delivery-price-value").text().substring(1));
 
     $(".total-price-value").text("₴" + (totalPrice).toFixed(2));
+    $(".form-total-price").val(totalPrice);
 }

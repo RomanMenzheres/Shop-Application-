@@ -42,6 +42,7 @@ a {
 }
 
 button {
+    margin-top: 30px;
     border-radius: 20px;
     border: 1px solid #23b100;
     background-color: #23b100;
@@ -141,7 +142,7 @@ img {
 }
 
 .sign-up {
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .sign-up a{

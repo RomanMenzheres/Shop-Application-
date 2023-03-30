@@ -20,7 +20,19 @@ public class CartItem {
     @Column(name = "quantity")
     private int quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     public CartItem(){}
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     public long getId() {
         return id;

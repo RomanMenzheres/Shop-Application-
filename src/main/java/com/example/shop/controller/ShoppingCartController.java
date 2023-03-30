@@ -1,6 +1,7 @@
 package com.example.shop.controller;
 
 import com.example.shop.entity.CartItem;
+import com.example.shop.entity.Order;
 import com.example.shop.entity.User;
 import com.example.shop.security.LoginDetails;
 import com.example.shop.service.CartItemService;
@@ -32,6 +33,7 @@ public class ShoppingCartController {
         List<CartItem> cartItems = cartItemService.findCartItemByUser(user);
 
         model.addAttribute("cartItems", cartItems);
+        model.addAttribute("order", new Order());
 
         return "shopping-cart";
     }
