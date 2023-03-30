@@ -6,16 +6,16 @@ public class CartItemDto {
 
     private long productId;
 
-    private long userId;
-
     private int quantity;
+
+    private long orderId;
 
     public CartItemDto(){}
 
-    public CartItemDto(long id, long productId, long userId, int quantity){
+    public CartItemDto(long id, long productId, long orderId, int quantity){
         this.id = id;
         this.productId = productId;
-        this.userId = userId;
+        this.orderId = orderId;
         this.quantity = quantity;
     }
 
@@ -35,12 +35,12 @@ public class CartItemDto {
         this.productId = productId;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getOrderId() {
+        return orderId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 
     public int getQuantity() {

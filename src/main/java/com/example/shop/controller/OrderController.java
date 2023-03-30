@@ -33,19 +33,15 @@ public class OrderController {
     }
 
     @PostMapping("/preparation")
-    public String preparation(@ModelAttribute Order order, @AuthenticationPrincipal LoginDetails loginDetails){
+    public String preparation(@ModelAttribute Order additionalInfo, @AuthenticationPrincipal LoginDetails loginDetails){
 
-        User owner = loginDetails.getUser();
+        Order order = orderService.findActiveOrderByUser(loginDetails.getUser());
+        order.setComment(additionalInfo.getComment());
+        order.setPrice(additionalInfo.getPrice());
 
-        order.setOwner(owner);
-        Order savedOrder = orderService.create(order);
+        orderService.create(order);
 
-        cartItemService.findCartItemByUser(order.getOwner()).forEach(cartItem -> {
-            cartItem.setOrder(savedOrder);
-            cartItemService.update(cartItem);
-        });
-
-        return "redirect:/order/" + savedOrder.getId() + "/checkout";
+        return "redirect:/order/" + order.getId() + "/checkout";
 
     }
 

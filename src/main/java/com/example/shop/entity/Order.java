@@ -46,8 +46,7 @@ public class Order {
     private List<CartItem> products;
 
     public Order() {
-        creationDate = LocalDate.now();
-        status = Status.PROCESSING;
+        status = Status.OPEN;
     }
 
     public List<CartItem> getProducts() {

@@ -13,10 +13,6 @@ public class CartItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(name = "quantity")
     private int quantity;
 
@@ -50,14 +46,6 @@ public class CartItem {
         this.product = product;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -71,7 +59,6 @@ public class CartItem {
         return "CartItem{" +
                 "id=" + id +
                 ", product=" + product +
-                ", user=" + user +
                 ", quantity=" + quantity +
                 '}';
     }

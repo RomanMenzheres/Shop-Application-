@@ -13,12 +13,10 @@ public interface CartItemService {
 
     CartItem update(CartItem cartItem);
 
-    void updateQuantity(long productId, long userId, int quantity);
+    void updateQuantity(long productId, long orderId, int quantity);
 
     void delete(long id);
 
     List<CartItem> getAll();
-
-    List<CartItem> findCartItemByUser(User user);
 
 }
