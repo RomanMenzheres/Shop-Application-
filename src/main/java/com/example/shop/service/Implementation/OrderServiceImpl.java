@@ -34,6 +34,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order update(Order order) {
+        if (order != null) {
+            readById(order.getId());
+            return orderRepository.save(order);
+        }
+        throw new NullPointerException("Order cannot be 'null'");
+    }
+
+    @Override
     public void delete(long id) {
         orderRepository.delete(readById(id));
     }
@@ -44,8 +53,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findActiveOrderByUser(User user) {
+    public Order findOpenOrderByUser(User user) {
         return orderRepository.findOrderByOwner(user).stream().filter(order -> order.getStatus().equals(Status.OPEN)).findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<Order> findNotOpenOrderByUser(User user) {
+        return orderRepository.findOrderByOwner(user).stream().filter(order -> !order.getStatus().equals(Status.OPEN)).toList();
     }
 }

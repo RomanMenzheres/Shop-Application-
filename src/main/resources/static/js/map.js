@@ -50,6 +50,9 @@ $(document).ready(function () {
                 })
                 .then(function (json) {
                     address = json.display_name;
+
+                    address = address.substring(0, address.indexOf("Рівне") +5);
+
                     $(".address-input").val(address);
                 });
 

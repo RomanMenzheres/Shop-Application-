@@ -10,7 +10,9 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="/js/modal-window.js" defer></script>
+    <script src="/js/modal-window-address.js" defer></script>
+    <script src="/js/modal-window-close.js" defer></script>
+    <script src="/js/checkout-substitution.js" defer></script>
 </head>
 <body>
 
@@ -18,16 +20,18 @@
     <div class="form-container">
 
         <span class="back">
-            <a th:href="@{|/order/${order.id}/cancel|}">
+            <a th:href="@{/cart}">
                 <img class="plus-displayed" src="../../images/create-product/back.png">
             </a>
         </span>
 
-        <form th:action="@{|/order/${order.id}/checkout|}" th:object="${order}" method="POST">
+        <form th:action="@{/order/checkout}" th:object="${order}" method="POST">
             <h1 style="margin-bottom: 15px;">Checkout Your Order</h1>
             <span>Please, fill in the form below</span>
-            <input class="address-input" type="text" th:field="*{address}" name="address" placeholder="Address" required/>
-            <input type="text" th:field="*{phone}" name="phone" placeholder="Phone Number" required/>
+            <input class="address-input" type="text" th:field="*{address}" name="address" placeholder="Address"
+                   autocomplete="off" required/>
+            <input class="phone-input" type="text" th:field="*{phone}" name="phone" placeholder="Phone Number"
+                   required/>
 
             <select th:field="*{paymentMethod}" required>
                 <option value="" selected>Select Payment Method...</option>
@@ -37,14 +41,19 @@
                         th:text="${method}">
                 </option>
             </select>
-            <button>Continue</button>
+            <button type="submit" class="submit">Continue</button>
+            <span class="substitution">
+            Already filled in this information?
+            <a class="substitution-button" th:address="${order.owner.address}" th:phone="${order.owner.phone}">Substitute</a>
+        </span>
         </form>
+
     </div>
     <div class="overlay-container">
-        <img src="../../images/checkout/order.jpeg" >
+        <img src="../../images/checkout/order.jpeg">
     </div>
 
-    <div th:replace="~{modal-window-map}"></div>
+    <div th:replace="~{modal-window-choose-address}"></div>
 </div>
 
 </body>

@@ -8,12 +8,6 @@ $(document).ready(function () {
         modalWindow.css({"visibility": "visible", "opacity": "1"})
     });
 
-    modalWindow.on("click", function (event) {
-         if (event.target === modalWindow[0] || event.target.closest(".modal-close")) {
-             modalWindow.css({"visibility": "hidden", "opacity": "0"})
-
-             setTimeout(() => {}, 300)
-         }
-    });
+    close(modalWindow);
 
 });

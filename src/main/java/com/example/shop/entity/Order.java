@@ -42,7 +42,7 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<CartItem> products;
 
     public Order() {

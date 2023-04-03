@@ -1,13 +1,13 @@
 package com.example.shop.controller.rest;
 
 import com.example.shop.entity.CartItem;
+import com.example.shop.entity.Order;
 import com.example.shop.entity.Product;
 import com.example.shop.entity.User;
 import com.example.shop.security.LoginDetails;
 import com.example.shop.service.CartItemService;
 import com.example.shop.service.OrderService;
 import com.example.shop.service.ProductService;
-import com.example.shop.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,12 +32,22 @@ public class ShoppingCartRestController {
     @PostMapping("/add/{product_id}")
     public String addToCart(@PathVariable("product_id") long product_id,
                             @AuthenticationPrincipal LoginDetails loginDetails){
+        User owner = loginDetails.getUser();
         Product product = productService.readById(product_id);
+        Order order = orderService.findOpenOrderByUser(owner);
 
         CartItem cartItem = new CartItem();
         cartItem.setProduct(product);
         cartItem.setQuantity(1);
-        cartItem.setOrder(orderService.findActiveOrderByUser(loginDetails.getUser()));
+
+        if (order != null) {
+            cartItem.setOrder(order);
+        } else {
+            order = new Order();
+            order.setOwner(owner);
+            order = orderService.create(order);
+            cartItem.setOrder(order);
+        }
 
         cartItemService.create(cartItem);
 
@@ -49,7 +59,7 @@ public class ShoppingCartRestController {
                             @PathVariable("quantity") int quantity,
                             @AuthenticationPrincipal LoginDetails loginDetails){
 
-        cartItemService.updateQuantity(product_id, orderService.findActiveOrderByUser(loginDetails.getUser()).getId(), quantity);
+        cartItemService.updateQuantity(product_id, orderService.findOpenOrderByUser(loginDetails.getUser()).getId(), quantity);
 
         return "The quantity for product " + productService.readById(product_id).getName() + " was updated!";
     }
@@ -66,7 +76,7 @@ public class ShoppingCartRestController {
 
         User user =  loginDetails.getUser();
 
-        List<CartItem> items = orderService.findActiveOrderByUser(loginDetails.getUser()).getProducts();
+        List<CartItem> items = orderService.findOpenOrderByUser(loginDetails.getUser()).getProducts();
 
         if(items.isEmpty()){
             return "Shopping cart of user with id " + user.getId() + " is empty!";
