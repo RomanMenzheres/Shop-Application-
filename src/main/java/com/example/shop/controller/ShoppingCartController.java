@@ -14,12 +14,9 @@ import org.springframework.ui.Model;
 @Controller
 @RequestMapping("/cart")
 public class ShoppingCartController {
-
-    private final CartItemService cartItemService;
     private final OrderService orderService;
 
-    public ShoppingCartController(CartItemService cartItemService, OrderService orderService) {
-        this.cartItemService = cartItemService;
+    public ShoppingCartController(OrderService orderService) {
         this.orderService = orderService;
     }
 

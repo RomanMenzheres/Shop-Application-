@@ -24,10 +24,15 @@ public class CartItemServiceImpl implements CartItemService {
     public CartItem create(CartItem cartItem) {
         if (cartItem != null) {
 
-            CartItem isExist = cartItem.getOrder().getProducts().stream()
-                    .filter(existingCartItem -> existingCartItem.getProduct().equals(cartItem.getProduct()))
-                    .findFirst()
-                    .orElse(null);
+            CartItem isExist = null;
+
+            if(cartItem.getOrder().getProducts() != null) {
+
+                isExist = cartItem.getOrder().getProducts().stream()
+                        .filter(existingCartItem -> existingCartItem.getProduct().equals(cartItem.getProduct()))
+                        .findFirst()
+                        .orElse(null);
+            }
 
             if(isExist != null) {
                 isExist.setQuantity(isExist.getQuantity() + 1);

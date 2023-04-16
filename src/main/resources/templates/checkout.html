@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="/css/create-product.css">
 
-    <title>Needlers - Order Checkout</title>
+    <title>Needler's - Order Checkout</title>
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
@@ -33,7 +33,7 @@
             <input class="phone-input" type="text" th:field="*{phone}" name="phone" placeholder="Phone Number"
                    required/>
 
-            <select th:field="*{paymentMethod}" required>
+            <select class="payment-method-select" th:field="*{paymentMethod}" required>
                 <option value="" selected>Select Payment Method...</option>
                 <option
                         th:each="method : ${paymentMethods}"

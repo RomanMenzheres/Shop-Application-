@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Needler's - Payment</title>
+    <link rel="stylesheet"  href="/css/payment.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="payment-container">
+
+    <div id="paypal-button-container">
+
+    </div>
+
+</div>
+
+<script type="text/javascript"
+        src="https://www.paypal.com/sdk/js?client-id=AXxg3ocZOfL7XjdveDV7IY15R9x7Fuve7t_nRH4PULwD1KL-yZtyTTbpT2egu2M1lZasWdDI60Y67XfC&currency=USD"></script>
+<script>
+    paypal.Buttons({
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                intent: 'CAPTURE',
+                payer: {
+                    name: {
+                        given_name: "[[${order.owner.firstName}]]",
+                        surname: "[[${order.owner.lastName}]]"
+                    },
+
+                    address: {
+                        address_line_1: "[[${addressLine}]]",
+                        admin_area_2: "[[${city}]]",
+                        admin_area_1: "[[${OBL}]]",
+                        country_code: "[[${countryCode}]]"
+                    },
+
+                    email_address: "[[${order.owner.email}]]",
+
+                    phone_number: {
+                        national_number: "[[${order.phone}]]"
+                    }
+
+                },
+
+                purchase_units: [{
+                    amount: {
+                        value: "[[${order.price}]]"
+                    }
+                }]
+            });
+        },
+
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+
+                let transactionId = details.id;
+                let status = details.status;
+                let createdTime = details.create_time;
+                let endTime = details.update_time;
+
+                $.ajax({
+                    type: "POST",
+                    url: "/payment",
+                    data: {
+                        transactionId: transactionId,
+                        status: status,
+                        createdTime: createdTime,
+                        endTime: endTime
+                    },
+
+                    success: function() {
+                        location.href = '/payment/success';
+                    },
+
+                    error: function(error) {
+                        location.href = '/payment/error';
+                    }
+                });
+
+            });
+        },
+
+        onError: function (error) {
+
+            location.href = '/payment/error';
+
+        }
+    }).render("#paypal-button-container");
+</script>
+
+</body>
+</html>

@@ -5,7 +5,8 @@ public enum Status {
     OPEN,
     PROCESSING,
     PAID,
-    RECEIVED,
+    CONFIRMED,
+    DELIVERED,
 
     CANCELED
 }

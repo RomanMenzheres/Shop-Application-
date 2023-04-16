@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="/css/shopping-cart.css">
+    <link rel="stylesheet" href="/css/scrollbar.css">
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
@@ -14,7 +15,7 @@
     <script src="/js/delivery-warning.js" defer></script>
     <script src="/js/form-comment-control.js" defer></script>
 
-    <title>Needlers - Shopping Cart</title>
+    <title>Needler's - Shopping Cart</title>
 </head>
 <body>
 
@@ -41,7 +42,7 @@
                 <div class="minimum-price-warning-block">
 
                     <span class="warning-text">
-                        The minimum order amount is 200.00 UAH.
+                        The minimum order amount is $10.
                     </span>
 
                 </div>
@@ -78,7 +79,7 @@
 
                             <div class="control-block">
                                 <div class="cart-item-price">
-                                    <span th:text="'₴' + ${cartItem.product.price}"></span>
+                                    <span th:text="'$' + ${cartItem.product.price}"></span>
                                 </div>
 
                                 <div class="add-quantity">
@@ -94,7 +95,7 @@
 
                                 <div class="cart-item-subtotal-price">
                                     <span class="subtotal-price" th:id="subtotalPrice + ${cartItem.product.id}"
-                                          th:text="'₴' + ${#numbers.formatDecimal((cartItem.product.price * cartItem.quantity), 0, 'COMMA', 2, 'POINT')}">Subtotal Price</span>
+                                          th:text="'$' + ${#numbers.formatDecimal((cartItem.product.price * cartItem.quantity), 0, 'COMMA', 2, 'POINT')}">Subtotal Price</span>
                                 </div>
 
                             </div>
@@ -151,7 +152,7 @@
                             </div>
 
                             <div class="delivery-price-value-container">
-                                <span class="delivery-price-value">₴80.00</span>
+                                <span class="delivery-price-value">$8.00</span>
                             </div>
 
                         </div>

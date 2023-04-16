@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="/css/modal-window.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
+
+<script src="/js/modal-window-close.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js" defer></script>
+<script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=vHTAVEROhftNN54rgBtlWWJuhpIupdjt" defer></script>
+<script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=vHTAVEROhftNN54rgBtlWWJuhpIupdjt" defer></script>
+<script src="/js/map-routing.js" defer></script>
+<div class="modal">
+    <div class="modal-main">
+
+        <div class="modal-content">
+
+            <h2 class="order-header"></h2>
+
+            <div class="status"></div>
+
+            <div class="customer-info">
+
+                <h3>Customer info:</h3>
+
+                <div class="customer-full-name"></div>
+
+                <div class="customer-email"></div>
+
+                <div class="customer-phone"></div>
+
+                <div class="customer-address"></div>
+
+            </div>
+
+            <div class="order-info">
+
+                <h3>Order info:</h3>
+
+                <div class="order-phone"></div>
+
+                <div class="order-address"></div>
+
+                <div class="order-payment-method"></div>
+
+                <div class="order-creation-date"></div>
+
+                <div class="order-cancel-date"></div>
+
+                <div class="order-delivery-date"></div>
+
+                <div class="order-comment"></div>
+
+                <div class="order-products">
+
+                    <h3>Products:</h3>
+
+                    <div class="product">
+
+                        <div class="product-description">
+
+                            <div class="product-image"></div>
+
+                            <div class="product-title"></div>
+
+                        </div>
+
+                        <div class="product-price">
+
+                            <div class="price"></div>
+
+                            <div class="quantity"></div>
+
+                            <div class="subtotal-price"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="navigation-info">
+
+                <h3>Rout to Order Address: </h3>
+
+                <div class="route-info">
+
+                    <span class="route-distance">Distance: </span>
+                    <span class="route-time">Time: </span>
+
+                </div>
+
+                <div id="map"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

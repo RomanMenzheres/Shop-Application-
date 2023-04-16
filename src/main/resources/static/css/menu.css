@@ -2,6 +2,7 @@ body {
     font-family: sans-serif;
     margin: 0 0 0 0;
     background-color: #f9f9f9;
+    overflow: overlay;
 }
 
 .page {
@@ -25,9 +26,9 @@ body {
 
 .wrapper {
     left: 25%;
-    width: 69%;
+    width: calc(70% - 10px);
     position: relative;
-    margin: 0 5% 0 1%;
+    margin: 0 5% 0 10px;
 }
 
 .product {
@@ -138,9 +139,10 @@ li:last-child {
     background-color: #84bf41;
 }
 
-.btn-add-product {
-    width: 200px;
+.btn-add {
+    width: 180px;
     height: 100%;
+    padding: 5px;
     display: flex;
     text-align: center;
     border: 2px solid #84bf41;
@@ -154,62 +156,39 @@ li:last-child {
     transition: all .35s;
 }
 
-.btn-add-category {
-    width: 200px;
-    height: 100%;
-    display: flex;
-    text-align: center;
-    border: 2px solid #84bf41;
-    border-radius: 15px;
-    background-color: white;
-    color: #84bf41;
-    text-decoration: auto;
-    font-weight: bold;
-    justify-content: center;
-    align-items: center;
-    transition: 0.35s;
-}
-
-.btn-add-category:hover,
-.btn-add-category:focus,
-.btn-add-product:hover,
-.btn-add-product:focus{
+.btn-add:hover,
+.btn-add:focus{
     font-weight: bold;
     color: white;
     box-shadow: inset 204px 0 0 0 #84bf41;
 }
 
-.btn-add-category:active,
-.btn-add-product:active {
+.btn-add:active {
     transform: scale(0.95);
 }
 
 .btn-add-box {
-    width: 414px;
-    height: 80%;
-    margin: 0 5px 0 0;
+    margin-right: 15px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    column-gap: 10px;
 }
 
 .menu-title {
-    margin: 0 0 0 15px;
+    margin: 0;
     font-size: 35px;
     font-weight: bold;
 }
 
 .menu-title-box {
-    left: 26%;
+    left: 25%;
     position: relative;
+    margin: 0 0 5px 15px;
+    width: calc(70% - 20px);
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 69%;
-    height: 40px;
     align-items: center;
-    margin-bottom: 5px;
+    justify-content: space-between;
 }
 
 .image-wrapper {

@@ -9,7 +9,7 @@ public class CartItemTransformer {
     public static CartItemDto convertToDto(CartItem cartItem){
         return new CartItemDto(
                 cartItem.getId(),
-                cartItem.getProduct().getId(),
+                ProductTransformer.convertToDto(cartItem.getProduct()),
                 cartItem.getOrder().getId(),
                 cartItem.getQuantity());
     }

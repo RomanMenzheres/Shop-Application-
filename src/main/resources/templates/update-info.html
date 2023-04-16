@@ -30,7 +30,7 @@
                    type="text" th:field="*{email}" th:placeholder="${placeholder}"/>
 
             <input th:if="${object} == 'ADDRESS'"
-                   class="address-input" type="text" th:field="*{address}" th:placeholder="${placeholder}"/>
+                   class="address-input" autocomplete="off" type="text" th:field="*{address}" th:placeholder="${placeholder}"/>
             <button>Update</button>
         </form>
     </div>

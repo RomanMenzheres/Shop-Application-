@@ -2,6 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.entity.Order;
 import com.example.shop.entity.User;
+import org.aspectj.weaver.ast.Or;
 
 import java.util.List;
 
@@ -20,5 +21,13 @@ public interface OrderService {
     Order findOpenOrderByUser(User user);
 
     List<Order> findNotOpenOrderByUser(User user);
+
+    Order findOrderForPaymentByUser(User user);
+
+    List<Order> findOrdersForConfirmation();
+
+    List<Order> findConfirmedOrders();
+
+    List<Order> findFinishedOrders();
 
 }

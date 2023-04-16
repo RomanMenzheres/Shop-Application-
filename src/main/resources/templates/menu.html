@@ -3,8 +3,9 @@
 <head>
 
     <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/scrollbar.css">
     <meta charset="UTF-8">
-    <title>Needlers - Menu</title>
+    <title>Needler's - Menu</title>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -58,8 +59,8 @@
 
             <div class="btn-add-box" sec:authorize="hasAuthority('ADMIN')">
 
-                <a class="btn-add-product" th:href="@{/product/create}">Add New Product</a>
-                <a class="btn-add-category" th:href="@{/category/create}">Add New Category</a>
+                <a class="btn-add" th:href="@{/product/create}">Add New Product</a>
+                <a class="btn-add" th:href="@{/category/create}">Add New Category</a>
 
             </div>
 
@@ -107,7 +108,7 @@
 
                         </div>
 
-                        <span class="prise" th:text="'₴' + ${product.price}"></span>
+                        <span class="prise" th:text="'$' + ${product.price}"></span>
 
                         <div class="cut-text">
 

@@ -1,8 +1,7 @@
-package com.example.shop.service.Implementation;
+package com.example.shop.security;
 
 import com.example.shop.entity.User;
 import com.example.shop.repository.UserRepository;
-import com.example.shop.security.LoginDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

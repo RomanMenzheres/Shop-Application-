@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/profile.css">
-    <title>Needlers - Profile</title>
+    <link rel="stylesheet" href="/css/scrollbar.css">
+    <title>Needler's - Profile</title>
+
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -129,36 +131,42 @@
 
                         <div th:if="${!#lists.isEmpty(orders)}">
 
-                            <div class="order" th:each="order : ${orders}">
+                            <div class="order" th:each="order : ${orders}" th:id="'order' + ${order.id}">
 
                                 <div class="order-description">
 
                                     <div class="top">
 
                                         <div class="top-price">
-                                            <span th:text="'₴' + ${order.price}"></span>
+                                            <span th:text="'$' + ${order.price}"></span>
                                         </div>
 
                                         <div class="top-address">
                                             <span th:text="${order.address}">Address</span>
                                         </div>
 
-                                        <div class="top-status">
-                                            <span th:text="${order.status}"></span>
-                                        </div>
+                                        <div class="status-info">
 
-                                        <div class="top-creation-date">
-                                            <span th:text="${order.creationDate}">Date</span>
-                                        </div>
+                                            <div class="top-status">
+                                                <span th:text="${order.status}"></span>
+                                            </div>
 
-                                        <div class="unfold">
-                                            <a class="displayed" id="unfold-displayed">
-                                                <img src="../images/profile/more.png">
-                                            </a>
+                                            <div class="top-creation-date">
+                                                <span th:text="${order.creationDateAsString}">Date</span>
+                                            </div>
 
-                                            <a class="hidden" id="unfold-hidden">
-                                                <img src="../images/profile/less.png">
-                                            </a>
+                                            <div class="unfold">
+                                                <a class="unfold-displayed" th:id="'displayed' + ${order.id}"
+                                                   th:oid="${order.id}">
+                                                    <img src="../images/profile/more.png">
+                                                </a>
+
+                                                <a class="unfold-hidden" th:id="'hidden' + ${order.id}"
+                                                   th:oid="${order.id}">
+                                                    <img src="../images/profile/less.png">
+                                                </a>
+                                            </div>
+
                                         </div>
 
                                     </div>
@@ -172,6 +180,16 @@
                                         <div class="additional-info-payment-method">
                                             <span class="bold">Payment Method: </span>
                                             <span th:text="${order.paymentMethod}"></span>
+                                        </div>
+
+                                        <div class="additional-info-cancel-date" th:if="${order.cancelDate != null}">
+                                            <span class="bold">Cancel Date: </span>
+                                            <span th:text="${order.cancelDateAsString}"></span>
+                                        </div>
+
+                                        <div class="additional-info-cancel-date" th:if="${order.deliveryDate != null}">
+                                            <span class="bold">Delivery Date: </span>
+                                            <span th:text="${order.deliveryDateAsString}"></span>
                                         </div>
                                     </div>
 
@@ -196,7 +214,7 @@
                                             <div class="product-price">
 
                                                 <div class="price">
-                                                    <span th:text="'₴' + ${product.product.price}"></span>
+                                                    <span th:text="'$' + ${product.product.price}"></span>
                                                 </div>
 
                                                 <div class="quantity">
@@ -204,7 +222,7 @@
                                                 </div>
 
                                                 <div class="subtotal-price">
-                                                    <span th:text="'₴' + ${#numbers.formatDecimal((product.product.price * product.quantity), 0, 'COMMA', 2, 'POINT')}"></span>
+                                                    <span th:text="'$' + ${#numbers.formatDecimal((product.product.price * product.quantity), 0, 'COMMA', 2, 'POINT')}"></span>
                                                 </div>
 
                                             </div>
@@ -218,7 +236,7 @@
                                         <h4>Comment: </h4>
 
                                         <div class="comment-container">
-                                            <span th:text="${order.comment}"></span>
+                                            <span th:text="${#strings.equals(order.comment, '')} ? 'No Comment' : ${order.comment}"></span>
                                         </div>
                                     </div>
 

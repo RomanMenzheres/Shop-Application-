@@ -4,7 +4,6 @@ import com.example.shop.entity.Order;
 import com.example.shop.entity.enums.PaymentMethod;
 import com.example.shop.entity.enums.Status;
 import com.example.shop.security.LoginDetails;
-import com.example.shop.service.CartItemService;
 import com.example.shop.service.OrderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,18 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/order")
 public class OrderController {
 
     private final OrderService orderService;
-    private final CartItemService cartItemService;
 
-    OrderController(OrderService orderService, CartItemService cartItemService){
+    OrderController(OrderService orderService){
         this.orderService = orderService;
-        this.cartItemService = cartItemService;
     }
 
     @GetMapping("/checkout")
@@ -40,6 +37,10 @@ public class OrderController {
 
     @PostMapping("/preparation")
     public String preparation(@ModelAttribute Order additionalInfo, @AuthenticationPrincipal LoginDetails loginDetails){
+
+        if (additionalInfo.getPrice() < 10){
+            return "redirect:/cart";
+        }
 
         Order order = orderService.findOpenOrderByUser(loginDetails.getUser());
         order.setComment(additionalInfo.getComment());
@@ -58,22 +59,23 @@ public class OrderController {
 
         Order order = orderService.findOpenOrderByUser(loginDetails.getUser());
 
-        if (String.valueOf(additionalInfo.getPaymentMethod()).equals("CASH")){
+        order.setStatus(Status.PROCESSING);
+        order.setAddress(additionalInfo.getAddress());
+        order.setPhone(additionalInfo.getPhone());
+        order.setPaymentMethod(additionalInfo.getPaymentMethod());
+        order.setCreationDate(LocalDateTime.now());
 
-            order.setStatus(Status.PROCESSING);
-            order.setAddress(additionalInfo.getAddress());
-            order.setPhone(additionalInfo.getPhone());
-            order.setPaymentMethod(additionalInfo.getPaymentMethod());
-            order.setCreationDate(LocalDate.now());
+        orderService.update(order);
 
-            orderService.update(order);
+        PaymentMethod paymentMethod = order.getPaymentMethod();
 
+        if (paymentMethod == PaymentMethod.CASH){
             redirectAttributes.addFlashAttribute("thanks", true);
 
             return "redirect:/profile";
 
-        } else {
-
+        } else if (paymentMethod == PaymentMethod.CARD){
+            return "redirect:/payment";
         }
 
         return "checkout";

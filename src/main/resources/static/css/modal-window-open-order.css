@@ -1,0 +1,86 @@
+.modal-content {
+    min-width: 450px;
+    padding: 0 20px;
+    overflow: overlay;
+}
+
+.modal-content h2 {
+    margin: 5px 0 20px 0;
+}
+
+.order-header {
+    text-align: center;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.customer-full-name, .customer-address, .customer-email, .customer-phone, .order-address, .order-phone,
+.order-payment-method, .order-comment, .order-creation-date, .order-cancel-date, .order-delivery-date{
+    margin: 10px 0;
+}
+
+.product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #d7d7d7;
+    margin-top: 5px;
+}
+
+.product-description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+    margin-bottom: 5px;
+}
+
+.product-image {
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.product-image img{
+    width: 50px;
+    height: 50px;
+}
+
+.product-title {
+    margin-left: 10px;
+    overflow-wrap: normal;
+    margin-right: 20px;
+}
+
+.product-price {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.price, .quantity {
+    margin-right: 20px;
+}
+
+.navigation-info{
+    height: 500px;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.route-info {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    margin-bottom: 5px;
+}

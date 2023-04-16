@@ -46,7 +46,7 @@ function updateQuantity(productId, quantity){
 
 function updateSubAndTotalPrice(productId, quantity, price, plus){
     let newSubTotalPrice = (price * quantity).toFixed(2);
-    $("#subtotalPrice" + productId).text("₴" + newSubTotalPrice);
+    $("#subtotalPrice" + productId).text("$" + newSubTotalPrice);
     totalProductsPriceCalculate(price, plus)
 }
 
@@ -62,26 +62,26 @@ function totalProductsPriceCalculate(price, plus){
             price = parseFloat(price);
 
             total = (total + price).toFixed(2);
-            link.text("₴" + total);
+            link.text("$" + total);
         } else {
             total = parseFloat(total);
             price = parseFloat(price);
 
             total = (total - price).toFixed(2);
-            link.text("₴" + total);
+            link.text("$" + total);
         }
     } else {
         total = total + price;
-        link.text("₴" + total);
+        link.text("$" + total);
     }
 
-    totalCalculate(total);
     deliveryPriceCheck(total);
+    totalCalculate(total);
 }
 
 function totalCalculate(totalPrice){
     totalPrice = parseFloat(totalPrice) + parseFloat($(".delivery-price-value").text().substring(1));
 
-    $(".total-price-value").text("₴" + (totalPrice).toFixed(2));
+    $(".total-price-value").text("$" + (totalPrice).toFixed(2));
     $(".form-total-price").val(totalPrice);
 }

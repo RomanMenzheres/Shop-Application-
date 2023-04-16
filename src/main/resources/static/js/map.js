@@ -35,7 +35,7 @@ $(document).ready(function () {
     map.on('click', function (e) {
         let latlng = e.latlng;
 
-        if(availableArea.contains(latlng)) {
+         if(availableArea.contains(latlng)) {
             if (userMarker) {
                 map.removeLayer(userMarker);
             }

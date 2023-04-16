@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Needler's - Admin - Orders</title>
+    <link rel="stylesheet" href="/css/admin-orders.css">
+    <link rel="stylesheet" href="/css/scrollbar.css">
+    <link rel="stylesheet" href="/css/modal-window-open-order.css">
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="/js/table-actions.js" defer></script>
+    <script src="/js/table-control.js" defer></script>
+    <script src="/js/table-open-order.js" defer></script>
+    <script src="/js/admin-orders-live-update-data.js"></script>
+</head>
+<body>
+
+<div class="page">
+
+    <div th:replace="~{admin-menu}"></div>
+
+    <div class="page-content">
+
+        <div class="order-control-buttons">
+
+            <button class="active">Active Orders</button>
+
+            <button class="confirmed">Confirmed Orders</button>
+
+            <button class="finished">Finished Orders</button>
+
+        </div>
+
+        <div class="orders">
+
+            <table id="table" class="table">
+                <thead class="table-header">
+                <tr class="table-head-row">
+                    <th class="header-item-id">Id</th>
+                    <th class="header-item-price">Price</th>
+                    <th class="header-item">Address</th>
+                    <th class="header-item">Phone</th>
+                    <th class="header-item">Status</th>
+                    <th class="header-item">Creation Date</th>
+                    <th class="header-item">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody class="table-content">
+            </table>
+
+        </div>
+
+        <div th:replace="~{modal-window-open-order}"></div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

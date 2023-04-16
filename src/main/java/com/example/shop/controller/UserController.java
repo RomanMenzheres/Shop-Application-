@@ -76,11 +76,11 @@ public class UserController {
         User user = loginDetails.getUser();
 
         if (user.getPhone() != null) {
-            model.addAttribute("pageTitle", "Needlers - Update Phone");
+            model.addAttribute("pageTitle", "Needler's - Update Phone");
             model.addAttribute("formTitle", "Update Phone");
             model.addAttribute("placeholder", user.getPhone());
         } else {
-            model.addAttribute("pageTitle", "Needlers - Add Phone");
+            model.addAttribute("pageTitle", "Needler's - Add Phone");
             model.addAttribute("formTitle", "Add New Phone");
             model.addAttribute("placeholder", "Phone Number");
         }
@@ -93,7 +93,7 @@ public class UserController {
     @GetMapping("/info/update/email")
     public String updateEmail(Model model, @AuthenticationPrincipal LoginDetails loginDetails) {
 
-        model.addAttribute("pageTitle", "Needlers - Update Email");
+        model.addAttribute("pageTitle", "Needler's - Update Email");
         model.addAttribute("formTitle", "Update Email");
         model.addAttribute("placeholder", loginDetails.getUser().getEmail());
         model.addAttribute("object", "EMAIL");
@@ -108,11 +108,11 @@ public class UserController {
         User user = loginDetails.getUser();
 
         if (user.getAddress() != null) {
-            model.addAttribute("pageTitle", "Needlers - Update Address");
+            model.addAttribute("pageTitle", "Needler's - Update Address");
             model.addAttribute("formTitle", "Update Address");
             model.addAttribute("placeholder", user.getAddress());
         } else {
-            model.addAttribute("pageTitle", "Needlers - Add Address");
+            model.addAttribute("pageTitle", "Needler's - Add Address");
             model.addAttribute("formTitle", "Add New Address");
             model.addAttribute("placeholder", "Address");
         }

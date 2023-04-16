@@ -2,6 +2,7 @@ body {
     font-family: sans-serif;
     margin: 0 0 0 0;
     background-color: #f9f9f9;
+    overflow: overlay;
 }
 
 .page {
@@ -217,7 +218,7 @@ body {
     flex-direction: column;
     background: #fff;
     border-radius: 15px;
-    height: 410px;
+    height: 340px;
     box-shadow: 0 0 3px rgb(0 0 0 / 10%);
 }
 

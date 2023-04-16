@@ -1,17 +1,23 @@
 $(document).ready(function () {
 
-    $("#unfold-displayed").on('click', function () {
-        $(".order").css("height", "auto");
 
-        $("#unfold-displayed").hide();
-        $("#unfold-hidden").show();
+
+    $(".unfold-displayed").on('click', function () {
+        let orderId = $(this).attr("oid")
+
+        $("#order" + orderId).css("height", "auto");
+
+        $("#displayed" + orderId).hide();
+        $("#hidden" + orderId).show();
     });
 
-    $("#unfold-hidden").on('click', function () {
-        $(".order").css("height", "30px");
+    $(".unfold-hidden").on('click', function () {
+        let orderId = $(this).attr("oid")
 
-        $("#unfold-hidden").hide();
-        $("#unfold-displayed").show();
+        $("#order" + orderId).css("height", "30px");
+
+        $("#hidden" + orderId).hide();
+        $("#displayed" + orderId).show();
     });
 
 });
