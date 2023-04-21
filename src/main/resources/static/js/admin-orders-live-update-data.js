@@ -11,7 +11,10 @@ $(document).ready(function () {
 
         if (currentActiveOrders > countOfActiveOrders){
             countOfActiveOrders = currentActiveOrders
-            changeTable($('.confirmed'), $('.active'));
+
+            if ($('.table').attr('currentOrders') === 'active') {
+                changeTable($('.confirmed'), $('.active'));
+            }
         }
 
     }, 10000)

@@ -20,7 +20,7 @@ body {
 }
 
 .order-control-buttons button {
-    width: 160px;
+    width: 190px;
     padding: 10px;
     font-size: 15px;
     background: transparent;
@@ -120,7 +120,7 @@ body {
 .order-control-buttons button:focus{
     font-weight: bold;
     color: white;
-    box-shadow: inset 160px 0 0 0 #84bf41;
+    box-shadow: inset 190px 0 0 0 #84bf41;
 }
 
 .order-control-buttons button:active,

@@ -1,26 +1,50 @@
 $(document).ready(function () {
 
-    let isClicked;
     changeTable($('.confirm'), $('.active'))
 
-    if (isClicked === undefined) {
-        isClicked = $('.active');
-        $('.active').css({'background': '#84BF41', 'color': 'white'});
-    }
+    let isClicked = $('.active');
+    $('.active').css({'background': '#84BF41', 'color': 'white'});
 
     $('.active').on('click', function () {
+        if (isClicked.attr('class') === 'confirmed-order-map'){
+            $('.main').css('display', 'none');
+            $('.orders').css('display', 'block');
+        }
+
         changeTable(isClicked, $(this));
         isClicked = $(this);
+        $('.table').attr('currentOrders', $(this).attr('class'));
     });
 
     $('.confirmed').on('click', function () {
+        if (isClicked.attr('class') === 'confirmed-order-map'){
+            $('.main').css('display', 'none');
+            $('.orders').css('display', 'block');
+        }
+
         changeTable(isClicked, $(this));
         isClicked = $(this);
+        $('.table').attr('currentOrders', $(this).attr('class'));
     });
 
     $('.finished').on('click', function () {
+        if (isClicked.attr('class') === 'confirmed-order-map'){
+            $('.main').css('display', 'none');
+            $('.orders').css('display', 'block');
+        }
+
         changeTable(isClicked, $(this));
         isClicked = $(this);
+        $('.table').attr('currentOrders', $(this).attr('class'));
+    });
+
+    $('.confirmed-order-map').on('click', function () {
+        isClicked.attr("style", "");
+        isClicked = $(this);
+        $(this).css({"color": "white", "background": "#84BF41"});
+        $('.main').css('display', 'block');
+        $('.orders').css('display', 'none');
+        getConfirmedOrdersForMap();
     });
 
 });

@@ -88,6 +88,22 @@ function openOrder(order){
 
     }
 
+    $('.fastest').off('click');
+    $('.shortest').off('click');
+    $('.bicycle').off('click');
+
+    $('.fastest').on('click', function () {
+       buildRoute($(this), order.address);
+    });
+
+    $('.shortest').on('click', function () {
+        buildRoute($(this), order.address);
+    });
+
+    $('.bicycle').on('click', function () {
+        buildRoute($(this), order.address);
+    });
+
     modalWindow.css({"visibility": "visible", "opacity": "1"})
-    openMap(order.address);
+    buildRoute($('.fastest'), order.address);
 }

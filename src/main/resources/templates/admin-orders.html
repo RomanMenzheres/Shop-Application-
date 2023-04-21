@@ -31,11 +31,13 @@
 
             <button class="finished">Finished Orders</button>
 
+            <button class="confirmed-order-map">Confirmed Orders Map</button>
+
         </div>
 
         <div class="orders">
 
-            <table id="table" class="table">
+            <table id="table" class="table" th:currentOrders="'active'">
                 <thead class="table-header">
                 <tr class="table-head-row">
                     <th class="header-item-id">Id</th>
@@ -52,6 +54,8 @@
             </table>
 
         </div>
+
+        <div th:replace="~{confirmed-order-map}"></div>
 
         <div th:replace="~{modal-window-open-order}"></div>
 
