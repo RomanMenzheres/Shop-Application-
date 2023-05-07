@@ -1,6 +1,7 @@
 package com.example.shop.service.Implementation;
 
 import com.example.shop.entity.Category;
+import com.example.shop.entity.Product;
 import com.example.shop.entity.Role;
 import com.example.shop.repository.CategoryRepository;
 import com.example.shop.repository.RoleRepository;
@@ -9,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service("CategoryService")
@@ -51,6 +53,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAll() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public List<Category> getSortedAll(){
+        return categoryRepository.findAll().stream()
+                .sorted(Comparator.comparing(Category::getName))
+                .toList();
     }
 
 }

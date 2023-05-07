@@ -5,8 +5,10 @@ import com.example.shop.entity.Product;
 import com.example.shop.repository.ProductRepository;
 import com.example.shop.service.ProductService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,9 +54,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getSortedAll(){
+        return productRepository.findAll().stream()
+                .sorted(Comparator.comparing((Product p) -> p.getCategory().getName()).thenComparing(Product::getName))
+                .toList();
+    }
+
+    @Override
     public List<Product> getAllByCategory(Category category) {
         return productRepository.findAll().stream()
                 .filter(product -> product.getCategory().equals(category))
+                .sorted(Comparator.comparing(Product::getName))
                 .collect(Collectors.toList());
     }
 }

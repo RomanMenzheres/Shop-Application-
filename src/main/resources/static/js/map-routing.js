@@ -1,6 +1,6 @@
 let map;
 let from = 'вулиця 16-го Липня, 6, Рівне';
-let myContainer = L.DomUtil.get('custom-control');
+let myContainer = L.DomUtil.get('navigation-control-for-open-order');
 let customControl = L.control({position: 'topleft'});
 
 function buildRoute(link, orderLocation){
@@ -14,7 +14,7 @@ function buildRoute(link, orderLocation){
         zoom: 12
     });
 
-    link.siblings('button').prop('disabled', false)
+    link.siblings('button').prop('disabled', false);
 
     var directions = MQ.routing.directions().on('success', function (data) {
         if (data.info !== undefined){
@@ -32,13 +32,15 @@ function buildRoute(link, orderLocation){
             routeType: link.attr('class'),
             unit: 'k',
             locale: 'uk_UA',
-            avoidTimedConditions: true
+            avoidTimedConditions: true,
+            useTraffic: true
         }
     });
 
     let directionsLayer = MQ.routing.routeLayer({
         directions: directions,
-        fitBounds: true
+        fitBounds: true,
+        draggable: false
     })
 
     map.addLayer(directionsLayer);

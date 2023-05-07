@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Needler's - Admin - Products</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/table.css">
+  <link rel="stylesheet" href="/css/admin-products.css">
+  <link rel="stylesheet" href="/css/scrollbar.css">
+
+  <script src="/js/delete-product.js" defer></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="page">
+
+  <div th:replace="~{admin-menu}"></div>
+
+  <div class="page-content">
+
+    <div class="product-control-button">
+      <a th:href="@{/product/admin/create}" class="admin-add-button">Add New Product</a>
+    </div>
+
+    <div class="products">
+
+      <table id="table" class="table">
+        <thead class="table-header">
+        <tr class="table-head-row">
+          <th class="header-item-id">Id</th>
+          <th class="header-item">Title</th>
+          <th class="header-item">Price</th>
+          <th class="header-item">Category</th>
+          <th class="header-item">Actions</th>
+        </tr>
+        </thead>
+
+        <tbody class="table-content">
+
+          <tr th:each="product, iter : ${products}"
+              th:class="${iter.index == (#lists.size(products) - 1)} ? 'table-row table-last-row' : 'table-row'">
+
+            <td class="table-data-id" th:text="${product.id}"></td>
+            <td class="table-data" th:text="${product.name}"></td>
+            <td class="table-data" th:text="${product.price}"></td>
+            <td class="table-data" th:text="${product.category.name}"></td>
+
+            <td class="table-data">
+              <div class="actions">
+
+                <a th:href="@{|/product/admin/${product.id}/update|}" class="update-product">
+                  <img class="update-displayed" src="../images/products/update-yellow.png">
+                  <img class="update-hidden" src="../images/products/update-white.png">
+                </a>
+
+                <button onclick="deleteProduct($(this))" class="delete-product" th:pid="${product.id}">
+                  <img class="delete-displayed" src="../images/products/-_red.png">
+                  <img class="delete-hidden" src="../images/products/-_white.png">
+                </button>
+
+              </div>
+            </td>
+
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+
+    <div th:replace="~{confirmed-order-map}"></div>
+
+    <div th:replace="~{modal-window-open-order}"></div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -11,9 +11,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Pattern(regexp = "^[\\p{L} .'-]+$",
-            message = "Must start with a capital letter followed by one or more lowercase letters")
+    
     @NotBlank(message = "The 'name' cannot be empty")
     @Column(name = "name", nullable = false, unique = true)
     private String name;

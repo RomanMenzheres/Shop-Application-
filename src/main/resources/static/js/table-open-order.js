@@ -23,7 +23,7 @@ function getOrder(tableRow){
 
 function openOrder(order){
     $('.order-header').text('Order №' + order.id);
-    $('<h3>').text('Status: ' + order.status).appendTo($('.status').empty());
+    $('<h3>').text('Status: ' + order.status).appendTo($('.current-status').empty());
 
     $('<span>').text('Full Name: ' + order.owner.firstName + ' ' + order.owner.lastName).appendTo($('.customer-full-name').empty());
     $('<span>').text('Email: ' + order.owner.email).appendTo($('.customer-email').empty());

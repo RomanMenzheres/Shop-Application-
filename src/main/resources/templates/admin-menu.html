@@ -9,21 +9,9 @@
 
     <div class="buttons-container">
 
-        <div>
-            <a>USERS</a>
-        </div>
+        <a th:style="${#strings.equals(clicked, 'orders')} ? 'border-bottom: 1px solid #84BF41' : ''" th:href="@{/admin/orders}">ORDERS</a>
 
-        <div>
-            <a>ORDERS</a>
-        </div>
-
-        <div>
-            <a>PRODUCTS</a>
-        </div>
-
-        <div>
-            <a>CATEGORIES</a>
-        </div>
+        <a th:style="${#strings.equals(clicked, 'products')} ? 'border-bottom: 1px solid #84BF41' : ''" th:href="@{/admin/products}">PRODUCTS</a>
 
     </div>
 

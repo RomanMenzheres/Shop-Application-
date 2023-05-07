@@ -164,7 +164,7 @@ body {
 
 .order {
     width: 100%;
-    height: 30px;
+    height: 40px;
     overflow: hidden;
     border-bottom: 1px solid #d7d7d7;
     margin-bottom: 20px;
@@ -172,27 +172,26 @@ body {
 
 .top {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     align-items: center;
 }
 
-.top-price, .top-address {
-    margin-right: 20px;
+.top-price {
+    flex: 1 1 10%;
 }
 
-.status-info {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    min-width: 220px;
-    width: 300px;
-    max-width: 300px;
-}
-
-.top-status {
-    min-width: 107px;
+.top-address{
     text-align: center;
+    flex: 1 1 50%;
+}
+
+.top-status{
+    text-align: center;
+    flex: 1 1 15%;
+}
+
+.top-creation-date {
+    text-align: center;
+    flex: 1 1 20%;
 }
 
 .unfold {

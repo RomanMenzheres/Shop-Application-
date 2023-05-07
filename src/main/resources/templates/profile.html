@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="/css/scrollbar.css">
+    <link rel="stylesheet" href="/css/status.css">
     <title>Needler's - Profile</title>
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -12,6 +13,7 @@
     <script src="/js/modal-window-thanks.js" defer></script>
     <script src="/js/modal-window-close.js" defer></script>
     <script src="/js/unfold-user-order.js" defer></script>
+    <script src="/js/profile-orders-status-style.js" defer></script>
 </head>
 <body>
 
@@ -35,7 +37,7 @@
                 </div>
 
                 <div class="profile-update">
-                    <a th:href="@{|/profile/${user.id}/update|}">Update Info</a>
+                    <a th:href="@{/profile/update}">Update Info</a>
                 </div>
 
             </div>
@@ -138,35 +140,31 @@
                                     <div class="top">
 
                                         <div class="top-price">
-                                            <span th:text="'$' + ${order.price}"></span>
+                                            <span th:text="'$' + ${#numbers.formatDecimal(order.price, 0, 'COMMA', 2, 'POINT')}"></span>
                                         </div>
 
                                         <div class="top-address">
                                             <span th:text="${order.address}">Address</span>
                                         </div>
 
-                                        <div class="status-info">
+                                        <div class="top-status status">
+                                            <span th:text="${order.status}"></span>
+                                        </div>
 
-                                            <div class="top-status">
-                                                <span th:text="${order.status}"></span>
-                                            </div>
+                                        <div class="top-creation-date">
+                                            <span th:text="${order.creationDateAsString}">Date</span>
+                                        </div>
 
-                                            <div class="top-creation-date">
-                                                <span th:text="${order.creationDateAsString}">Date</span>
-                                            </div>
+                                        <div class="unfold">
+                                            <a class="unfold-displayed" th:id="'displayed' + ${order.id}"
+                                               th:oid="${order.id}">
+                                                <img src="../images/profile/more.png">
+                                            </a>
 
-                                            <div class="unfold">
-                                                <a class="unfold-displayed" th:id="'displayed' + ${order.id}"
-                                                   th:oid="${order.id}">
-                                                    <img src="../images/profile/more.png">
-                                                </a>
-
-                                                <a class="unfold-hidden" th:id="'hidden' + ${order.id}"
-                                                   th:oid="${order.id}">
-                                                    <img src="../images/profile/less.png">
-                                                </a>
-                                            </div>
-
+                                            <a class="unfold-hidden" th:id="'hidden' + ${order.id}"
+                                               th:oid="${order.id}">
+                                                <img src="../images/profile/less.png">
+                                            </a>
                                         </div>
 
                                     </div>

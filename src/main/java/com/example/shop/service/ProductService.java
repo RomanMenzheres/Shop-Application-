@@ -17,6 +17,8 @@ public interface ProductService {
 
     List<Product> getAll();
 
+    List<Product> getSortedAll();
+
     List<Product> getAllByCategory(Category category);
 
 

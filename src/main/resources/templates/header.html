@@ -6,7 +6,7 @@
         <img src="../images/header/logo.png">
       </div>
       <div class="navigation">
-        <a class="destination" th:href="@{/admin}" sec:authorize="hasAuthority('ADMIN')">
+        <a class="destination" th:href="@{/admin/orders}" sec:authorize="hasAuthority('ADMIN')">
           <img class="black" src="../images/header/A-black.png">
           <img class="green" src="../images/header/A-green.png">
         </a>

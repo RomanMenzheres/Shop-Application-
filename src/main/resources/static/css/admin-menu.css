@@ -22,9 +22,12 @@
     margin-top: 50px;
 }
 
-.buttons-container div {
-    border-bottom: 1px solid #84BF41;
+.buttons-container a {
+    font-size: 16px;
+    color: white;
+    text-decoration: auto;
     width: 100%;
     text-align: center;
     padding: 5px;
+    transition: 0.35s;
 }

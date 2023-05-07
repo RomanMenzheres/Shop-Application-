@@ -13,7 +13,7 @@ $(document).ready(function () {
             countOfActiveOrders = currentActiveOrders
 
             if ($('.table').attr('currentOrders') === 'active') {
-                changeTable($('.confirmed'), $('.active'));
+                getOrdersForTable($('.confirmed'), $('.active'));
             }
         }
 

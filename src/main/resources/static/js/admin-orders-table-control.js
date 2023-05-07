@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    changeTable($('.confirm'), $('.active'))
+    getOrdersForTable($('.confirm'), $('.active'))
 
     let isClicked = $('.active');
     $('.active').css({'background': '#84BF41', 'color': 'white'});
@@ -11,7 +11,7 @@ $(document).ready(function () {
             $('.orders').css('display', 'block');
         }
 
-        changeTable(isClicked, $(this));
+        getOrdersForTable(isClicked, $(this));
         isClicked = $(this);
         $('.table').attr('currentOrders', $(this).attr('class'));
     });
@@ -22,7 +22,7 @@ $(document).ready(function () {
             $('.orders').css('display', 'block');
         }
 
-        changeTable(isClicked, $(this));
+        getOrdersForTable(isClicked, $(this));
         isClicked = $(this);
         $('.table').attr('currentOrders', $(this).attr('class'));
     });
@@ -33,7 +33,7 @@ $(document).ready(function () {
             $('.orders').css('display', 'block');
         }
 
-        changeTable(isClicked, $(this));
+        getOrdersForTable(isClicked, $(this));
         isClicked = $(this);
         $('.table').attr('currentOrders', $(this).attr('class'));
     });
@@ -49,7 +49,7 @@ $(document).ready(function () {
 
 });
 
-function changeTable(isClicked, link) {
+function getOrdersForTable(isClicked, link) {
     if (isClicked.attr('class') !== link.attr('class')) {
         $.ajax({
             url: '/order/' + link.attr('class'),
@@ -87,19 +87,20 @@ function tableForFinishedOrders(data) {
         let row = $('<tr onclick="getOrder($(this))" class="table-row">').appendTo(ordersTableBody);
 
         row.attr('oid', order.id);
-        if (index !== data.length - 1){
-            row.css('border-bottom', '1px solid #e0e0e0')
+        if (index === data.length - 1){
+            row.addClass('table-last-row')
         }
 
         $('<td class="table-data-id">').text(order.id).appendTo(row);
         $('<td class="table-data-price">').text('$' + order.price).appendTo(row);
         $('<td class="table-data">').text(order.address).appendTo(row);
         $('<td class="table-data">').text(order.phone).appendTo(row);
-        $('<td class="table-data">').text(order.status).appendTo(row);
         $('<td class="table-data">').text(order.creationDate).appendTo(row);
         if (order.status === 'CANCELED') {
+            $('<td class="table-data status canceled">').text(order.status).appendTo(row);
             $('<td class="table-data">').text(order.cancelDate).appendTo(row);
         } else {
+            $('<td class="table-data status delivered">').text(order.status).appendTo(row);
             $('<td class="table-data">').text(order.deliveryDate).appendTo(row);
         }
     });
@@ -123,19 +124,26 @@ function tableForNotFinishedOrders(isHeadWasChanged, data) {
         let row = $('<tr onclick="getOrder($(this))" class="table-row">').appendTo(ordersTable);
 
         row.attr('oid', order.id);
-        if (index !== data.length - 1){
-            row.css('border-bottom', '1px solid #e0e0e0')
+        if (index === data.length - 1){
+            row.addClass('table-last-row')
         }
 
         $('<td class="table-data-id">').text(order.id).appendTo(row);
         $('<td class="table-data-price">').text('$' + order.price).appendTo(row);
         $('<td class="table-data">').text(order.address).appendTo(row);
         $('<td class="table-data">').text(order.phone).appendTo(row);
-        $('<td class="table-data">').text(order.status).appendTo(row);
         $('<td class="table-data">').text(order.creationDate).appendTo(row);
 
-        let confirmButton = $('<button onclick="action($(this))" class="confirm">').attr('oid', order.id);
-        let cancelButton = $('<button onclick="action($(this))" class="cancel">').attr('oid', order.id);
+        if (order.status === 'PROCESSING'){
+            $('<td class="table-data status processing">').text(order.status).appendTo(row);
+        } else if (order.status === 'PAID') {
+            $('<td class="table-data status paid">').text(order.status).appendTo(row);
+        } else {
+            $('<td class="table-data status confirmed">').text(order.status).appendTo(row);
+        }
+
+        let confirmButton = $('<button onclick="action($(this), event)" class="confirm">').attr('oid', order.id);
+        let cancelButton = $('<button onclick="action($(this), event)" class="cancel">').attr('oid', order.id);
         let actionDiv = $('<div class="actions">');
 
 

@@ -14,7 +14,7 @@ $(document).ready(function () {
     $(".unfold-hidden").on('click', function () {
         let orderId = $(this).attr("oid")
 
-        $("#order" + orderId).css("height", "30px");
+        $("#order" + orderId).css("height", "40px");
 
         $("#hidden" + orderId).hide();
         $("#displayed" + orderId).show();

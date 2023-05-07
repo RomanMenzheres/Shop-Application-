@@ -1,4 +1,5 @@
 let confirmedOrderMap;
+let currentRoute;
 
 let marketIcon = L.icon({
     iconUrl: 'https://assets.mapquestapi.com/icon/v2/external/https://assets.mapquestapi.com/icon/v2/marker-md-84bf41-M.png',
@@ -17,14 +18,17 @@ let orderIcon = L.icon({
 });
 
 let locations;
-
-let currentRoute;
+let routeType;
 
 let narrativeContainer = L.DomUtil.get('route-narrative');
 let customNarrativeControl = L.control({position: 'topleft'});
 
+let routeTypeControlContainer = L.DomUtil.get('navigation-control-for-global-map');
+let routeTypeControlLayer = L.control({position: 'topright'});
+
 function getConfirmedOrdersForMap() {
     locations  = ['вулиця 16-го Липня, 6, Рівне'];
+    routeType = 'fastest';
 
     $.ajax({
         url: '/order/confirmed',
@@ -119,6 +123,12 @@ function buildMapWithOrdersLocation(data) {
 
     customNarrativeControl.addTo(confirmedOrderMap);
 
+    routeTypeControlLayer.onAdd = function(confirmedOrderMap) {
+        return routeTypeControlContainer;
+    }
+
+    routeTypeControlLayer.addTo(confirmedOrderMap);
+
     $('#route-narrative').on('mouseover', function () {
        confirmedOrderMap.scrollWheelZoom.disable();
     });
@@ -128,6 +138,31 @@ function buildMapWithOrdersLocation(data) {
     });
 
     L.DomUtil.get('route-narrative').innerHTML = '';
+
+    $('.fastestForGlobalMap').prop('disabled', true);
+
+    $('.fastestForGlobalMap').on('click', function () {
+        changeRouteType($(this));
+    });
+
+    $('.shortestForGlobalMap').on('click', function () {
+        changeRouteType($(this));
+    });
+
+    $('.bicycleForGlobalMap').on('click', function () {
+        changeRouteType($(this));
+    });
+}
+
+function changeRouteType(link){
+    if (currentRoute !== undefined){
+        link.siblings('button').prop('disabled', false);
+
+        routeType = link.attr('routeType');
+        buildGlobalRoute();
+
+        link.prop('disabled', true);
+    }
 }
 
 function buildGlobalRoute() {
@@ -201,7 +236,7 @@ function buildGlobalRoute() {
     dir.route({
         locations: locations,
         options: {
-            routeType: 'fastest',
+            routeType: routeType,
             unit: 'k',
             locale: 'uk_UA',
             useTraffic: true
@@ -210,7 +245,8 @@ function buildGlobalRoute() {
 
     currentRoute = MQ.routing.routeLayer({
         directions: dir,
-        fitBounds: true
+        fitBounds: true,
+        draggable: false
     });
 
     confirmedOrderMap.addLayer(currentRoute);

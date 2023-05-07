@@ -1,4 +1,6 @@
-function action(link) {
+function action(link, event) {
+    event.stopPropagation();
+
     let orderId = link.attr('oid');
     let action = link.attr('class');
 
@@ -9,12 +11,10 @@ function action(link) {
         success: function (data) {
             let status = data.substring(data.lastIndexOf(' ')  + 1);
 
-            console.log(status)
-
             if (status === 'PAID' || status === 'PROCESSING'){
-                changeTable($('.confirmed'), $('.active'))
+                getOrdersForTable($('.confirmed'), $('.active'))
             } else {
-                changeTable($('.active'), $('.confirmed'))
+                getOrdersForTable($('.active'), $('.confirmed'))
             }
         },
 

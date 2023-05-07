@@ -11,8 +11,8 @@
     <div class="form-container">
 
         <span class="back">
-            <a th:href="@{/menu}">
-                <img class="plus-displayed" src="../images/create-product/back.png">
+            <a th:href="${admin} ? @{/admin/products} : @{/menu}">
+                <img class="plus-displayed" src="../../images/create-product/back.png">
             </a>
         </span>
 
@@ -33,11 +33,14 @@
                         th:text="${availableCategory.name}">
                 </option>
             </select>
+
+            <input name="admin" type="hidden" th:value="${admin} ? 'admin' : ''"/>
+
             <button class="submit">Create</button>
         </form>
     </div>
     <div class="overlay-container">
-        <img src="../images/login/food.png">
+        <img src="../../images/login/food.png">
     </div>
 </div>
 
