@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="/css/swiper.css">
 
     <meta charset="UTF-8">
-    <title>Needler's - Menu</title>
+    <title>Needler's - Меню</title>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script src="/js/swiper.js" defer></script>
     <script src="/js/menu-fixed-category.js" defer></script>
+    <script src="/js/swiper.js" defer></script>
     <script src="/js/delete-product.js" defer></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
@@ -97,12 +97,12 @@
 
         <div class="menu-title-box">
 
-            <h1 class="menu-title" th:text="${selectedCategory != null ? selectedCategory.name : 'Menu'}"></h1>
+            <h1 class="menu-title" th:text="${selectedCategory != null ? selectedCategory.name : 'Меню'}"></h1>
 
             <div class="btn-add-box" sec:authorize="hasAuthority('ADMIN')">
 
-                <a class="btn-add" th:href="@{/product/create}">Add New Product</a>
-                <a class="btn-add" th:href="@{/category/create}">Add New Category</a>
+                <a class="btn-add" th:href="@{/product/create}">Додати продукт</a>
+                <a class="btn-add" th:href="@{/category/create}">Додати категорію</a>
 
             </div>
 

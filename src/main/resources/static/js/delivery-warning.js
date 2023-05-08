@@ -1,7 +1,7 @@
 function deliveryPriceCheck(totalPrice){
     if (totalPrice < 10){
         $(".minimum-price-warning-block").show();
-        $(".warning-text").text("The minimum order amount is $10. Add products worth $"
+        $(".warning-text").text("Мінімальна сума замовлення $10. Додайте продуктів ще на $"
             + (10 - totalPrice).toFixed(2) + ".");
     } else {
         $(".minimum-price-warning-block").hide();
@@ -12,17 +12,17 @@ function deliveryPriceCheck(totalPrice){
     if(remainder > 0){
         $(".progress-bar-container").show();
         $(".delivery-price-value").text("$8.00")
-        $(".delivery-text").text("Add products worth $" + remainder.toFixed(2) +" to get free delivery.");
+        $(".delivery-text").text("Додайте продуктів ще на $" + remainder.toFixed(2) +", щоб отримати безкоштовну доставку.");
         let progressBarPercent = (totalPrice / 30);
         let newWidth = parseFloat($(".progress-bar").width()) * progressBarPercent;
         $(".progress-bar-fill").width(newWidth);
     } else {
         $(".delivery-price-value").text("$0.00")
-        $(".delivery-text").text("You have got free delivery!");
+        $(".delivery-text").text("Ви отримали безкоштовну доставку!");
         $(".progress-bar-container").hide();
     }
 }
 
 function resetWarningText() {
-    $(".warning-text").text("The minimum order amount is $10.");
+    $(".warning-text").text("Мінімальна сума замовлення $10.");
 }

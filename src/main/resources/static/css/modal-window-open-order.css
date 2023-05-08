@@ -13,7 +13,13 @@
 }
 
 .current-status {
+    display: flex;
     font-weight: bold;
+}
+
+.current-status h3 {
+    margin: 0;
+    padding: 8px;
 }
 
 .customer-full-name, .customer-address, .customer-email, .customer-phone, .order-address, .order-phone,

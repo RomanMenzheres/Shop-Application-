@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/create-product.css">
-    <title>Needler's - Update Info</title>
+    <title>Needler's - Редагування профілю</title>
 </head>
 <body>
 
@@ -17,12 +17,12 @@
         </span>
 
         <form th:action="@{/profile/update}" th:object="${user}" method="POST">
-            <h1 style="margin-bottom: 15px;">Update Information</h1>
-            <span>Please, fill in the form below</span>
+            <h1 style="margin-bottom: 15px;">Редагування профілю</h1>
+            <span>Будь ласка, заповніть форму нижче</span>
             <input type="text" th:field="*{firstName}" name="firstname" th:placeholder="${user.firstName}" />
             <input type="text" th:field="*{lastName}" name="lastname" th:placeholder="${user.lastName}" />
-            <input type="password" th:field="*{password}" name="password" placeholder="Password" />
-            <button class="submit">Update</button>
+            <input type="password" th:field="*{password}" name="password" placeholder="Пароль" />
+            <button class="submit">Оновити</button>
         </form>
     </div>
     <div class="overlay-container">

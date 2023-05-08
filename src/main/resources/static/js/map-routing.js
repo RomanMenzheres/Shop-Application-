@@ -18,8 +18,8 @@ function buildRoute(link, orderLocation){
 
     var directions = MQ.routing.directions().on('success', function (data) {
         if (data.info !== undefined){
-            $('.route-distance-info').text('Distance: ' + data.route.distance + ' km');
-            $('.route-time-info').text('Time: ' + data.route.legs[0].formattedTime);
+            $('.route-distance-info').text('Відстань: ' + data.route.distance + ' km');
+            $('.route-time-info').text('Час у дорозі: ' + data.route.legs[0].formattedTime);
         }
     });
 

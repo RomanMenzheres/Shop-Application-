@@ -74,15 +74,14 @@ public class UserController {
     public String updatePhone(Model model, @AuthenticationPrincipal LoginDetails loginDetails) {
 
         User user = loginDetails.getUser();
+        model.addAttribute("formTitle", "Введіть номер телефону");
 
         if (user.getPhone() != null) {
-            model.addAttribute("pageTitle", "Needler's - Update Phone");
-            model.addAttribute("formTitle", "Update Phone");
+            model.addAttribute("pageTitle", "Needler's - Оновлення номера телефону");
             model.addAttribute("placeholder", user.getPhone());
         } else {
-            model.addAttribute("pageTitle", "Needler's - Add Phone");
-            model.addAttribute("formTitle", "Add New Phone");
-            model.addAttribute("placeholder", "Phone Number");
+            model.addAttribute("pageTitle", "Needler's - Додавання номера телефону");
+            model.addAttribute("placeholder", "Номер телефону");
         }
         model.addAttribute("object", "PHONE");
         model.addAttribute("user", new User());
@@ -93,8 +92,8 @@ public class UserController {
     @GetMapping("/info/update/email")
     public String updateEmail(Model model, @AuthenticationPrincipal LoginDetails loginDetails) {
 
-        model.addAttribute("pageTitle", "Needler's - Update Email");
-        model.addAttribute("formTitle", "Update Email");
+        model.addAttribute("pageTitle", "Needler's - Оновлення email\'а");
+        model.addAttribute("formTitle", "Введіть email");
         model.addAttribute("placeholder", loginDetails.getUser().getEmail());
         model.addAttribute("object", "EMAIL");
         model.addAttribute("user", new User());
@@ -106,15 +105,14 @@ public class UserController {
     public String updateAddress(Model model, @AuthenticationPrincipal LoginDetails loginDetails) {
 
         User user = loginDetails.getUser();
+        model.addAttribute("formTitle", "Введіть адресу");
 
         if (user.getAddress() != null) {
-            model.addAttribute("pageTitle", "Needler's - Update Address");
-            model.addAttribute("formTitle", "Update Address");
+            model.addAttribute("pageTitle", "Needler's - Оновлення адреси");
             model.addAttribute("placeholder", user.getAddress());
         } else {
-            model.addAttribute("pageTitle", "Needler's - Add Address");
-            model.addAttribute("formTitle", "Add New Address");
-            model.addAttribute("placeholder", "Address");
+            model.addAttribute("pageTitle", "Needler's - Додавання адреси");
+            model.addAttribute("placeholder", "Адреса");
         }
         model.addAttribute("object", "ADDRESS");
         model.addAttribute("user", new User());

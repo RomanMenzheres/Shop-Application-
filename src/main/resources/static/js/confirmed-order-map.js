@@ -83,7 +83,7 @@ function buildMapWithOrdersLocation(data) {
 
             let marker = L.marker([ latlng.lat, latlng.lng ], {icon: orderIcon})
                 .addTo(confirmedOrderMap)
-                .bindPopup('<strong> Order №' + order.id + '</strong>');
+                .bindPopup('<strong> Замовлення №' + order.id + '</strong>');
 
             marker.on('mouseover', function () {
                 this.openPopup();

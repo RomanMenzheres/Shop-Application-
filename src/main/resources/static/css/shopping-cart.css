@@ -192,7 +192,7 @@ body {
 
 .clear-cart-button:hover {
     color: white;
-    box-shadow: inset 150px 0 0 0 #84bf41;
+    box-shadow: inset 180px 0 0 0 #84bf41;
 }
 
 .clear-cart-button:active {

@@ -80,7 +80,7 @@ function tableForFinishedOrders(data) {
 
     if (data.length === 0){
         let row = $('<tr class="table-row">').appendTo(ordersTableBody);
-        $('<td class="table-data">').text('Table has no info!').appendTo(row);
+        $('<td class="table-data">').text('Нажаль, таблиця пуста :(').appendTo(row);
     }
 
     $.each(data, function (index, order) {
@@ -97,10 +97,10 @@ function tableForFinishedOrders(data) {
         $('<td class="table-data">').text(order.phone).appendTo(row);
         $('<td class="table-data">').text(order.creationDate).appendTo(row);
         if (order.status === 'CANCELED') {
-            $('<td class="table-data status canceled">').text(order.status).appendTo(row);
+            $('<td class="table-data status canceled">').text('СКАСОВАНО').appendTo(row);
             $('<td class="table-data">').text(order.cancelDate).appendTo(row);
         } else {
-            $('<td class="table-data status delivered">').text(order.status).appendTo(row);
+            $('<td class="table-data status delivered">').text('ДОСТАВЛЕНО').appendTo(row);
             $('<td class="table-data">').text(order.deliveryDate).appendTo(row);
         }
     });
@@ -117,7 +117,7 @@ function tableForNotFinishedOrders(isHeadWasChanged, data) {
 
     if (data.length === 0){
         let row = $('<tr class="table-row">').appendTo(ordersTable);
-        $('<td class="table-data">').text('Table has no info!').appendTo(row);
+        $('<td class="table-data">').text('Нажаль, таблиця пуста :(').appendTo(row);
     }
 
     $.each(data, function (index, order) {
@@ -135,11 +135,11 @@ function tableForNotFinishedOrders(isHeadWasChanged, data) {
         $('<td class="table-data">').text(order.creationDate).appendTo(row);
 
         if (order.status === 'PROCESSING'){
-            $('<td class="table-data status processing">').text(order.status).appendTo(row);
+            $('<td class="table-data status processing">').text('ОБРОБЛЯЄТЬСЯ').appendTo(row);
         } else if (order.status === 'PAID') {
-            $('<td class="table-data status paid">').text(order.status).appendTo(row);
+            $('<td class="table-data status paid">').text('СПЛАЧЕНО').appendTo(row);
         } else {
-            $('<td class="table-data status confirmed">').text(order.status).appendTo(row);
+            $('<td class="table-data status confirmed">').text('ПІДТВЕРДЖЕНО').appendTo(row);
         }
 
         let confirmButton = $('<button onclick="action($(this), event)" class="confirm">').attr('oid', order.id);
@@ -170,16 +170,16 @@ function headForTable(isNeedDefault) {
 
     headRow.attr('class', 'table-head-row')
 
-    $('<td>').text('Id').appendTo(headRow).attr('class', 'header-item-id');
-    $('<td>').text('Price').appendTo(headRow).attr('class', 'header-item-price');
-    $('<td>').text('Address').appendTo(headRow).attr('class', 'header-item');
-    $('<td>').text('Phone').appendTo(headRow).attr('class', 'header-item');
-    $('<td>').text('Status').appendTo(headRow).attr('class', 'header-item');
-    $('<td>').text('Creation Date').appendTo(headRow).attr('class', 'header-item');
+    $('<td>').text('ID').appendTo(headRow).attr('class', 'header-item-id');
+    $('<td>').text('Ціна').appendTo(headRow).attr('class', 'header-item-price');
+    $('<td>').text('Адреса').appendTo(headRow).attr('class', 'header-item');
+    $('<td>').text('Номер Телефону').appendTo(headRow).attr('class', 'header-item');
+    $('<td>').text('Статус').appendTo(headRow).attr('class', 'header-item');
+    $('<td>').text('Дата Створення').appendTo(headRow).attr('class', 'header-item');
 
     if (isNeedDefault) {
         $('<td>').text('Actions').appendTo(headRow).attr('class', 'header-item');
     } else {
-        $('<td>').text('Delivery/Cancel Date').appendTo(headRow).attr('class', 'header-item');
+        $('<td>').text('Дата Доставки/Скасування').appendTo(headRow).attr('class', 'header-item');
     }
 }

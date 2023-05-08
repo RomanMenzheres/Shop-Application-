@@ -1,10 +1,18 @@
-let stickySidebar = $('.manipulating-products').offset().top;
+let sidebar = $('.manipulating-products');
+let stickySidebar = sidebar.offset().top;
+
+$(window).load(function () {
+    if (stickySidebar === 90){
+        sidebar.removeClass('affix');
+        stickySidebar = sidebar.offset().top;
+    }
+});
 
 $(window).scroll(function() {
     if ($(window).scrollTop() > stickySidebar - 85) {
-        $('.manipulating-products').addClass('affix');
+        sidebar.addClass('affix');
     }
     else {
-        $('.manipulating-products').removeClass('affix');
+        sidebar.removeClass('affix');
     }
 });
