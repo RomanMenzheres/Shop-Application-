@@ -27,6 +27,7 @@ public interface OrderService {
     List<Order> findOrdersForConfirmation();
 
     List<Order> findConfirmedOrders();
+    List<Order> findDeliveringOrders();
 
     List<Order> findFinishedOrders();
 

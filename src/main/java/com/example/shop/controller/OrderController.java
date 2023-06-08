@@ -1,6 +1,7 @@
 package com.example.shop.controller;
 
 import com.example.shop.entity.Order;
+import com.example.shop.entity.User;
 import com.example.shop.entity.enums.PaymentMethod;
 import com.example.shop.entity.enums.Status;
 import com.example.shop.security.LoginDetails;
@@ -8,10 +9,7 @@ import com.example.shop.service.OrderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
@@ -79,6 +77,30 @@ public class OrderController {
         }
 
         return "checkout";
+    }
+
+    @GetMapping("/{id}/update/address")
+    public String updateAddress(@PathVariable("id") long orderId, Model model){
+        Order order = orderService.readById(orderId);
+
+        model.addAttribute("order", order);
+        model.addAttribute("placeholder", order.getAddress());
+
+        return "update-order-address";
+    }
+
+    @PostMapping("/{id}/update/address")
+    public String updateAddress(@PathVariable("id") long orderId,
+                                @ModelAttribute("order") Order newAddress){
+
+        Order order = orderService.readById(orderId);
+
+        order.setAddress(newAddress.getAddress());
+        order.setStatus(Status.UPDATED);
+
+        orderService.update(order);
+
+        return "redirect:/profile";
     }
 
 }

@@ -63,7 +63,7 @@ public class Product {
                 "id=" + id +
                 ", productName='" + name + '\'' +
                 ", price=" + price +
-                ", category=" + category +
+                ", category=" + category.getName() +
                 '}';
     }
 }

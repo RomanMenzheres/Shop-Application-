@@ -18,7 +18,7 @@ function buildRoute(link, orderLocation){
 
     var directions = MQ.routing.directions().on('success', function (data) {
         if (data.info !== undefined){
-            $('.route-distance-info').text('Відстань: ' + data.route.distance + ' km');
+            $('.route-distance-info').text('Відстань: ' + data.route.distance + ' км');
             $('.route-time-info').text('Час у дорозі: ' + data.route.legs[0].formattedTime);
         }
     });
@@ -31,7 +31,7 @@ function buildRoute(link, orderLocation){
         options: {
             routeType: link.attr('class'),
             unit: 'k',
-            locale: 'uk_UA',
+            //locale: 'uk_UA',
             avoidTimedConditions: true,
             useTraffic: true
         }

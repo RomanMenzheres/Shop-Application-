@@ -1,7 +1,10 @@
 $(document).ready(function () {
 
+    setUpOrdersUnfolding();
 
+});
 
+function setUpOrdersUnfolding() {
     $(".unfold-displayed").on('click', function () {
         let orderId = $(this).attr("oid")
 
@@ -19,5 +22,4 @@ $(document).ready(function () {
         $("#hidden" + orderId).hide();
         $("#displayed" + orderId).show();
     });
-
-});
+}

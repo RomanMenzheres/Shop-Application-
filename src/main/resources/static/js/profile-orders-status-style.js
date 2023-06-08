@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    styleOrdersStatus();
+
+});
+
+function styleOrdersStatus() {
     let listOfStatus = $('.top-status');
 
     for (let i = 0; i < listOfStatus.length; i++){
@@ -30,7 +35,12 @@ $(document).ready(function () {
             status.children[0].innerText = 'СКАСОВАНО';
             status.classList.add("canceled");
 
+        } else if (status.children[0].innerText === 'UPDATED'){
+            status.children[0].innerText = 'ОНОВЛЕНО';
+            status.classList.add("updated");
+        } else if (status.children[0].innerText === 'DELIVERING'){
+            status.children[0].innerText = 'В ДОРОЗІ';
+            status.classList.add("delivering");
         }
     }
-
-});
+}

@@ -6,9 +6,8 @@ $(document).ready(function () {
     $('.active').css({'background': '#84BF41', 'color': 'white'});
 
     $('.active').on('click', function () {
-        if (isClicked.attr('class') === 'confirmed-order-map'){
-            $('.main').css('display', 'none');
-            $('.orders').css('display', 'block');
+        if (isClicked.attr('class') === 'confirmed-order-map') {
+            afterMap();
         }
 
         getOrdersForTable(isClicked, $(this));
@@ -17,9 +16,18 @@ $(document).ready(function () {
     });
 
     $('.confirmed').on('click', function () {
-        if (isClicked.attr('class') === 'confirmed-order-map'){
-            $('.main').css('display', 'none');
-            $('.orders').css('display', 'block');
+        if (isClicked.attr('class') === 'confirmed-order-map') {
+            afterMap();
+        }
+
+        getOrdersForTable(isClicked, $(this));
+        isClicked = $(this);
+        $('.table').attr('currentOrders', $(this).attr('class'));
+    });
+
+    $('.delivering').on('click', function () {
+        if (isClicked.attr('class') === 'confirmed-order-map') {
+            afterMap();
         }
 
         getOrdersForTable(isClicked, $(this));
@@ -28,9 +36,8 @@ $(document).ready(function () {
     });
 
     $('.finished').on('click', function () {
-        if (isClicked.attr('class') === 'confirmed-order-map'){
-            $('.main').css('display', 'none');
-            $('.orders').css('display', 'block');
+        if (isClicked.attr('class') === 'confirmed-order-map') {
+            afterMap();
         }
 
         getOrdersForTable(isClicked, $(this));
@@ -48,6 +55,11 @@ $(document).ready(function () {
     });
 
 });
+
+function afterMap() {
+    $('.main').css('display', 'none');
+    $('.orders').css('display', 'block');
+}
 
 function getOrdersForTable(isClicked, link) {
     if (isClicked.attr('class') !== link.attr('class')) {
@@ -78,7 +90,7 @@ function tableForFinishedOrders(data) {
 
     ordersTableBody.empty();
 
-    if (data.length === 0){
+    if (data.length === 0) {
         let row = $('<tr class="table-row">').appendTo(ordersTableBody);
         $('<td class="table-data">').text('Нажаль, таблиця пуста :(').appendTo(row);
     }
@@ -87,7 +99,7 @@ function tableForFinishedOrders(data) {
         let row = $('<tr onclick="getOrder($(this))" class="table-row">').appendTo(ordersTableBody);
 
         row.attr('oid', order.id);
-        if (index === data.length - 1){
+        if (index === data.length - 1) {
             row.addClass('table-last-row')
         }
 
@@ -115,7 +127,7 @@ function tableForNotFinishedOrders(isHeadWasChanged, data) {
 
     ordersTable.empty();
 
-    if (data.length === 0){
+    if (data.length === 0) {
         let row = $('<tr class="table-row">').appendTo(ordersTable);
         $('<td class="table-data">').text('Нажаль, таблиця пуста :(').appendTo(row);
     }
@@ -124,7 +136,7 @@ function tableForNotFinishedOrders(isHeadWasChanged, data) {
         let row = $('<tr onclick="getOrder($(this))" class="table-row">').appendTo(ordersTable);
 
         row.attr('oid', order.id);
-        if (index === data.length - 1){
+        if (index === data.length - 1) {
             row.addClass('table-last-row')
         }
 
@@ -134,16 +146,24 @@ function tableForNotFinishedOrders(isHeadWasChanged, data) {
         $('<td class="table-data">').text(order.phone).appendTo(row);
         $('<td class="table-data">').text(order.creationDate).appendTo(row);
 
-        if (order.status === 'PROCESSING'){
+        if (order.status === 'PROCESSING') {
             $('<td class="table-data status processing">').text('ОБРОБЛЯЄТЬСЯ').appendTo(row);
         } else if (order.status === 'PAID') {
             $('<td class="table-data status paid">').text('СПЛАЧЕНО').appendTo(row);
-        } else {
+        } else if (order.status === 'CONFIRMED') {
             $('<td class="table-data status confirmed">').text('ПІДТВЕРДЖЕНО').appendTo(row);
+        } else if (order.status === 'UPDATED') {
+            $('<td class="table-data status updated">').text('ОНОВЛЕНО').appendTo(row);
+        } else {
+            $('<td class="table-data status delivering">').text('В ДОРОЗІ').appendTo(row);
         }
 
         let confirmButton = $('<button onclick="action($(this), event)" class="confirm">').attr('oid', order.id);
         let cancelButton = $('<button onclick="action($(this), event)" class="cancel">').attr('oid', order.id);
+
+        confirmButton.attr('from', 'admin');
+        cancelButton.attr('from', 'admin');
+
         let actionDiv = $('<div class="actions">');
 
 

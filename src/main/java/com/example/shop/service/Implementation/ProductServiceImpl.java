@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
         if (product != null) {
             return productRepository.save(product);
         }
-        throw new NullPointerException("Role cannot be 'null'");
+        throw new NullPointerException("Product cannot be 'null'");
     }
 
     @Override

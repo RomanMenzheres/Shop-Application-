@@ -9,7 +9,7 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -58,7 +58,7 @@ public class CartItem {
     public String toString() {
         return "CartItem{" +
                 "id=" + id +
-                ", product=" + product +
+                ", product=" + product.getName() +
                 ", quantity=" + quantity +
                 '}';
     }

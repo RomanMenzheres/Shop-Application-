@@ -13,6 +13,7 @@
     <script src="/js/modal-window-thanks.js" defer></script>
     <script src="/js/modal-window-close.js" defer></script>
     <script src="/js/unfold-user-order.js" defer></script>
+    <script src="/js/order-confirmation-cancellation.js" defer></script>
     <script src="/js/profile-orders-status-style.js" defer></script>
 </head>
 <body>
@@ -135,7 +136,7 @@
 
                             <div class="order" th:each="order : ${orders}" th:id="'order' + ${order.id}">
 
-                                <div class="order-description">
+                                <div class="order-description" th:id="'order-description' + ${order.id}">
 
                                     <div class="top">
 
@@ -152,19 +153,53 @@
                                         </div>
 
                                         <div class="top-creation-date">
-                                            <span th:text="${order.creationDateAsString}">Дата</span>
+                                            <span th:text="${order.getDateAsString(order.creationDate)}">Дата</span>
                                         </div>
 
-                                        <div class="unfold">
-                                            <a class="unfold-displayed" th:id="'displayed' + ${order.id}"
-                                               th:oid="${order.id}">
-                                                <img src="../images/profile/more.png">
-                                            </a>
+                                        <div class="profile-order-actions">
 
-                                            <a class="unfold-hidden" th:id="'hidden' + ${order.id}"
-                                               th:oid="${order.id}">
-                                                <img src="../images/profile/less.png">
-                                            </a>
+                                            <div class="profile-order-unfold">
+
+                                                <button class="unfold-displayed" th:id="'displayed' + ${order.id}"
+                                                   th:oid="${order.id}">
+                                                    <img src="../images/profile/more.png">
+                                                </button>
+
+                                                <button class="unfold-hidden" th:id="'hidden' + ${order.id}"
+                                                   th:oid="${order.id}">
+                                                    <img src="../images/profile/less.png">
+                                                </button>
+
+                                            </div>
+
+                                            <div class="profile-order-cancel"
+                                                 th:if="${#strings.toString(order.status) == 'PROCESSING' ||
+                                                 #strings.toString(order.status) == 'PAID' ||
+                                                 #strings.toString(order.status) == 'CONFIRMED' ||
+                                                 #strings.toString(order.status) == 'UPDATED'}">
+
+                                                <button onclick="action($(this), event)" class="cancel"
+                                                        th:oid="${order.id}"
+                                                        th:from="'profile'">
+
+                                                    <img src="../images/admin/red-cross.png">
+
+                                                </button>
+
+                                            </div>
+
+                                            <div class="profile-order-change-address"
+                                                 th:if="${#strings.toString(order.status) == 'PROCESSING' ||
+                                                 #strings.toString(order.status) == 'PAID' ||
+                                                 #strings.toString(order.status) == 'CONFIRMED' ||
+                                                 #strings.toString(order.status) == 'UPDATED'}">
+
+                                                <a th:href="@{|/order/${order.id}/update/address|}" class="change-address">
+                                                    <img src="../images/products/update-yellow.png">
+                                                </a>
+
+                                            </div>
+
                                         </div>
 
                                     </div>
@@ -177,17 +212,17 @@
 
                                         <div class="additional-info-payment-method">
                                             <span class="bold">Спросіб Оплати: </span>
-                                            <span th:text="${order.paymentMethod} == 'CARD' ? 'Картка' : 'Готівка'"></span>
+                                            <span th:text="${#strings.toString(order.paymentMethod)} == 'CARD' ? 'Картка' : 'Готівка'"></span>
                                         </div>
 
                                         <div class="additional-info-cancel-date" th:if="${order.cancelDate != null}">
                                             <span class="bold">Дата Скасування: </span>
-                                            <span th:text="${order.cancelDateAsString}"></span>
+                                            <span th:text="${order.getDateAsString(order.cancelDate)}"></span>
                                         </div>
 
                                         <div class="additional-info-cancel-date" th:if="${order.deliveryDate != null}">
                                             <span class="bold">Дата Доставки: </span>
-                                            <span th:text="${order.deliveryDateAsString}"></span>
+                                            <span th:text="${order.getDateAsString(order.deliveryDate)}"></span>
                                         </div>
                                     </div>
 

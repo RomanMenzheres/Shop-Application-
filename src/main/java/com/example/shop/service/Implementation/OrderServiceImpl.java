@@ -75,7 +75,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findOrdersForConfirmation() {
         return orderRepository.findAll().stream()
-                .filter(order -> order.getStatus().equals(Status.PROCESSING) || order.getStatus().equals(Status.PAID))
+                .filter(order -> order.getStatus().equals(Status.PROCESSING) ||
+                        order.getStatus().equals(Status.PAID) ||
+                        order.getStatus().equals(Status.UPDATED))
                 .toList();
     }
 
@@ -83,6 +85,13 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findConfirmedOrders() {
         return orderRepository.findAll().stream()
                 .filter(order -> order.getStatus().equals(Status.CONFIRMED))
+                .toList();
+    }
+
+    @Override
+    public List<Order> findDeliveringOrders() {
+        return orderRepository.findAll().stream()
+                .filter(order -> order.getStatus().equals(Status.DELIVERING))
                 .toList();
     }
 

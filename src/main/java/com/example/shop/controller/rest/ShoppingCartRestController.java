@@ -1,5 +1,7 @@
 package com.example.shop.controller.rest;
 
+import com.example.shop.dto.CartItemDto;
+import com.example.shop.dto.CartItemTransformer;
 import com.example.shop.entity.CartItem;
 import com.example.shop.entity.Order;
 import com.example.shop.entity.Product;
@@ -29,6 +31,14 @@ public class ShoppingCartRestController {
         this.orderService = orderService;
     }
 
+    @GetMapping("/show/all")
+    public List<CartItemDto> getAllProductsFromCart(@AuthenticationPrincipal LoginDetails loginDetails){
+        User owner = loginDetails.getUser();
+        Order order = orderService.findOpenOrderByUser(owner);
+
+        return order.getProducts().stream().map(CartItemTransformer::convertToDto).toList();
+    }
+
     @PostMapping("/add/{product_id}")
     public String addToCart(@PathVariable("product_id") long product_id,
                             @AuthenticationPrincipal LoginDetails loginDetails){
@@ -49,7 +59,12 @@ public class ShoppingCartRestController {
             cartItem.setOrder(order);
         }
 
-        cartItemService.create(cartItem);
+        CartItem savedCartItem = cartItemService.create(cartItem);
+
+        if (savedCartItem.getQuantity() > 1){
+            return "The product - " + product.getName() +
+                    " is already in the cart! The quantity of this product has been increased by 1!";
+        }
 
         return "The product - " + product.getName() + " was added to shopping cart!";
     }

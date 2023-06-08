@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/update-info.css">
+    <title>Needler's - Оновлення Адреси Замовлення</title>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="/js/modal-window-address.js" defer></script>
+    <script src="/js/modal-window-close.js" defer></script>
+</head>
+<body>
+
+<div class="container" id="container">
+    <div class="form-container">
+
+        <span class="back">
+            <a th:href="@{/profile}">
+                <img class="plus-displayed" src="../../../images/create-product/back.png">
+            </a>
+        </span>
+
+        <h1 style="margin-bottom: 15px;">Введіть адресу</h1>
+        <form th:action="@{|/order/${order.id}/update/address|}" th:object="${order}" method="POST">
+            <input class="address-input" autocomplete="off" type="text" th:field="*{address}"
+                   th:placeholder="${placeholder}"/>
+            <button>Оновити</button>
+        </form>
+    </div>
+
+    <div th:replace="~{modal-window-choose-address}"></div>
+</div>
+
+</body>
+</html>

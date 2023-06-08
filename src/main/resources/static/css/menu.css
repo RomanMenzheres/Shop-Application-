@@ -171,7 +171,6 @@ li:last-child {
 }
 
 .btn-add-box {
-    margin-right: 15px;
     display: flex;
     flex-direction: row;
     column-gap: 10px;

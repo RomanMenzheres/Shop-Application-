@@ -30,6 +30,11 @@ public class OrderRestController {
        return orderService.findConfirmedOrders().stream().map(OrderTransformer::convertToDto).toList();
     }
 
+    @GetMapping("/delivering")
+    public List<OrderDto> getDeliveringOrders(){
+        return orderService.findDeliveringOrders().stream().map(OrderTransformer::convertToDto).toList();
+    }
+
     @GetMapping("/finished")
     public List<OrderDto> getFinishedOrders(){
         return orderService.findFinishedOrders().stream().map(OrderTransformer::convertToDto).toList();
@@ -40,24 +45,38 @@ public class OrderRestController {
 
         Order order = orderService.readById(orderId);
 
-        String statusBeforeConfirmation = order.getStatus().toString();
+        String orderStatus = order.getStatus().toString();
 
-        if (order.getStatus().equals(Status.CONFIRMED)){
+        if (orderStatus.equals("CONFIRMED")){
             order.setDeliveryDate(LocalDateTime.now());
+            order.setStatus(Status.DELIVERING);
+        } else if (orderStatus.equals("PROCESSING") ||
+                orderStatus.equals("PAID") ||
+                orderStatus.equals("UPDATED")){
+            order.setStatus(Status.CONFIRMED);
+        } else if (orderStatus.equals("DELIVERING")){
             order.setStatus(Status.DELIVERED);
         } else {
-            order.setStatus(Status.CONFIRMED);
+            return "Order with id " + orderId + " can not be confirmed!";
         }
 
         orderService.update(order);
 
-        return "Order with id " + orderId + " was successfully gain status " + order.getStatus() + ", status before confirmation " + statusBeforeConfirmation;
+        return "Order with id " + orderId + " was successfully gain status " + order.getStatus() + ", status before confirmation " + orderStatus;
     }
 
     @PostMapping("/cancel/{id}")
     public String cancel(@PathVariable("id") long orderId){
 
         Order order = orderService.readById(orderId);
+
+        String orderStatus = order.getStatus().toString();
+
+        if (orderStatus.equals("OPEN") ||
+                orderStatus.equals("DELIVERED") ||
+                orderStatus.equals("CANCELED")){
+            return "Order with id " + orderId + " can not be cancelled, It's status is " + orderStatus;
+        }
 
         String statusBeforeCancellation = order.getStatus().toString();
 

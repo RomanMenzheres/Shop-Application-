@@ -6,7 +6,9 @@ public enum Status {
     PROCESSING,
     PAID,
     CONFIRMED,
+    DELIVERING,
     DELIVERED,
 
+    UPDATED,
     CANCELED
 }

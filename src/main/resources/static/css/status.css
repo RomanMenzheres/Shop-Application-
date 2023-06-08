@@ -22,5 +22,13 @@
 }
 
 .confirmed {
+    background: #00c8bf;
+}
+
+.delivering {
     background: #01ce88;
+}
+
+.updated {
+    background: #e8df00;
 }

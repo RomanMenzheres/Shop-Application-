@@ -12,9 +12,9 @@ public class OrderTransformer {
                 order.getPhone(),
                 order.getStatus(),
                 order.getPaymentMethod(),
-                order.getCreationDateAsString(),
-                order.getDeliveryDateAsString(),
-                order.getCancelDateAsString(),
+                order.getDateAsString(order.getCreationDate()),
+                order.getDateAsString(order.getDeliveryDate()),
+                order.getDateAsString(order.getCancelDate()),
                 order.getComment(),
                 UserTransformer.convertToDto(order.getOwner()),
                 order.getProducts().stream().map(CartItemTransformer::convertToDto).toList()

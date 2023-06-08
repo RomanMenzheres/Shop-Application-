@@ -108,12 +108,12 @@ public class Order {
         return creationDate;
     }
 
-    public String getCreationDateAsString(){
-        if (creationDate == null){
+    public String getDateAsString(LocalDateTime date){
+        if (date == null){
             return null;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return creationDate.format(formatter);
+        return date.format(formatter);
     }
 
     public void setCreationDate(LocalDateTime creationDate) {
@@ -124,28 +124,12 @@ public class Order {
         return deliveryDate;
     }
 
-    public String getDeliveryDateAsString(){
-        if (deliveryDate == null){
-            return null;
-        }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return deliveryDate.format(formatter);
-    }
-
     public void setDeliveryDate(LocalDateTime deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
     public LocalDateTime getCancelDate() {
         return cancelDate;
-    }
-
-    public String getCancelDateAsString(){
-        if (cancelDate == null){
-            return null;
-        }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return cancelDate.format(formatter);
     }
 
     public void setCancelDate(LocalDateTime cancelDate) {

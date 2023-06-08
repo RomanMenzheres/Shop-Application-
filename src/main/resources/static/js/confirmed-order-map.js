@@ -189,44 +189,44 @@ function buildGlobalRoute() {
 
                 routeSummary.appendTo(globalContainer);
 
-                let counter = 1;
-
-                for (let i = 0; i < routeNarrative.length; i++){
-
-                    let maneuvers = routeNarrative[i].maneuvers;
-
-                    for (let j = 0; j < maneuvers.length; j++){
-
-                        let maneuverContainer;
-
-                        if (j === maneuvers.length - 1){
-                            if (i === routeNarrative.length - 1){
-                                maneuverContainer = $('<div class="maneuver-container destination last">');
-                            } else {
-                                maneuverContainer = $('<div class="maneuver-container destination">');
-                            }
-                        } else {
-                            maneuverContainer = $('<div class="maneuver-container">');
-                        }
-
-                        let maneuverCounter = $('<span class="maneuver-counter">');
-
-                        let maneuver = $('<span class="maneuver-title">');
-
-                        let maneuverDistance = $('<span class="maneuver-distance">');
-
-                        maneuverCounter.appendTo(maneuverContainer);
-                        maneuver.appendTo(maneuverContainer);
-                        maneuverDistance.appendTo(maneuverContainer);
-
-                        maneuverCounter.text('' + counter++ + '.');
-                        maneuver.text('' + maneuvers[j].narrative.substring(0, maneuvers[j].narrative.indexOf('.') + 1));
-                        maneuverDistance.text('' + maneuvers[j].narrative.substring(maneuvers[j].narrative.indexOf('.') + 11));
-
-                        maneuverContainer.appendTo(globalContainer);
-                    }
-
-                }
+                // let counter = 1;
+                //
+                // for (let i = 0; i < routeNarrative.length; i++){
+                //
+                //     let maneuvers = routeNarrative[i].maneuvers;
+                //
+                //     for (let j = 0; j < maneuvers.length; j++){
+                //
+                //         let maneuverContainer;
+                //
+                //         if (j === maneuvers.length - 1){
+                //             if (i === routeNarrative.length - 1){
+                //                 maneuverContainer = $('<div class="maneuver-container destination last">');
+                //             } else {
+                //                 maneuverContainer = $('<div class="maneuver-container destination">');
+                //             }
+                //         } else {
+                //             maneuverContainer = $('<div class="maneuver-container">');
+                //         }
+                //
+                //         let maneuverCounter = $('<span class="maneuver-counter">');
+                //
+                //         let maneuver = $('<span class="maneuver-title">');
+                //
+                //         let maneuverDistance = $('<span class="maneuver-distance">');
+                //
+                //         maneuverCounter.appendTo(maneuverContainer);
+                //         maneuver.appendTo(maneuverContainer);
+                //         maneuverDistance.appendTo(maneuverContainer);
+                //
+                //         maneuverCounter.text('' + counter++ + '.');
+                //         maneuver.text('' + maneuvers[j].narrative.substring(0, maneuvers[j].narrative.indexOf('.') + 1));
+                //         maneuverDistance.text('' + maneuvers[j].narrative.substring(maneuvers[j].narrative.indexOf('.') + 11));
+                //
+                //         maneuverContainer.appendTo(globalContainer);
+                //     }
+                //
+                // }
 
                 L.DomUtil.get('route-narrative').innerHTML = globalContainer.html();
 
@@ -238,7 +238,7 @@ function buildGlobalRoute() {
         options: {
             routeType: routeType,
             unit: 'k',
-            locale: 'uk_UA',
+            //locale: 'uk_UA',
             useTraffic: true
         }
     });

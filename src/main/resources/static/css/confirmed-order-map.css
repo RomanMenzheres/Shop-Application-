@@ -25,11 +25,12 @@
 }
 
 .route-summary {
-    padding: 10px;
-    border-bottom: 1px solid #858585;
+    /*padding: 10px;*/
+    /*border-bottom: 1px solid #858585;*/
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    min-width: 200px;
 }
 
 .route-time-summary {
