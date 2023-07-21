@@ -19,7 +19,7 @@ It's not final version!
   - HTML
   - CSS
   - JavaScript
-  - Thymealef
+  - Thymeleaf
   - JQuery
   - Leaflet map
   - MapQuest SDK
