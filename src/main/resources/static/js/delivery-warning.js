@@ -1,26 +1,28 @@
 function deliveryPriceCheck(totalPrice){
-    if (totalPrice < 200){
+    if (totalPrice < 10){
         $(".minimum-price-warning-block").show();
-        $(".warning-text").text("The minimum order amount is 200.00 UAH. Add products worth "
-            + (200 - totalPrice).toFixed(2) + " UAH.");
+        $(".warning-text").text("Мінімальна сума замовлення $10. Додайте продуктів ще на $"
+            + (10 - totalPrice).toFixed(2) + ".");
     } else {
         $(".minimum-price-warning-block").hide();
     }
 
-    let remainder = 500 - totalPrice;
+    let remainder = 30 - totalPrice;
 
     if(remainder > 0){
         $(".progress-bar-container").show();
-        $(".delivery-text").text("Add products worth " + remainder.toFixed(2) +" UAH to get free delivery.");
-        let progressBarPercent = (totalPrice / 500);
+        $(".delivery-price-value").text("$8.00")
+        $(".delivery-text").text("Додайте продуктів ще на $" + remainder.toFixed(2) +", щоб отримати безкоштовну доставку.");
+        let progressBarPercent = (totalPrice / 30);
         let newWidth = parseFloat($(".progress-bar").width()) * progressBarPercent;
         $(".progress-bar-fill").width(newWidth);
     } else {
-        $(".delivery-text").text("You have got free delivery!");
+        $(".delivery-price-value").text("$0.00")
+        $(".delivery-text").text("Ви отримали безкоштовну доставку!");
         $(".progress-bar-container").hide();
     }
 }
 
 function resetWarningText() {
-    $(".warning-text").text("The minimum order amount is 200.00 UAH.");
+    $(".warning-text").text("Мінімальна сума замовлення $10.");
 }

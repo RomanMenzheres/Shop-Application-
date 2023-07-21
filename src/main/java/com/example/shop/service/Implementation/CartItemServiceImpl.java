@@ -24,7 +24,15 @@ public class CartItemServiceImpl implements CartItemService {
     public CartItem create(CartItem cartItem) {
         if (cartItem != null) {
 
-            CartItem isExist = cartItemRepository.findCartItemByUserAndProduct(cartItem.getUser(), cartItem.getProduct()).orElse(null);
+            CartItem isExist = null;
+
+            if(cartItem.getOrder().getProducts() != null) {
+
+                isExist = cartItem.getOrder().getProducts().stream()
+                        .filter(existingCartItem -> existingCartItem.getProduct().equals(cartItem.getProduct()))
+                        .findFirst()
+                        .orElse(null);
+            }
 
             if(isExist != null) {
                 isExist.setQuantity(isExist.getQuantity() + 1);
@@ -52,8 +60,8 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public void updateQuantity(long productId, long userId, int quantity) {
-        cartItemRepository.updateQuantity(quantity, productId, userId);
+    public void updateQuantity(long productId, long orderId, int quantity) {
+        cartItemRepository.updateQuantity(quantity, productId, orderId);
     }
 
     @Override
@@ -66,9 +74,4 @@ public class CartItemServiceImpl implements CartItemService {
         return cartItemRepository.findAll();
     }
 
-    @Override
-    public List<CartItem> findCartItemByUser(User user) {
-        return cartItemRepository.findCartItemByUser(user).orElseThrow(
-                () -> new EntityNotFoundException("Cart Items for user with id " + user.getId() + " not found"));
-    }
 }

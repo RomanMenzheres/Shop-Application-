@@ -2,6 +2,7 @@ body {
     font-family: sans-serif;
     margin: 0 0 0 0;
     background-color: #f9f9f9;
+    overflow: overlay;
 }
 
 .page {
@@ -67,19 +68,25 @@ body {
 
 .page-label {
     position: relative;
-    left: 25%;
-    width: 70%;
+    left: 23%;
+    width: 72%;
     margin-bottom: 10px;
 }
 
 .page-label h1{
     margin: 0;
+    position: relative;
+    left: 8px;
 }
 
 .other-profile-info {
-    width: 70%;
-    left: 25%;
+    width: 72%;
+    left: 23%;
     position: relative;
+}
+
+.info {
+    width: 100%;
     background: white;
     border: none;
     border-radius: 15px;
@@ -118,7 +125,7 @@ body {
     height: 100%;
 }
 
-.hidden {
+.hidden, .unfold-hidden {
     display: none;
 }
 
@@ -134,3 +141,214 @@ body {
     display: block;
 }
 
+/*Orders*/
+
+.user-orders-info {
+    margin-top: 20px;
+}
+
+.user-orders-info h3 {
+    margin: 0 0 10px 0;
+    position: relative;
+    left: 8px;
+}
+
+.user-orders {
+    width: 100%;
+    background: white;
+    border: none;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 0 3px rgb(0 0 0 / 10%);
+}
+
+.order {
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    border-bottom: 1px solid #d7d7d7;
+    margin-bottom: 20px;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.top-price {
+    flex: 1 1 10%;
+}
+
+.top-address{
+    text-align: center;
+    flex: 1 1 50%;
+}
+
+.top-status{
+    text-align: center;
+    flex: 1 1 15%;
+}
+
+.top-creation-date {
+    text-align: center;
+    flex: 1 1 20%;
+}
+
+.profile-order-actions {
+    min-width: 58px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.profile-order-unfold {
+    width: 18px;
+    height: 18px;
+}
+
+.profile-order-actions button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.profile-order-unfold img {
+    width: 100%;
+    height: 100%;
+}
+
+.profile-order-actions button:active {
+    transform: scale(0.95);
+}
+
+.cancel {
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+}
+
+.cancel img {
+    width: 23px;
+}
+
+.profile-order-change-address{
+    margin-right: 2px;
+}
+
+.change-address{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.change-address img {
+    width: 15px;
+}
+
+.order-additional-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 40px 0 20px 0;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.order-products-info h4 {
+    margin: 20px 0 10px 0;
+}
+
+.product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #d7d7d7;
+    margin-top: 5px;
+}
+
+.product-description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+    margin-bottom: 5px;
+}
+
+.product-image {
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.product-image img {
+    width: 50px;
+    height: 50px;
+}
+
+.product-title {
+    margin-left: 10px;
+    overflow-wrap: normal;
+    margin-right: 20px;
+}
+
+.product-price {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.price, .quantity {
+    margin-right: 20px;
+}
+
+.order-comment {
+    margin: 20px 0;
+}
+
+.order-comment h4{
+    margin: 0 0 10px 0;
+}
+
+.comment-container {
+    overflow-wrap: normal;
+}
+
+.user-have-no-orders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.no-orders-img-container {
+    width: 150px;
+    height: 150px;
+}
+
+.no-orders-img-container img{
+    width: 100%;
+    height: 100%;
+}
+
+.user-have-no-orders span{
+    margin: 20px 0;
+}
+
+.choose-products-button {
+    border: 2px solid #84BF41;
+    border-radius: 20px;
+    padding: 10px;
+    text-decoration: auto;
+    color: white;
+    background: #84Bf41;
+    font-size: 13px;
+    font-weight: bold;
+}

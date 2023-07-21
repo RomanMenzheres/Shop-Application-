@@ -16,4 +16,6 @@ public interface CategoryService {
 
     List<Category> getAll();
 
+    List<Category> getSortedAll();
+
 }

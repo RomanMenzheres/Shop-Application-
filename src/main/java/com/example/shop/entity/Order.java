@@ -4,7 +4,8 @@ import com.example.shop.entity.enums.PaymentMethod;
 import com.example.shop.entity.enums.Status;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -36,18 +37,23 @@ public class Order {
     private PaymentMethod paymentMethod;
 
     @Column(name = "creation_date")
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
+
+    @Column(name = "delivery_date")
+    private LocalDateTime deliveryDate;
+
+    @Column(name = "cancel_date")
+    private LocalDateTime cancelDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<CartItem> products;
 
     public Order() {
-        creationDate = LocalDate.now();
-        status = Status.PROCESSING;
+        status = Status.OPEN;
     }
 
     public List<CartItem> getProducts() {
@@ -98,12 +104,36 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public String getDateAsString(LocalDateTime date){
+        if (date == null){
+            return null;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return date.format(formatter);
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDateTime deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public LocalDateTime getCancelDate() {
+        return cancelDate;
+    }
+
+    public void setCancelDate(LocalDateTime cancelDate) {
+        this.cancelDate = cancelDate;
     }
 
     public User getOwner() {

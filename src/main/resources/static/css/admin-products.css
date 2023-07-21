@@ -1,0 +1,76 @@
+.product-control-button {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 25px 0 25px;
+}
+
+.products {
+    margin: 0 20px;
+}
+
+.product-control-button a{
+    text-decoration: auto;
+    padding: 10px 30px;
+    font-size: 15px;
+    border-radius: 15px;
+    color: #84BF41;
+    border: 2px solid #84BF41;
+    font-weight: bold;
+    transition: all 0.35s;
+    cursor: pointer;
+}
+
+.actions a, .actions button {
+    border-radius: 50%;
+    text-decoration: auto;
+}
+
+.delete-product{
+    background: transparent;
+    border: none;
+    height: 30px;
+}
+
+.update-product {
+    height: 20px;
+    padding: 6px;
+}
+
+.update-hidden, .delete-hidden{
+    display: none;
+}
+
+.product-control-button a:hover {
+    color: white;
+    box-shadow: inset 190px 0 0 0 #84bf41;
+}
+
+.update-displayed, .update-hidden {
+    width: 20px !important;
+}
+
+.delete-displayed, .delete-hidden {
+    width: 30px !important;
+}
+
+a:active {
+    transform: scale(0.95);
+}
+
+.actions a:hover .update-displayed,
+.actions button:hover .delete-displayed{
+    display: none;
+}
+
+.actions a:hover .update-hidden,
+.actions button:hover .delete-hidden{
+    display: block;
+}
+
+.actions .update-product:hover {
+    background: #f0e94a;
+}
+
+.actions .delete-product:hover{
+    background: #BF4141;
+}

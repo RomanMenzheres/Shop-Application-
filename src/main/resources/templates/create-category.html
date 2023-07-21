@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/create-category.css">
-    <title>Needlers - Create New Category</title>
+    <title>Needler's - Додавання Категорії</title>
 </head>
 <body>
 
@@ -17,10 +17,10 @@
         </span>
 
         <form th:action="@{/category/create}" th:object="${category}" method="POST">
-            <h1>Create New Category</h1>
-            <span>Please, fill in the form below</span>
-            <input type="text" th:field="*{name}" name="name" th:placeholder="Name" required/>
-            <button>Create</button>
+            <h1>Додавання категорії</h1>
+            <span>Будь ласка, заповніть форму нижче</span>
+            <input type="text" th:field="*{name}" name="name" th:placeholder="Назва" required/>
+            <button>Додати</button>
         </form>
     </div>
     <div class="overlay-container">

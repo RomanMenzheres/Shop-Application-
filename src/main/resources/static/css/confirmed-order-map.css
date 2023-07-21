@@ -1,0 +1,74 @@
+.main {
+    display: none;
+    margin: 10px 25px;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#confirmed-order-map {
+    width: 100%;
+    height: 100%;
+}
+
+#route-narrative {
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 300px;
+    max-height: calc(100vh - 151px);
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    overflow: auto;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.25);
+}
+
+.route-summary {
+    padding: 10px;
+    border-bottom: 1px solid #858585;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.route-time-summary {
+    font-weight: bold;
+}
+
+.route-distance-summary {
+    color: #919191;
+}
+
+.maneuver-container {
+    border-bottom: 1px solid #858585;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.maneuver-counter {
+    min-width: 25px;
+    flex: 1 1 1%;
+}
+
+.maneuver-title {
+    max-width: 170px;
+    margin-right: 5px;
+    flex: 1 1 80%;
+}
+
+.maneuver-distance {
+    color: #919191;
+    flex: 1 1 19%;
+    text-align: end;
+}
+
+.destination {
+    justify-content: flex-start;
+}
+
+.last {
+    border: none;
+}

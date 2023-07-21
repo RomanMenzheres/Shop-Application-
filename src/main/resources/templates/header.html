@@ -6,6 +6,10 @@
         <img src="../images/header/logo.png">
       </div>
       <div class="navigation">
+        <a class="destination" th:href="@{/admin/orders}" sec:authorize="hasAuthority('ADMIN')">
+          <img class="black" src="../images/header/A-black.png">
+          <img class="green" src="../images/header/A-green.png">
+        </a>
         <a class="destination" th:href="@{/menu}">
           <img class="black" src="../images/header/menu.png">
           <img class="green" src="../images/header/green_menu.png">
@@ -22,7 +26,7 @@
           <img class="black" src="../images/header/person.png">
           <img class="green" src="../images/header/green_person.png">
         </a>
-        <a class="destination-logout" th:href="@{/logout}" sec:authorize="isAuthenticated()">
+        <a class="destination" id="destination-logout" th:href="@{/logout}" sec:authorize="isAuthenticated()">
           <img class="black" src="../images/header/logout_black.png">
           <img class="green" src="../images/header/logout_green.png">
         </a>

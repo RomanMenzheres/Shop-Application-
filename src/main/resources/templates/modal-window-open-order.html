@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="/css/modal-window.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css"/>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+<script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=ik7xZvkTwiQ0SaV5AGipmjnxd08U0R3U"></script>
+<script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=ik7xZvkTwiQ0SaV5AGipmjnxd08U0R3U"></script>
+<script src="/js/modal-window-close.js" defer></script>
+<script src="/js/map-routing.js" defer></script>
+<div class="modal">
+    <div class="modal-main">
+
+        <div class="modal-content">
+
+            <h2 class="order-header"></h2>
+
+            <div class="current-status"></div>
+
+            <div class="customer-info">
+
+                <h3>Покупець:</h3>
+
+                <div class="customer-full-name"></div>
+
+                <div class="customer-email"></div>
+
+                <div class="customer-phone"></div>
+
+                <div class="customer-address"></div>
+
+            </div>
+
+            <div class="order-info">
+
+                <h3>Замовлення:</h3>
+
+                <div class="order-phone"></div>
+
+                <div class="order-address"></div>
+
+                <div class="order-payment-method"></div>
+
+                <div class="order-creation-date"></div>
+
+                <div class="order-cancel-date"></div>
+
+                <div class="order-delivery-date"></div>
+
+                <div class="order-comment"></div>
+
+                <div class="order-products">
+
+                    <h3>Продукти:</h3>
+
+                    <div class="product">
+
+                        <div class="product-description">
+
+                            <div class="product-image"></div>
+
+                            <div class="product-title"></div>
+
+                        </div>
+
+                        <div class="product-price">
+
+                            <div class="price"></div>
+
+                            <div class="quantity"></div>
+
+                            <div class="subtotal-price"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="navigation-info">
+
+                <h3>Маршрут до адреси замовлення: </h3>
+
+                <div class="route-info">
+
+                    <span class="route-distance-info">Відстань: </span>
+                    <span class="route-time-info">Час у дорозі: </span>
+
+                </div>
+
+                <div class="navigation-control" id="navigation-control-for-open-order">
+
+                    <button class="shortest">
+                        <img class="align" src="../../images/map-routing/shortest-black.png">
+                    </button>
+
+                    <button class="fastest">
+                        <img src="../../images/map-routing/fastest-black.png">
+                    </button>
+
+                    <button class="bicycle">
+                        <img src="../../images/map-routing/bicycle-black.png">
+                    </button>
+
+                </div>
+
+                <div id="map"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

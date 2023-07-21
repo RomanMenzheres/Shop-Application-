@@ -1,8 +1,7 @@
-package com.example.shop.service.Implementation;
+package com.example.shop.security;
 
 import com.example.shop.entity.User;
 import com.example.shop.repository.UserRepository;
-import com.example.shop.security.LoginDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +20,7 @@ public class LoginService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public LoginDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByEmail(email);
 
         if (user.isEmpty())

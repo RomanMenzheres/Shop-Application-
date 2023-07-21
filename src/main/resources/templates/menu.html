@@ -3,8 +3,17 @@
 <head>
 
     <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/scrollbar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/css/swiper.css">
+
     <meta charset="UTF-8">
-    <title>Needlers - Menu</title>
+    <title>Needler's - Меню</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="/js/menu-fixed-category.js" defer></script>
+    <script src="/js/swiper.js" defer></script>
+    <script src="/js/delete-product.js" defer></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -14,6 +23,40 @@
 <div class="page">
 
     <div class="page-content">
+
+        <div class="swiper mySwiper">
+
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <img src="../images/slides/slide1.jpeg">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="../images/slides/slide2.jpeg">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="../images/slides/slide3.jpg">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="../images/slides/slide4.jpg">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="../images/slides/slide5.jpg">
+                </div>
+
+            </div>
+
+            <div class="swiper-pagination"></div>
+
+            <div class="swiper-button-next"></div>
+
+            <div class="swiper-button-prev"></div>
+
+        </div>
 
         <div class="manipulating-products">
             <ul>
@@ -54,12 +97,12 @@
 
         <div class="menu-title-box">
 
-            <h1 class="menu-title" th:text="${selectedCategory != null ? selectedCategory.name : 'Menu'}"></h1>
+            <h1 class="menu-title" th:text="${selectedCategory != null ? selectedCategory.name : 'Меню'}"></h1>
 
             <div class="btn-add-box" sec:authorize="hasAuthority('ADMIN')">
 
-                <a class="btn-add-product" th:href="@{/product/create}">Add New Product</a>
-                <a class="btn-add-category" th:href="@{/category/create}">Add New Category</a>
+                <a class="btn-add" th:href="@{/product/create}">Додати продукт</a>
+                <a class="btn-add" th:href="@{/category/create}">Додати категорію</a>
 
             </div>
 
@@ -74,16 +117,16 @@
 
                             <div class="delete-product" sec:authorize="hasAuthority('ADMIN')">
 
-                                <a class="manipulator-image" th:href="@{|/product/${product.id}/delete|}">
+                                <button onclick="deleteProduct($(this))" class="manipulator-image" th:pid="${product.id}">
                                     <img class="manipulator-displayed" src="../images/products/-_red.png">
                                     <img class="manipulator-hidden" src="../images/products/-_white.png">
-                                </a>
+                                </button>
 
                             </div>
 
                             <div class="update-product" sec:authorize="hasAuthority('ADMIN')">
 
-                                <a class="manipulator-image" th:href="@{|/product/${product.id}/update|}">
+                                <a class="manipulator-image">
                                     <img class="manipulator-displayed" src="../images/products/update-yellow.png">
                                     <img class="manipulator-hidden" src="../images/products/update-white.png">
                                 </a>
@@ -107,7 +150,7 @@
 
                         </div>
 
-                        <span class="prise" th:text="'₴' + ${product.price}"></span>
+                        <span class="prise" th:text="'$' + ${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></span>
 
                         <div class="cut-text">
 

@@ -15,13 +15,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Pattern(regexp = "[A-Z][a-z]+",
-            message = "Must start with a capital letter followed by one or more lowercase letters")
+    @Pattern(regexp = "^[А-ЯЁІЇЄҐA-Z][а-яёіїєґa-zA-Z]+$",
+            message = "Ім'я повинно розпочинатися з великої літери, за якою йдуть одна або кілька малих літер")
     @Column(name = "firstname", nullable = false)
     private String firstName;
 
-    @Pattern(regexp = "[A-Z][a-z]+",
-            message = "Must start with a capital letter followed by one or more lowercase letters")
+    @Pattern(regexp = "^[А-ЯЁІЇЄҐA-Z][а-яёіїєґa-zA-Z]+$",
+            message = "Прізвище повинно розпочинатися з великої літери, за якою йдуть одна або кілька малих літер")
     @Column(name = "lastname", nullable = false)
     private String lastName;
 

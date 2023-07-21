@@ -1,6 +1,6 @@
 package com.example.shop.config;
 
-import com.example.shop.service.Implementation.LoginService;
+import com.example.shop.security.LoginService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Needler's - Адмін - Замовлення</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/admin-orders.css">
+    <link rel="stylesheet" href="/css/scrollbar.css">
+    <link rel="stylesheet" href="/css/modal-window-open-order.css">
+    <link rel="stylesheet" href="/css/status.css">
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="/js/order-confirmation-cancellation.js" defer></script>
+    <script src="/js/admin-orders-table-control.js" defer></script>
+    <script src="/js/table-open-order.js" defer></script>
+    <script src="/js/admin-orders-live-update-data.js"></script>
+</head>
+<body>
+
+<div class="page">
+
+    <div th:replace="~{admin-menu}"></div>
+
+    <div class="page-content">
+
+        <div class="order-control-buttons">
+
+            <button class="active">Активні замовлення</button>
+
+            <button class="confirmed">Підтвердженні замовлення</button>
+
+            <button class="delivering">Замовлення в дорозі</button>
+
+            <button class="finished">Завершені замовлення</button>
+
+            <button class="confirmed-order-map">Карта замовлень</button>
+
+        </div>
+
+        <div class="orders">
+
+            <table id="table" class="table" th:currentOrders="'active'">
+                <thead class="table-header">
+                <tr class="table-head-row">
+                    <th class="header-item-id">ID</th>
+                    <th class="header-item-price">Ціна</th>
+                    <th class="header-item">Адреса</th>
+                    <th class="header-item">Номер Телефону</th>
+                    <th class="header-item">Статус</th>
+                    <th class="header-item">Дата Створення</th>
+                    <th class="header-item">Дії</th>
+                </tr>
+                </thead>
+
+                <tbody class="table-content">
+            </table>
+
+        </div>
+
+        <div th:replace="~{confirmed-order-map}"></div>
+
+        <div th:replace="~{modal-window-open-order}"></div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

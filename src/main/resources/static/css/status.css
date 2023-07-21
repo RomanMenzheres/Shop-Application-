@@ -1,0 +1,34 @@
+.status {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 15px;
+    color: white;
+}
+
+.canceled {
+    background: #ea3232;
+}
+
+.delivered {
+    background: #84BF41;
+}
+
+.paid {
+    background: #3F51B5;
+}
+
+.processing {
+    background: #673AB7;
+}
+
+.confirmed {
+    background: #00c8bf;
+}
+
+.delivering {
+    background: #01ce88;
+}
+
+.updated {
+    background: #e8df00;
+}

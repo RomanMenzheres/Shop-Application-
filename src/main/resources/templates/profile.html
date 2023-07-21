@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/profile.css">
-    <title>Needlers - Profile</title>
+    <link rel="stylesheet" href="/css/scrollbar.css">
+    <link rel="stylesheet" href="/css/status.css">
+    <title>Needler's - Профіль</title>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="/js/modal-window-thanks.js" defer></script>
+    <script src="/js/modal-window-close.js" defer></script>
+    <script src="/js/unfold-user-order.js" defer></script>
+    <script src="/js/order-confirmation-cancellation.js" defer></script>
+    <script src="/js/profile-orders-status-style.js" defer></script>
 </head>
 <body>
 
@@ -27,13 +38,13 @@
                 </div>
 
                 <div class="profile-update">
-                    <a th:href="@{|/profile/${user.id}/update|}">Update Info</a>
+                    <a th:href="@{/profile/update}">Редагувати</a>
                 </div>
 
             </div>
 
             <div class="page-label">
-                <h1>Profile</h1>
+                <h1>Профіль</h1>
             </div>
 
             <div class="other-profile-info">
@@ -57,7 +68,7 @@
                     </div>
 
                     <div class="info-position">
-                        <span>Phone:</span>
+                        <span>Номер телефону:</span>
 
                         <div class="prime-text">
 
@@ -79,7 +90,7 @@
                     </div>
 
                     <div class="info-position">
-                        <span>Addresses:</span>
+                        <span>Адреса:</span>
 
                         <div class="prime-text">
 
@@ -100,6 +111,174 @@
                         </div>
                     </div>
 
+                </div>
+
+                <div class="user-orders-info">
+                    <h3>Ваші замовлення</h3>
+
+                    <div class="user-orders">
+
+                        <div class="user-have-no-orders"
+                             th:style="${#lists.isEmpty(orders)} ? 'display: flex' : 'display: none'">
+
+                            <div class="no-orders-img-container">
+                                <img src="../images/profile/sad.png">
+                            </div>
+
+                            <span>
+                                У вас ще немає замовлень
+                            </span>
+
+                            <a class="choose-products-button" th:href="@{/menu}">Обрати продукти</a>
+                        </div>
+
+                        <div th:if="${!#lists.isEmpty(orders)}">
+
+                            <div class="order" th:each="order : ${orders}" th:id="'order' + ${order.id}">
+
+                                <div class="order-description" th:id="'order-description' + ${order.id}">
+
+                                    <div class="top">
+
+                                        <div class="top-price">
+                                            <span th:text="'$' + ${#numbers.formatDecimal(order.price, 0, 'COMMA', 2, 'POINT')}">Ціна</span>
+                                        </div>
+
+                                        <div class="top-address">
+                                            <span th:text="${order.address}">Адреса</span>
+                                        </div>
+
+                                        <div class="top-status status">
+                                            <span th:text="${order.status}">Статус</span>
+                                        </div>
+
+                                        <div class="top-creation-date">
+                                            <span th:text="${order.getDateAsString(order.creationDate)}">Дата</span>
+                                        </div>
+
+                                        <div class="profile-order-actions">
+
+                                            <div class="profile-order-unfold">
+
+                                                <button class="unfold-displayed" th:id="'displayed' + ${order.id}"
+                                                   th:oid="${order.id}">
+                                                    <img src="../images/profile/more.png">
+                                                </button>
+
+                                                <button class="unfold-hidden" th:id="'hidden' + ${order.id}"
+                                                   th:oid="${order.id}">
+                                                    <img src="../images/profile/less.png">
+                                                </button>
+
+                                            </div>
+
+                                            <div class="profile-order-cancel"
+                                                 th:if="${#strings.toString(order.status) == 'PROCESSING' ||
+                                                 #strings.toString(order.status) == 'PAID' ||
+                                                 #strings.toString(order.status) == 'CONFIRMED' ||
+                                                 #strings.toString(order.status) == 'UPDATED'}">
+
+                                                <button onclick="action($(this), event)" class="cancel"
+                                                        th:oid="${order.id}"
+                                                        th:from="'profile'">
+
+                                                    <img src="../images/admin/red-cross.png">
+
+                                                </button>
+
+                                            </div>
+
+                                            <div class="profile-order-change-address"
+                                                 th:if="${#strings.toString(order.status) == 'PROCESSING' ||
+                                                 #strings.toString(order.status) == 'PAID' ||
+                                                 #strings.toString(order.status) == 'CONFIRMED' ||
+                                                 #strings.toString(order.status) == 'UPDATED'}">
+
+                                                <a th:href="@{|/order/${order.id}/update/address|}" class="change-address">
+                                                    <img src="../images/products/update-yellow.png">
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="order-additional-info">
+                                        <div class="additional-info-phone">
+                                            <span class="bold">Номер Телефону: </span>
+                                            <span th:text="${order.phone}"></span>
+                                        </div>
+
+                                        <div class="additional-info-payment-method">
+                                            <span class="bold">Спросіб Оплати: </span>
+                                            <span th:text="${#strings.toString(order.paymentMethod)} == 'CARD' ? 'Картка' : 'Готівка'"></span>
+                                        </div>
+
+                                        <div class="additional-info-cancel-date" th:if="${order.cancelDate != null}">
+                                            <span class="bold">Дата Скасування: </span>
+                                            <span th:text="${order.getDateAsString(order.cancelDate)}"></span>
+                                        </div>
+
+                                        <div class="additional-info-cancel-date" th:if="${order.deliveryDate != null}">
+                                            <span class="bold">Дата Доставки: </span>
+                                            <span th:text="${order.getDateAsString(order.deliveryDate)}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="order-products-info">
+
+                                        <h4>Продукти:</h4>
+
+                                        <div class="product" th:each="product : ${order.products}">
+
+                                            <div class="product-description">
+
+                                                <div class="product-image">
+                                                    <img th:src="@{|../product images/${product.product.name}.png|}">
+                                                </div>
+
+                                                <div class="product-title">
+                                                    <span th:text="${product.product.name}"></span>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="product-price">
+
+                                                <div class="price">
+                                                    <span th:text="'$' + ${product.product.price}"></span>
+                                                </div>
+
+                                                <div class="quantity">
+                                                    <span th:text="${product.quantity} + ' шт.'"></span>
+                                                </div>
+
+                                                <div class="subtotal-price">
+                                                    <span th:text="'$' + ${#numbers.formatDecimal((product.product.price * product.quantity), 0, 'COMMA', 2, 'POINT')}"></span>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="order-comment">
+
+                                        <h4>Коментарій: </h4>
+
+                                        <div class="comment-container">
+                                            <span th:text="${#strings.equals(order.comment, '')} ? 'Немає Коментаря' : ${order.comment}"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -107,6 +286,10 @@
 
         </div>
 
+    </div>
+
+    <div th:if="${thanks}">
+        <div th:replace="~{modal-window-thanks}"></div>
     </div>
 
 </div>

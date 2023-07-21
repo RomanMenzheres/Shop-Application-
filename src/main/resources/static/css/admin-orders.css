@@ -1,0 +1,31 @@
+.order-control-buttons {
+    margin: 20px 25px 0 25px;
+}
+
+.order-control-buttons button {
+    width: 230px;
+    padding: 10px;
+    font-size: 15px;
+    background: transparent;
+    border-radius: 15px;
+    color: #84BF41;
+    border: 2px solid #84BF41;
+    font-weight: bold;
+    transition: all 0.35s;
+    cursor: pointer;
+}
+
+.orders {
+    margin: 0 20px;
+}
+
+.order-control-buttons button:hover,
+.order-control-buttons button:focus{
+    font-weight: bold;
+    color: white;
+    box-shadow: inset 230px 0 0 0 #84bf41;
+}
+
+.order-control-buttons button:active{
+    transform: scale(0.95);
+}

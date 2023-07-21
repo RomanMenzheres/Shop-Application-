@@ -3,25 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet"  href="/css/login.css">
-    <title>Needlers - Registration</title>
+    <title>Needler's - Реєстрація</title>
 </head>
 <body>
 
 <div class="container" id="container">
     <div class="form-container">
         <form th:action="@{/registration}" th:object="${user}" method="POST">
-            <h1 style="margin-bottom: 15px;">Sign Up</h1>
-            <span>Please, fill in the form below</span>
-            <input type="text" th:field="*{firstName}" name="firstname" placeholder="First Name" required/>
-            <input type="text" th:field="*{lastName}" name="lastname" placeholder="Last Name" required/>
+            <h1 style="margin-bottom: 15px;">Рeєстрація</h1>
+            <span>Будь ласка, заповніть форму нижче</span>
+            <input type="text" th:field="*{firstName}" name="firstname" placeholder="Ім'я" required/>
+            <small th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-message"></small>
+
+            <input type="text" th:field="*{lastName}" name="lastname" placeholder="Прізвище" required/>
+            <small th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-message"></small>
+
             <input type="email" th:field="*{email}" name="username" placeholder="Email" required/>
-            <input type="password" th:field="*{password}" name="password" placeholder="Password" required/>
-            <button>Sign Up</button>
-            <span class="sign-up">Already have account? <a th:href="@{/login}">Sign In</a></span>
+            <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></small>
+
+            <input type="password" th:field="*{password}" name="password" placeholder="Пароль" required/>
+
+            <button>Зареєструватися</button>
+            <span class="sign-up">Вже маєш обліковий запис? <a th:href="@{/login}">Авторизація</a></span>
         </form>
     </div>
     <div class="overlay-container">
-        <img src="../images/login/food.png" >
+        <img src="../images/login/food.png">
     </div>
 </div>
 

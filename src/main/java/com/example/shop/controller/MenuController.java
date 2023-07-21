@@ -27,8 +27,8 @@ public class MenuController {
     @GetMapping("")
     public String menu(Model model, @AuthenticationPrincipal LoginDetails loginDetails){
         model.addAttribute("selectedCategory", null);
-        model.addAttribute("categories", categoryService.getAll());
-        model.addAttribute("products", productService.getAll());
+        model.addAttribute("categories", categoryService.getSortedAll());
+        model.addAttribute("products", productService.getSortedAll());
         model.addAttribute("cartItem", new CartItemDto());
         model.addAttribute("currentlyLoggedInUserId", loginDetails.getUser().getId());
         return "menu";
@@ -40,7 +40,7 @@ public class MenuController {
                               @PathVariable("category_id") long category_id){
         Category category = categoryService.readById(category_id);
         model.addAttribute("selectedCategory", category);
-        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("categories", categoryService.getSortedAll());
         model.addAttribute("products", productService.getAllByCategory(category));
         model.addAttribute("cartItem", new CartItemDto());
         model.addAttribute("currentlyLoggedInUserId", loginDetails.getUser().getId());

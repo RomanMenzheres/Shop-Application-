@@ -2,28 +2,35 @@ package com.example.shop.controller;
 
 import com.example.shop.entity.User;
 import com.example.shop.security.LoginDetails;
+import com.example.shop.service.OrderService;
 import com.example.shop.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/profile")
 public class UserController {
 
     private final UserService userService;
+    private final OrderService orderService;
 
-    UserController(UserService userService) {
+    UserController(UserService userService, OrderService orderService) {
         this.userService = userService;
+        this.orderService= orderService;
     }
 
     @GetMapping
     public String profile(Model model, @AuthenticationPrincipal LoginDetails user) {
 
         model.addAttribute("user", userService.readById(user.getUser().getId()));
+        model.addAttribute("orders", orderService.findNotOpenOrderByUser(user.getUser()));
 
         return "profile";
 
@@ -67,15 +74,14 @@ public class UserController {
     public String updatePhone(Model model, @AuthenticationPrincipal LoginDetails loginDetails) {
 
         User user = loginDetails.getUser();
+        model.addAttribute("formTitle", "Введіть номер телефону");
 
         if (user.getPhone() != null) {
-            model.addAttribute("pageTitle", "Needlers - Update Phone");
-            model.addAttribute("formTitle", "Update Phone");
+            model.addAttribute("pageTitle", "Needler's - Оновлення номера телефону");
             model.addAttribute("placeholder", user.getPhone());
         } else {
-            model.addAttribute("pageTitle", "Needlers - Add Phone");
-            model.addAttribute("formTitle", "Add New Phone");
-            model.addAttribute("placeholder", "Phone Number");
+            model.addAttribute("pageTitle", "Needler's - Додавання номера телефону");
+            model.addAttribute("placeholder", "Номер телефону");
         }
         model.addAttribute("object", "PHONE");
         model.addAttribute("user", new User());
@@ -86,8 +92,8 @@ public class UserController {
     @GetMapping("/info/update/email")
     public String updateEmail(Model model, @AuthenticationPrincipal LoginDetails loginDetails) {
 
-        model.addAttribute("pageTitle", "Needlers - Update Email");
-        model.addAttribute("formTitle", "Update Email");
+        model.addAttribute("pageTitle", "Needler's - Оновлення email\'а");
+        model.addAttribute("formTitle", "Введіть email");
         model.addAttribute("placeholder", loginDetails.getUser().getEmail());
         model.addAttribute("object", "EMAIL");
         model.addAttribute("user", new User());
@@ -99,15 +105,14 @@ public class UserController {
     public String updateAddress(Model model, @AuthenticationPrincipal LoginDetails loginDetails) {
 
         User user = loginDetails.getUser();
+        model.addAttribute("formTitle", "Введіть адресу");
 
         if (user.getAddress() != null) {
-            model.addAttribute("pageTitle", "Needlers - Update Address");
-            model.addAttribute("formTitle", "Update Address");
+            model.addAttribute("pageTitle", "Needler's - Оновлення адреси");
             model.addAttribute("placeholder", user.getAddress());
         } else {
-            model.addAttribute("pageTitle", "Needlers - Add Address");
-            model.addAttribute("formTitle", "Add New Address");
-            model.addAttribute("placeholder", "Address");
+            model.addAttribute("pageTitle", "Needler's - Додавання адреси");
+            model.addAttribute("placeholder", "Адреса");
         }
         model.addAttribute("object", "ADDRESS");
         model.addAttribute("user", new User());
@@ -121,11 +126,11 @@ public class UserController {
 
         User user = loginDetails.getUser();
 
-        if (info.getPhone() != null) {
+        if (info.getPhone() != null && !info.getPhone().equals("")) {
             user.setPhone(info.getPhone());
-        } else if (info.getEmail() != null) {
+        } else if (info.getEmail() != null && !info.getEmail().equals("")) {
             user.setEmail(info.getEmail());
-        } else {
+        } else if (info.getAddress() != null && !info.getAddress().equals("")){
             user.setAddress(info.getAddress());
         }
 

@@ -3,19 +3,15 @@ package com.example.shop.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "cart_item")
+@Table(name = "cart_items")
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
     @Column(name = "quantity")
     private int quantity;
@@ -50,14 +46,6 @@ public class CartItem {
         this.product = product;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -70,8 +58,7 @@ public class CartItem {
     public String toString() {
         return "CartItem{" +
                 "id=" + id +
-                ", product=" + product +
-                ", user=" + user +
+                ", product=" + product.getName() +
                 ", quantity=" + quantity +
                 '}';
     }

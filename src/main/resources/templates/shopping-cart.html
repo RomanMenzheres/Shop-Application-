@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="/css/shopping-cart.css">
+    <link rel="stylesheet" href="/css/scrollbar.css">
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
@@ -14,7 +15,7 @@
     <script src="/js/delivery-warning.js" defer></script>
     <script src="/js/form-comment-control.js" defer></script>
 
-    <title>Needlers - Shopping Cart</title>
+    <title>Needler's - Кошик</title>
 </head>
 <body>
 
@@ -25,23 +26,23 @@
     <div class="page-content">
 
         <div class="shopping-cart-title">
-            <h1>Shopping Cart</h1>
+            <h1>Кошик</h1>
 
             <button class="clear-cart-button" th:if="${!#lists.isEmpty(cartItems)}">
                 <img src="../images/cart/clear_cart.png">
-                Clear the cart
+                Очистити кошик
             </button>
         </div>
 
 
-        <div class="shopping-cart">
+        <div class="shopping-cart" id="shopping-cart">
 
             <div class="cart">
 
                 <div class="minimum-price-warning-block">
 
                     <span class="warning-text">
-                        The minimum order amount is 200.00 UAH.
+                        Мінімальна сума замовлення $10.
                     </span>
 
                 </div>
@@ -52,10 +53,10 @@
                     </div>
 
                     <span>
-                        Your cart has no products
+                        Ваш кошик пустий
                     </span>
 
-                    <a class="choose-products-button" th:href="@{/menu}">CHOOSE PRODUCTS</a>
+                    <a class="choose-products-button" th:href="@{/menu}">Обрати продукти</a>
                 </div>
 
                 <div class="list-cart-items">
@@ -78,7 +79,7 @@
 
                             <div class="control-block">
                                 <div class="cart-item-price">
-                                    <span th:text="'₴' + ${cartItem.product.price}"></span>
+                                    <span th:text="'$' + ${cartItem.product.price}"></span>
                                 </div>
 
                                 <div class="add-quantity">
@@ -94,7 +95,7 @@
 
                                 <div class="cart-item-subtotal-price">
                                     <span class="subtotal-price" th:id="subtotalPrice + ${cartItem.product.id}"
-                                          th:text="'₴' + ${#numbers.formatDecimal((cartItem.product.price * cartItem.quantity), 0, 'COMMA', 2, 'POINT')}">Subtotal Price</span>
+                                          th:text="'$' + ${#numbers.formatDecimal((cartItem.product.price * cartItem.quantity), 0, 'COMMA', 2, 'POINT')}">Subtotal Price</span>
                                 </div>
 
                             </div>
@@ -127,7 +128,7 @@
 
                         <div class="progress-bar">
                             <div class="progress-bar-end">
-                                <span>0</span>
+                                <span>0$</span>
                             </div>
                         </div>
 
@@ -147,11 +148,11 @@
                         <div class="delivery-price">
 
                             <div class="delivery-price-title">
-                                <span>Delivery:</span>
+                                <span>Доставка:</span>
                             </div>
 
                             <div class="delivery-price-value-container">
-                                <span class="delivery-price-value">₴80.00</span>
+                                <span class="delivery-price-value">$8.00</span>
                             </div>
 
                         </div>
@@ -159,7 +160,7 @@
                         <div class="total-products-price-container">
 
                             <div class="total-products-price-title">
-                                <span>Total products price:</span>
+                                <span>Вартість продуктів:</span>
                             </div>
 
                             <div class="total-products-price-value-container">
@@ -171,7 +172,7 @@
                         <div class="total-price">
 
                             <div class="total-price-title">
-                                <span>Total price:</span>
+                                <span>Загальна вартість:</span>
                             </div>
 
                             <div class="total-price-value-container">
@@ -182,12 +183,12 @@
                     </div>
 
                     <div class="order-comment">
-                        <span class="order-comment-title">Comment to the order:</span>
+                        <span class="order-comment-title">Коментар до замовлення:</span>
 
                         <textarea class="comment-holder"
                                   maxlength="250"
                                   rows="4"
-                                  placeholder="Here you can leave your wishes for specific products, whole order, etc."></textarea>
+                                  placeholder="Тут ви можете залишити ваші побажання щодо продуктів, замовлення тощо."></textarea>
                     </div>
 
                     <div class="checkout-button-container">
@@ -195,7 +196,7 @@
                             <input type="hidden" class="form-total-price" th:field="*{price}">
                             <input type="hidden" class="form-comment" th:field="*{comment}">
                             <button type="submit" class="checkout-button">
-                                Checkout
+                                Оформити
                             </button>
                         </form>
                     </div>
