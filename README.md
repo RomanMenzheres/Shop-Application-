@@ -8,6 +8,23 @@ also they can change their own inforamtion (all work with address using interact
 Employee can add, delete and edit store assortment, view (also a single route from store to customer), confirm and cancel orders and build route from store to many customers. 
 Routes have 3 modes: fastest, shortest and bicycle.
 
+It's not final version!
+# Technologies 
+  - Java
+  - Spring Boot
+  - Hibernate
+  - JPA
+  - Spring Security
+  - MySQL
+  - HTML
+  - CSS
+  - JavaScript
+  - Thymealef
+  - JQuery
+  - Leaflet map
+  - MapQuest SDK
+  - PayPal SDK
+  - Swiper.js
 # Authorization & Registration
 ![image](https://github.com/RomanMenzheres/Shop-Application-/assets/118287818/eb7a88e9-b741-4c44-a74a-0e5cbbcd3963)
 ![image](https://github.com/RomanMenzheres/Shop-Application-/assets/118287818/fc2fc4a7-5fb9-465f-b8e6-0912c8733062)
