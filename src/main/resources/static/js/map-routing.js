@@ -3,6 +3,28 @@ let from = 'вулиця 16-го Липня, 6, Рівне';
 let myContainer = L.DomUtil.get('navigation-control-for-open-order');
 let customControl = L.control({position: 'topleft'});
 
+CustomRouteLayer = MQ.Routing.RouteLayer.extend({
+    createStopMarker: function (location, stopNumber) {
+        var custom_icon,
+            marker;
+
+        custom_icon = L.icon({
+            iconUrl: 'https://assets.mapquestapi.com/icon/v2/external/https://assets.mapquestapi.com/icon/v2/marker-' + stopNumber + '.png',
+            iconRetinaUrl: 'https://assets.mapquestapi.com/icon/v2/external/https://assets.mapquestapi.com/icon/v2/marker-' + stopNumber + '@2x.png',
+            iconSize: [25, 31],
+            iconAnchor: [12, 31],
+            popupAnchor: [1, -31]
+        });
+
+        marker = L.marker(location.latLng, {
+            icon: custom_icon,
+            draggable: this.options.draggable
+        }).addTo(map);
+
+        return marker;
+    }
+});
+
 function buildRoute(link, orderLocation){
     if (map !== undefined) {
         map.remove();
@@ -31,13 +53,12 @@ function buildRoute(link, orderLocation){
         options: {
             routeType: link.attr('class'),
             unit: 'k',
-            //locale: 'uk_UA',
             avoidTimedConditions: true,
             useTraffic: true
         }
     });
 
-    let directionsLayer = MQ.routing.routeLayer({
+    let directionsLayer = new CustomRouteLayer({
         directions: directions,
         fitBounds: true,
         draggable: false

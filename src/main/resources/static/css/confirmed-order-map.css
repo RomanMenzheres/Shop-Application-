@@ -15,7 +15,7 @@
     background: #fff;
     padding: 10px;
     border-radius: 10px;
-    max-width: 270px;
+    max-width: 300px;
     max-height: calc(100vh - 151px);
     display: flex;
     flex-direction: column;
@@ -25,12 +25,11 @@
 }
 
 .route-summary {
-    /*padding: 10px;*/
-    /*border-bottom: 1px solid #858585;*/
+    padding: 10px;
+    border-bottom: 1px solid #858585;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    min-width: 200px;
 }
 
 .route-time-summary {
@@ -42,24 +41,28 @@
 }
 
 .maneuver-container {
-    padding: 10px;
     border-bottom: 1px solid #858585;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 10px;
 }
 
 .maneuver-counter {
-    width: 25px;
+    min-width: 25px;
+    flex: 1 1 1%;
 }
 
 .maneuver-title {
-    width: 170px;
+    max-width: 170px;
     margin-right: 5px;
+    flex: 1 1 80%;
 }
 
 .maneuver-distance {
     color: #919191;
+    flex: 1 1 19%;
+    text-align: end;
 }
 
 .destination {

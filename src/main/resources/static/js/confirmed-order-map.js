@@ -17,7 +17,7 @@ let orderIcon = L.icon({
     popupAnchor: [1, -44]
 });
 
-let locations;
+let locations = [];
 let routeType;
 
 let narrativeContainer = L.DomUtil.get('route-narrative');
@@ -26,8 +26,30 @@ let customNarrativeControl = L.control({position: 'topleft'});
 let routeTypeControlContainer = L.DomUtil.get('navigation-control-for-global-map');
 let routeTypeControlLayer = L.control({position: 'topright'});
 
+CustomRouteLayerForGlobalMap = MQ.Routing.RouteLayer.extend({
+    createStopMarker: function (location, stopNumber) {
+        var custom_icon,
+            marker;
+
+        custom_icon = L.icon({
+            iconUrl: 'https://assets.mapquestapi.com/icon/v2/external/https://assets.mapquestapi.com/icon/v2/marker-' + stopNumber + '.png',
+            iconRetinaUrl: 'https://assets.mapquestapi.com/icon/v2/external/https://assets.mapquestapi.com/icon/v2/marker-' + stopNumber + '@2x.png',
+            iconSize: [25, 31],
+            iconAnchor: [12, 31],
+            popupAnchor: [1, -31]
+        });
+
+        marker = L.marker(location.latLng, {
+            icon: custom_icon,
+            draggable: this.options.draggable
+        }).addTo(confirmedOrderMap);
+
+        return marker;
+    }
+});
+
 function getConfirmedOrdersForMap() {
-    locations  = ['вулиця 16-го Липня, 6, Рівне'];
+    locations = ['вулиця 16-го Липня, 6, Рівне'];
     routeType = 'fastest';
 
     $.ajax({
@@ -43,7 +65,7 @@ function getConfirmedOrdersForMap() {
 }
 
 function buildMapWithOrdersLocation(data) {
-    if (confirmedOrderMap !== undefined){
+    if (confirmedOrderMap !== undefined) {
         confirmedOrderMap.remove();
     }
 
@@ -58,11 +80,11 @@ function buildMapWithOrdersLocation(data) {
         position: 'topright'
     }).addTo(confirmedOrderMap);
 
-    MQ.geocode().search('вулиця 16-го Липня, 6, Рівне').on('success', function(e) {
+    MQ.geocode().search('вулиця 16-го Липня, 6, Рівне').on('success', function (e) {
         let best = e.result.best,
             latlng = best.latlng;
 
-        let marker = L.marker([ latlng.lat, latlng.lng ], {icon: marketIcon})
+        let marker = L.marker([latlng.lat, latlng.lng], {icon: marketIcon})
             .addTo(confirmedOrderMap)
             .bindPopup('<strong>Needler\'s Market</strong>');
 
@@ -77,11 +99,11 @@ function buildMapWithOrdersLocation(data) {
 
     $.each(data, function (index, order) {
 
-        MQ.geocode().search(order.address).on('success', function(e) {
+        MQ.geocode().search(order.address).on('success', function (e) {
             let best = e.result.best,
                 latlng = best.latlng;
 
-            let marker = L.marker([ latlng.lat, latlng.lng ], {icon: orderIcon})
+            let marker = L.marker([latlng.lat, latlng.lng], {icon: orderIcon})
                 .addTo(confirmedOrderMap)
                 .bindPopup('<strong> Замовлення №' + order.id + '</strong>');
 
@@ -94,14 +116,14 @@ function buildMapWithOrdersLocation(data) {
             });
 
             marker.on('click', function () {
-                if (locations.includes(order.address)){
+                if (locations.includes(order.address)) {
 
                     const index = locations.indexOf(order.address);
                     if (index > -1) {
                         locations.splice(index, 1);
                     }
 
-                    if (locations.length > 1){
+                    if (locations.length > 1) {
                         buildGlobalRoute();
                     } else {
                         L.DomUtil.get('route-narrative').innerHTML = '';
@@ -117,20 +139,20 @@ function buildMapWithOrdersLocation(data) {
 
     });
 
-    customNarrativeControl.onAdd = function(confirmedOrderMap) {
+    customNarrativeControl.onAdd = function (confirmedOrderMap) {
         return narrativeContainer;
     }
 
     customNarrativeControl.addTo(confirmedOrderMap);
 
-    routeTypeControlLayer.onAdd = function(confirmedOrderMap) {
+    routeTypeControlLayer.onAdd = function (confirmedOrderMap) {
         return routeTypeControlContainer;
     }
 
     routeTypeControlLayer.addTo(confirmedOrderMap);
 
     $('#route-narrative').on('mouseover', function () {
-       confirmedOrderMap.scrollWheelZoom.disable();
+        confirmedOrderMap.scrollWheelZoom.disable();
     });
 
     $('#route-narrative').on('mouseout', function () {
@@ -154,8 +176,8 @@ function buildMapWithOrdersLocation(data) {
     });
 }
 
-function changeRouteType(link){
-    if (currentRoute !== undefined){
+function changeRouteType(link) {
+    if (currentRoute !== undefined) {
         link.siblings('button').prop('disabled', false);
 
         routeType = link.attr('routeType');
@@ -166,15 +188,15 @@ function changeRouteType(link){
 }
 
 function buildGlobalRoute() {
-    if (currentRoute !== undefined){
+    if (currentRoute !== undefined) {
         confirmedOrderMap.removeLayer(currentRoute);
     }
 
     let dir = MQ.routing.directions()
-        .on('success', function(data) {
+        .on('success', function (data) {
             let routeNarrative = data.route.legs;
 
-            if (routeNarrative && routeNarrative.length){
+            if (routeNarrative && routeNarrative.length) {
 
                 let globalContainer = $('<div>');
                 let routeSummary = $('<div class="route-summary">');
@@ -184,66 +206,66 @@ function buildGlobalRoute() {
                 routeTime.appendTo(routeSummary);
                 routeDistance.appendTo(routeSummary);
 
-                routeTime.text('Приблизно ' + Math.round( (data.route.realTime + (locations.length - 1) * 120 )/60 ) + ' хв.')
+                routeTime.text('Приблизно ' + Math.round((data.route.realTime + (locations.length - 1) * 180) / 60) + ' хв.')
                 routeDistance.text('' + data.route.distance.toFixed(1) + ' км.')
 
                 routeSummary.appendTo(globalContainer);
 
-                // let counter = 1;
-                //
-                // for (let i = 0; i < routeNarrative.length; i++){
-                //
-                //     let maneuvers = routeNarrative[i].maneuvers;
-                //
-                //     for (let j = 0; j < maneuvers.length; j++){
-                //
-                //         let maneuverContainer;
-                //
-                //         if (j === maneuvers.length - 1){
-                //             if (i === routeNarrative.length - 1){
-                //                 maneuverContainer = $('<div class="maneuver-container destination last">');
-                //             } else {
-                //                 maneuverContainer = $('<div class="maneuver-container destination">');
-                //             }
-                //         } else {
-                //             maneuverContainer = $('<div class="maneuver-container">');
-                //         }
-                //
-                //         let maneuverCounter = $('<span class="maneuver-counter">');
-                //
-                //         let maneuver = $('<span class="maneuver-title">');
-                //
-                //         let maneuverDistance = $('<span class="maneuver-distance">');
-                //
-                //         maneuverCounter.appendTo(maneuverContainer);
-                //         maneuver.appendTo(maneuverContainer);
-                //         maneuverDistance.appendTo(maneuverContainer);
-                //
-                //         maneuverCounter.text('' + counter++ + '.');
-                //         maneuver.text('' + maneuvers[j].narrative.substring(0, maneuvers[j].narrative.indexOf('.') + 1));
-                //         maneuverDistance.text('' + maneuvers[j].narrative.substring(maneuvers[j].narrative.indexOf('.') + 11));
-                //
-                //         maneuverContainer.appendTo(globalContainer);
-                //     }
-                //
-                // }
+                let counter = 1;
+
+                for (let i = 0; i < routeNarrative.length; i++) {
+
+                    let maneuvers = routeNarrative[i].maneuvers;
+
+                    for (let j = 0; j < maneuvers.length; j++) {
+
+                        let maneuverContainer;
+
+                        if (j === maneuvers.length - 1) {
+                            if (i === routeNarrative.length - 1) {
+                                maneuverContainer = $('<div class="maneuver-container destination last">');
+                            } else {
+                                maneuverContainer = $('<div class="maneuver-container destination">');
+                            }
+                        } else {
+                            maneuverContainer = $('<div class="maneuver-container">');
+                        }
+
+                        let maneuverCounter = $('<span class="maneuver-counter">');
+
+                        let maneuver = $('<span class="maneuver-title">');
+
+                        let maneuverDistance = $('<span class="maneuver-distance">');
+
+                        maneuverCounter.appendTo(maneuverContainer);
+                        maneuver.appendTo(maneuverContainer);
+                        maneuverDistance.appendTo(maneuverContainer);
+
+                        maneuverCounter.text('' + counter++ + '.');
+                        maneuver.text('' + maneuvers[j].narrative.substring(0, maneuvers[j].narrative.indexOf('.') + 1));
+                        maneuverDistance.text('' + maneuvers[j].narrative.substring(maneuvers[j].narrative.indexOf('.') + 11));
+
+                        maneuverContainer.appendTo(globalContainer);
+                    }
+
+                }
 
                 L.DomUtil.get('route-narrative').innerHTML = globalContainer.html();
 
             }
-    });
+        });
 
     dir.route({
         locations: locations,
         options: {
             routeType: routeType,
             unit: 'k',
-            //locale: 'uk_UA',
+            locale: 'uk_UA',
             useTraffic: true
         }
     });
 
-    currentRoute = MQ.routing.routeLayer({
+    currentRoute = new CustomRouteLayerForGlobalMap({
         directions: dir,
         fitBounds: true,
         draggable: false
